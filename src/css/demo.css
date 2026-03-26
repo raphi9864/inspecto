@@ -101,8 +101,8 @@
 }
 
 .demo-progress-label {
-  position: absolute;
-  top: 8px;
+  position: fixed;
+  top: 64px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -115,6 +115,7 @@
   border-radius: 20px;
   padding: 6px 18px;
   pointer-events: none;
+  z-index: 10004;
 }
 
 .demo-progress-phase {
