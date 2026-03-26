@@ -72,7 +72,7 @@
       "/app/documentation": "Projekt: Dokumentation", "/app/expiring": "Projekt: Ablaufende Dateien"
     }
   },
-  "demo": { "skip": "Demo überspringen ×", "phase": "Phase" },
+  "demo": { "skip": "Demo überspringen ×", "phase": "Phase", "voice": "Stimme", "male": "Mann", "female": "Frau" },
   "tourGuide": { "title": "INSPECTO DQI-Leitfaden", "subtitle": "KI-Qualitätsassistent" },
   "intro": { "activeAccounts": "aktive Konten", "countries": "abgedeckte Länder", "inspections": "Inspektionen", "compliance": "Konformität" },
   "home": { "projects": "Projekte", "incomingTasks": "Eingehende Aufgaben", "activity": "Aktivität", "projectLabel": "Projekt", "company": "Unternehmen", "progress": "Fortschritt", "startDate": "Startdatum", "endDate": "Enddatum", "activityTimeline": "Aktivitäts-Timeline" },
@@ -416,5 +416,34 @@
     "newFolder": "Neuer Ordner",
     "endOfList": "Ende der Liste",
     "reportBuilder": { "title": "Report Builder", "subtitle": "Wählen Sie die Dateien für Ihren Bericht aus", "titleField": "Titel", "subtitleField": "Untertitel", "image": "Illustratives Bild", "isCorrection": "Ist dies eine Korrektur eines vorherigen Berichts?", "signatureLoop": "Unterschriftenschleife?", "displayTitles": "Titel vor jedem Abschnitt anzeigen?", "createReport": "BERICHT ERSTELLEN" }
+  },
+  "welcome": {
+    "title": "Willkommen",
+    "subtitle": "Wählen Sie Ihre Sprache und Ihren Guide",
+    "languageLabel": "Sprache",
+    "guideLabel": "Guide",
+    "preview": "Anhören",
+    "playing": "Wird abgespielt...",
+    "start": "Starten →",
+    "georgeDesc": "Männliche Stimme, britisch",
+    "aliceDesc": "Weibliche Stimme, britisch"
+  },
+  "toasts": {
+    "csvExported": "CSV exportiert",
+    "excelExported": "Excel exportiert",
+    "pngExported": "PNG exportiert",
+    "importCompleted": "Import abgeschlossen",
+    "filtersApplied": "Filter angewendet",
+    "filtersReset": "Filter zurückgesetzt",
+    "planValidated": "Plan validiert",
+    "taskDetail": "Aufgabendetail",
+    "taskCopied": "Aufgabe kopiert",
+    "editMode": "Bearbeitungsmodus",
+    "timelineExported": "Timeline exportiert",
+    "progressUpdated": "Fortschritt aktualisiert",
+    "download": "Download läuft...",
+    "upload": "Upload geöffnet",
+    "messageSent": "Nachricht gesendet",
+    "reportGenerating": "Bericht wird erstellt..."
   }
 }

@@ -72,7 +72,7 @@
       "/app/documentation": "Progetto: Documentazione", "/app/expiring": "Progetto: File in scadenza"
     }
   },
-  "demo": { "skip": "Salta la demo ×", "phase": "Fase" },
+  "demo": { "skip": "Salta la demo ×", "phase": "Fase", "voice": "Voce", "male": "Uomo", "female": "Donna" },
   "tourGuide": { "title": "Guida INSPECTO DQI", "subtitle": "Assistente qualità IA" },
   "intro": { "activeAccounts": "account attivi", "countries": "paesi coperti", "inspections": "ispezioni", "compliance": "conformità" },
   "home": { "projects": "Progetti", "incomingTasks": "Attività in arrivo", "activity": "Attività", "projectLabel": "Progetto", "company": "Azienda", "progress": "Progresso", "startDate": "Data inizio", "endDate": "Data fine", "activityTimeline": "Timeline attività" },
@@ -416,5 +416,34 @@
     "newFolder": "Nuova cartella",
     "endOfList": "Fine della lista",
     "reportBuilder": { "title": "Report Builder", "subtitle": "Seleziona i file da includere nel report", "titleField": "Titolo", "subtitleField": "Sottotitolo", "image": "Immagine illustrativa", "isCorrection": "È una correzione di un report precedente?", "signatureLoop": "Ciclo di firma?", "displayTitles": "Mostrare i titoli prima di ogni sezione?", "createReport": "CREA REPORT" }
+  },
+  "welcome": {
+    "title": "Benvenuto",
+    "subtitle": "Scegli la lingua e la guida per iniziare",
+    "languageLabel": "Lingua",
+    "guideLabel": "Guida",
+    "preview": "Ascolta",
+    "playing": "In riproduzione...",
+    "start": "Iniziare →",
+    "georgeDesc": "Voce maschile, britannica",
+    "aliceDesc": "Voce femminile, britannica"
+  },
+  "toasts": {
+    "csvExported": "CSV esportato",
+    "excelExported": "Excel esportato",
+    "pngExported": "PNG esportato",
+    "importCompleted": "Import completato",
+    "filtersApplied": "Filtri applicati",
+    "filtersReset": "Filtri reimpostati",
+    "planValidated": "Piano validato",
+    "taskDetail": "Dettaglio attività",
+    "taskCopied": "Attività copiata",
+    "editMode": "Modalità modifica",
+    "timelineExported": "Timeline esportata",
+    "progressUpdated": "Avanzamento aggiornato",
+    "download": "Download in corso...",
+    "upload": "Upload aperto",
+    "messageSent": "Messaggio inviato",
+    "reportGenerating": "Generazione report..."
   }
 }

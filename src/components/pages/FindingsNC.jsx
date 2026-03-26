@@ -185,7 +185,7 @@ export default function FindingsNC() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 PICK PICTURE
               </button>
-              <button onClick={() => showToast('Upload zone opened', 'info')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 20px', background: 'var(--bg-tertiary)', color: '#fff', border: 'none', borderRadius: 6, fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>
+              <button onClick={() => showToast(t('toasts.upload'), 'info')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 20px', background: 'var(--bg-tertiary)', color: '#fff', border: 'none', borderRadius: 6, fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
                 UPLOAD PICTURE
               </button>
@@ -338,7 +338,7 @@ export default function FindingsNC() {
       <div className="table-toolbar">
         <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
-          <button className="btn-outline" onClick={() => { exportCSV(findings, `inspecto-findings-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(findings, `inspecto-findings-${new Date().toISOString().slice(0, 10)}.csv`); showToast(t('toasts.csvExported'), 'success') }}>{t('common.export')}</button>
           <button className="btn-primary" data-demo-target="btn-new-nc" onClick={openNew}>{t('findings.newNC')}</button>
         </div>
       </div>
@@ -384,8 +384,8 @@ export default function FindingsNC() {
       <FilterPanel
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
-        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        onApply={(f) => { setIsFilterOpen(false); showToast(t('toasts.filtersApplied'), 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast(t('toasts.filtersReset'), 'info') }}
         filterConfig={[
           { type: 'select', label: 'Criticité', key: 'criticality', options: [
             { value: '', label: 'Toutes' },

@@ -128,7 +128,7 @@
     }
   },
 
-  "demo": { "skip": "Passer la démo ×", "phase": "Phase" },
+  "demo": { "skip": "Passer la démo ×", "phase": "Phase", "voice": "Voix", "male": "Homme", "female": "Femme" },
 
   "tourGuide": { "title": "Guide INSPECTO DQI", "subtitle": "Assistant qualité IA" },
 
@@ -505,5 +505,34 @@
     "newFolder": "Nouveau dossier",
     "endOfList": "Fin de liste",
     "reportBuilder": { "title": "Report Builder", "subtitle": "Cochez les fichiers à inclure dans votre rapport", "titleField": "Titre", "subtitleField": "Sous-titre", "image": "Image illustrative", "isCorrection": "Est-ce une correction d'un rapport précédent ?", "signatureLoop": "Boucle de signature ?", "displayTitles": "Afficher les titres avant chaque section ?", "createReport": "CRÉER LE RAPPORT" }
+  },
+  "welcome": {
+    "title": "Bienvenue",
+    "subtitle": "Choisissez votre langue et votre guide pour commencer",
+    "languageLabel": "Langue",
+    "guideLabel": "Guide",
+    "preview": "Écouter",
+    "playing": "En lecture...",
+    "start": "Commencer →",
+    "georgeDesc": "Voix masculine, britannique",
+    "aliceDesc": "Voix féminine, britannique"
+  },
+  "toasts": {
+    "csvExported": "CSV exporté",
+    "excelExported": "Excel exporté",
+    "pngExported": "PNG exporté",
+    "importCompleted": "Import terminé",
+    "filtersApplied": "Filtres appliqués",
+    "filtersReset": "Filtres réinitialisés",
+    "planValidated": "Plan validé",
+    "taskDetail": "Détail de la tâche",
+    "taskCopied": "Tâche copiée",
+    "editMode": "Mode édition",
+    "timelineExported": "Timeline exportée",
+    "progressUpdated": "Progression mise à jour",
+    "download": "Téléchargement en cours...",
+    "upload": "Upload ouvert",
+    "messageSent": "Message envoyé",
+    "reportGenerating": "Rapport en cours de génération..."
   }
 }

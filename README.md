@@ -44,10 +44,23 @@ SPA routing is handled by `vercel.json` (all routes rewrite to `index.html`).
 - Language persisted in `localStorage('inspecto_lang')`
 - Switcher accessible in the top bar
 
+## Voice ElevenLabs (optional)
+
+The demo avatar can speak with ElevenLabs TTS. Pre-generated MP3s play for intro/conclusion, live API for other steps.
+
+```bash
+cp .env.example .env
+# Edit .env and add your ElevenLabs API key:
+# VITE_ELEVENLABS_API_KEY=sk_...
+npm run dev
+```
+
+Without the key, the demo works normally (text-only, no voice).
+
 ## Features
 
-- Cinematic GSAP intro (~20s) with Ken Burns slideshow
-- AI avatar presenter with Typed.js speech bubbles
+- Cinematic GSAP intro (~32s) with Europe map, dashboard reveal
+- AI avatar presenter with Typed.js speech + ElevenLabs TTS voice
 - 4 module categories: Project Management, Quality, Library, Dashboard & Analytics
 - Full demo mode (automated walkthrough of all pages)
 - 25+ demo pages covering inspections, Gantt, NC wizard, statistics, traceability

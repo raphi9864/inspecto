@@ -1,9 +1,13 @@
 import { useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDemoContext } from '../../context/DemoContext'
+import useVoiceSettings from '../../hooks/useVoiceSettings'
 import gsap from 'gsap'
 
 export default function DemoAvatar() {
+  const { t } = useTranslation()
   const { status, runEngine } = useDemoContext()
+  const { voiceGender, setVoiceGender } = useVoiceSettings()
   const engineStarted = useRef(false)
   const containerRef = useRef(null)
   const textRef = useRef(null)
@@ -85,6 +89,25 @@ export default function DemoAvatar() {
       {/* Speech bubble */}
       <div className="demo-speech-bubble">
         <p className="demo-speech-text" ref={textRef}></p>
+      </div>
+
+      {/* Voice gender toggle */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6 }}>
+        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t('demo.voice')}</span>
+        <button
+          onClick={() => setVoiceGender('male')}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 6px', borderRadius: 4, fontSize: '0.7rem', fontWeight: 600, color: voiceGender === 'male' ? '#2ea3f2' : 'rgba(255,255,255,0.3)', transition: 'color 0.2s' }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          {' '}{t('demo.male')}
+        </button>
+        <button
+          onClick={() => setVoiceGender('female')}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 6px', borderRadius: 4, fontSize: '0.7rem', fontWeight: 600, color: voiceGender === 'female' ? '#d7294a' : 'rgba(255,255,255,0.3)', transition: 'color 0.2s' }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          {' '}{t('demo.female')}
+        </button>
       </div>
     </div>
   )

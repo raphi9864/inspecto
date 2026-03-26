@@ -65,8 +65,8 @@ export default function GlobalGantt() {
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
-          <button className="btn-outline" onClick={() => showToast('PNG exported', 'success')} style={{ fontSize: '0.9rem' }}>{t('gantt.png')}</button>
-          <button className="btn-outline" onClick={() => showToast('Excel exported', 'success')} style={{ fontSize: '0.9rem' }}>{t('gantt.excel')}</button>
+          <button className="btn-outline" onClick={() => showToast(t('toasts.pngExported'), 'success')} style={{ fontSize: '0.9rem' }}>{t('gantt.png')}</button>
+          <button className="btn-outline" onClick={() => showToast(t('toasts.excelExported'), 'success')} style={{ fontSize: '0.9rem' }}>{t('gantt.excel')}</button>
         </div>
       </div>
 

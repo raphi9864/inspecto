@@ -5,12 +5,14 @@ import { useProject } from '../../context/ProjectContext'
 import { useDemoContext } from '../../context/DemoContext'
 import { showToast } from '../Toast'
 import LanguageSwitcher from '../LanguageSwitcher'
+import WelcomeModal from '../Demo/WelcomeModal'
 
 export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
   const { t } = useTranslation()
   const location = useLocation()
   const { activeProject } = useProject()
   const demo = useDemoContext()
+  const [showWelcome, setShowWelcome] = useState(false)
 
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('inspecto-theme')
@@ -45,7 +47,9 @@ export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
           onClick={() => {
             if (demo?.status === 'idle' || demo?.status === 'complete') {
               sessionStorage.removeItem('demo-seen')
-              demo.startDemo()
+              const welcomed = localStorage.getItem('inspecto_welcome_done')
+              if (welcomed) { demo.startDemo() }
+              else { setShowWelcome(true) }
             }
           }}
           disabled={demo?.status === 'running'}
@@ -94,6 +98,10 @@ export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
 
         <Link to="/" className="topbar-back-btn">&larr;</Link>
       </div>
+
+      {showWelcome && (
+        <WelcomeModal onClose={() => { setShowWelcome(false); demo.startDemo() }} />
+      )}
     </header>
   )
 }

@@ -1,13 +1,15 @@
-import { createContext, useContext, useState, useRef, useCallback } from 'react'
+import { createContext, useContext, useState, useRef, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Typed from 'typed.js'
 import gsap from 'gsap'
-import { DEMO_SCRIPT } from '../data/demoScript'
+import { getScript } from '../data/demoScripts'
 import {
   executeClick, executeType, executeSelect,
   executeHighlight, executeDrawSignature,
   executeNavigate, sleep, findTarget,
 } from '../lib/demo-actions'
+import { speakStep, stopCurrentAudio } from '../lib/audioUtils'
 
 const DemoContext = createContext(null)
 
@@ -21,6 +23,8 @@ export function useDemoContext() {
  */
 export function DemoProvider({ children }) {
   const navigate = useNavigate()
+  const { i18n } = useTranslation()
+  const script = useMemo(() => getScript(i18n.language), [i18n.language])
 
   /* State */
   const [status, setStatus] = useState('idle') // idle | running | complete
@@ -37,9 +41,10 @@ export function DemoProvider({ children }) {
   const timeoutsRef = useRef(new Set())
   const runningRef = useRef(false)
 
-  /* ─── Speech (Typed.js into a target element) ─── */
-  const speakTo = useCallback((textEl, text, speed = 20) => {
-    return new Promise((resolve) => {
+  /* ─── Speech (Typed.js + ElevenLabs TTS in parallel) ─── */
+  const speakTo = useCallback((textEl, text, speed = 20, stepId = null) => {
+    // Typed.js visual typing
+    const typingPromise = new Promise((resolve) => {
       if (typedRef.current) {
         typedRef.current.destroy()
         typedRef.current = null
@@ -53,6 +58,14 @@ export function DemoProvider({ children }) {
         onComplete: () => resolve(),
       })
     })
+
+    // TTS audio (reads voice settings from localStorage)
+    const lang = localStorage.getItem('inspecto_lang') || 'fr'
+    const gender = localStorage.getItem('inspecto_voice_gender') || 'male'
+    const audioPromise = speakStep(stepId, text, lang, gender)
+
+    // Wait for both to complete
+    return Promise.all([typingPromise, audioPromise])
   }, [])
 
   /* ─── Spotlight an element ─── */
@@ -93,7 +106,7 @@ export function DemoProvider({ children }) {
 
     // Speak (non-blocking for most steps, blocking for 'speak' type)
     const speechPromise = (step.speak || step.text)
-      ? speakTo(textEl, step.speak || step.text, step.typeSpeed || 20)
+      ? speakTo(textEl, step.speak || step.text, step.typeSpeed || 20, step.id)
       : Promise.resolve()
 
     if (step.type === 'speak') {
@@ -172,7 +185,7 @@ export function DemoProvider({ children }) {
     abortRef.current = controller
     const signal = controller.signal
 
-    for (const step of DEMO_SCRIPT) {
+    for (const step of script) {
       if (signal.aborted) break
       try {
         await executeStep(step, signal, textElRef?.current)
@@ -189,11 +202,12 @@ export function DemoProvider({ children }) {
 
     spotlight(null)
     runningRef.current = false
-  }, [executeStep, spotlight])
+  }, [executeStep, spotlight, script])
 
   /* ─── Skip / abort the demo ─── */
   const skipDemo = useCallback(() => {
     if (abortRef.current) abortRef.current.abort()
+    stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null

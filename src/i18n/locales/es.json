@@ -72,7 +72,7 @@
       "/app/documentation": "Proyecto: Documentación", "/app/expiring": "Proyecto: Archivos por vencer"
     }
   },
-  "demo": { "skip": "Saltar demo ×", "phase": "Fase" },
+  "demo": { "skip": "Saltar demo ×", "phase": "Fase", "voice": "Voz", "male": "Hombre", "female": "Mujer" },
   "tourGuide": { "title": "Guía INSPECTO DQI", "subtitle": "Asistente de calidad IA" },
   "intro": { "activeAccounts": "cuentas activas", "countries": "países cubiertos", "inspections": "inspecciones", "compliance": "conformidad" },
   "home": { "projects": "Proyectos", "incomingTasks": "Tareas entrantes", "activity": "Actividad", "projectLabel": "Proyecto", "company": "Empresa", "progress": "Progreso", "startDate": "Fecha de inicio", "endDate": "Fecha de fin", "activityTimeline": "Línea de tiempo" },
@@ -416,5 +416,34 @@
     "newFolder": "Nueva carpeta",
     "endOfList": "Fin de la lista",
     "reportBuilder": { "title": "Report Builder", "subtitle": "Marque los archivos a incluir en su informe", "titleField": "Título", "subtitleField": "Subtítulo", "image": "Imagen ilustrativa", "isCorrection": "¿Es una corrección de un informe anterior?", "signatureLoop": "¿Bucle de firma?", "displayTitles": "¿Mostrar títulos antes de cada sección?", "createReport": "CREAR INFORME" }
+  },
+  "welcome": {
+    "title": "Bienvenido",
+    "subtitle": "Elija su idioma y guía para comenzar",
+    "languageLabel": "Idioma",
+    "guideLabel": "Guía",
+    "preview": "Escuchar",
+    "playing": "Reproduciendo...",
+    "start": "Comenzar →",
+    "georgeDesc": "Voz masculina, británica",
+    "aliceDesc": "Voz femenina, británica"
+  },
+  "toasts": {
+    "csvExported": "CSV exportado",
+    "excelExported": "Excel exportado",
+    "pngExported": "PNG exportado",
+    "importCompleted": "Importación completada",
+    "filtersApplied": "Filtros aplicados",
+    "filtersReset": "Filtros reiniciados",
+    "planValidated": "Plan validado",
+    "taskDetail": "Detalle de tarea",
+    "taskCopied": "Tarea copiada",
+    "editMode": "Modo edición",
+    "timelineExported": "Timeline exportada",
+    "progressUpdated": "Progreso actualizado",
+    "download": "Descargando...",
+    "upload": "Upload abierto",
+    "messageSent": "Mensaje enviado",
+    "reportGenerating": "Generando informe..."
   }
 }

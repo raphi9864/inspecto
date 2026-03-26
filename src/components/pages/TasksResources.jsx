@@ -68,9 +68,9 @@ export default function TasksResources() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
-          <button className="btn-outline" onClick={() => { exportXLSX(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.xlsx`); showToast('Excel exported', 'success') }}>{t('tasks.exportExcel')}</button>
-          <button className="btn-outline" onClick={() => { exportCSV(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('tasks.exportCSV')}</button>
-          <button className="btn-outline" onClick={() => showToast('Import completed', 'info')}>{t('tasks.import')}</button>
+          <button className="btn-outline" onClick={() => { exportXLSX(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.xlsx`); showToast(t('toasts.excelExported'), 'success') }}>{t('tasks.exportExcel')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.csv`); showToast(t('toasts.csvExported'), 'success') }}>{t('tasks.exportCSV')}</button>
+          <button className="btn-outline" onClick={() => showToast(t('toasts.importCompleted'), 'info')}>{t('tasks.import')}</button>
         </div>
         <button className="btn-primary" onClick={openNew}>{t('tasks.newTask')}</button>
       </div>
@@ -141,8 +141,8 @@ export default function TasksResources() {
       <FilterPanel
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
-        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        onApply={(f) => { setIsFilterOpen(false); showToast(t('toasts.filtersApplied'), 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast(t('toasts.filtersReset'), 'info') }}
         filterConfig={[
           { type: 'select', label: 'Statut', key: 'status', options: [
             { value: '', label: 'Tous' },

@@ -8,6 +8,9 @@ dist/
 /js/
 /pages/
 
+# Audio (pre-generated TTS, too heavy for git)
+public/audio/*.mp3
+
 # Exploration / temp
 exploration/
 AGENT_*_DONE.md

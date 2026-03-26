@@ -525,7 +525,7 @@ export default function Inspections() {
       <div className="table-toolbar">
         <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
         <div style={{ marginLeft: "auto", display: "flex", gap: "8px" }}>
-          <button className="btn-outline" onClick={() => { exportCSV(getInspections(t), `inspecto-inspections-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(getInspections(t), `inspecto-inspections-${new Date().toISOString().slice(0, 10)}.csv`); showToast(t('toasts.csvExported'), 'success') }}>{t('common.export')}</button>
           <button className="btn-primary" data-demo-target="btn-new-inspection" onClick={() => setView('plan')}>{t('inspections.newInspection')}</button>
           <button className="btn-primary" data-demo-target="btn-fill-form" onClick={() => {
             const inspections = getInspections(t)
@@ -585,8 +585,8 @@ export default function Inspections() {
       <FilterPanel
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
-        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        onApply={(f) => { setIsFilterOpen(false); showToast(t('toasts.filtersApplied'), 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast(t('toasts.filtersReset'), 'info') }}
         filterConfig={[
           { type: 'select', label: 'Statut', key: 'status', options: [
             { value: '', label: 'Tous' },

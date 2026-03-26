@@ -71,8 +71,8 @@ export default function QualityControlPlan() {
           <div style={{ flex: 1 }}>
             <input type="text" placeholder={t('common.search')} style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border-primary)', borderRadius: 6, fontSize: '0.85rem' }} />
           </div>
-          <button className="btn-outline" onClick={() => { exportCSV(DETAIL_TASKS, `inspecto-qcp-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export').toUpperCase()}</button>
-          <button className="btn-primary" onClick={() => showToast('Plan validated', 'success')}>VALIDATE</button>
+          <button className="btn-outline" onClick={() => { exportCSV(DETAIL_TASKS, `inspecto-qcp-${new Date().toISOString().slice(0, 10)}.csv`); showToast(t('toasts.csvExported'), 'success') }}>{t('common.export').toUpperCase()}</button>
+          <button className="btn-primary" onClick={() => showToast(t('toasts.planValidated'), 'success')}>VALIDATE</button>
         </div>
         <div style={{ overflowX: 'auto', background: 'var(--bg-secondary)', borderRadius: 12, border: '1px solid var(--border-primary)' }}>
           <table className="data-table" style={{ minWidth: 1800, fontSize: '0.9rem' }}>
@@ -117,10 +117,10 @@ export default function QualityControlPlan() {
                   <td>{row.ncr}</td>
                   <td>
                     <div style={{ display: 'flex', gap: 4 }}>
-                      <button className="btn-icon" title="View" onClick={() => showToast('Task detail', 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-                      <button className="btn-icon" title="Copy" onClick={() => showToast('Task copied', 'success')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-                      <button className="btn-icon" title={t('common.edit')} onClick={() => showToast('Edit mode', 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-                      <button className="btn-icon" title={t('common.delete')} onClick={() => showToast('Task deleted')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                      <button className="btn-icon" title="View" onClick={() => showToast(t('toasts.taskDetail'), 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                      <button className="btn-icon" title="Copy" onClick={() => showToast(t('toasts.taskCopied'), 'success')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                      <button className="btn-icon" title={t('common.edit')} onClick={() => showToast(t('toasts.editMode'), 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                      <button className="btn-icon" title={t('common.delete')} onClick={() => showToast(t('common.delete'))}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                     </div>
                   </td>
                 </tr>
@@ -160,10 +160,10 @@ export default function QualityControlPlan() {
                   <td>{p.created}</td>
                   <td>
                     <div style={{ display: 'flex', gap: 6 }}>
-                      <button className="btn-icon" title={t('common.edit')} onClick={e => { e.stopPropagation(); showToast('Edit mode', 'info') }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                      <button className="btn-icon" title={t('common.edit')} onClick={e => { e.stopPropagation(); showToast(t('toasts.editMode'), 'info') }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
                       <button className="btn-icon" title="View" onClick={e => { e.stopPropagation(); setDetailPlan(p) }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-                      <button className="btn-icon" title="Copy" onClick={e => { e.stopPropagation(); showToast('Plan copied', 'success') }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-                      <button className="btn-icon" title={t('common.delete')} onClick={e => { e.stopPropagation(); if(confirm(t('common.deleteConfirm'))) { setPlans(prev => prev.filter(x => x.id !== p.id)); showToast('Plan deleted') } }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                      <button className="btn-icon" title="Copy" onClick={e => { e.stopPropagation(); showToast(t('toasts.taskCopied'), 'success') }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                      <button className="btn-icon" title={t('common.delete')} onClick={e => { e.stopPropagation(); if(confirm(t('common.deleteConfirm'))) { setPlans(prev => prev.filter(x => x.id !== p.id)); showToast(t('common.delete')) } }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                     </div>
                   </td>
                 </tr>
@@ -206,8 +206,8 @@ export default function QualityControlPlan() {
       <FilterPanel
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
-        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        onApply={(f) => { setIsFilterOpen(false); showToast(t('toasts.filtersApplied'), 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast(t('toasts.filtersReset'), 'info') }}
         filterConfig={[
           { type: 'select', label: 'Statut', key: 'status', options: [
             { value: '', label: 'Tous' },

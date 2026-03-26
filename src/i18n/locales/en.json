@@ -125,7 +125,7 @@
     }
   },
 
-  "demo": { "skip": "Skip demo ×", "phase": "Phase" },
+  "demo": { "skip": "Skip demo ×", "phase": "Phase", "voice": "Voice", "male": "Male", "female": "Female" },
 
   "tourGuide": { "title": "INSPECTO DQI Guide", "subtitle": "AI Quality Assistant" },
 
@@ -500,5 +500,34 @@
     "newFolder": "New folder",
     "endOfList": "End of list",
     "reportBuilder": { "title": "Report Builder", "subtitle": "Check the files to include in your report", "titleField": "Title", "subtitleField": "Subtitle", "image": "Illustrative image", "isCorrection": "Is this a correction of a previous report?", "signatureLoop": "Signature loop?", "displayTitles": "Display titles before each section?", "createReport": "CREATE REPORT" }
+  },
+  "welcome": {
+    "title": "Welcome",
+    "subtitle": "Choose your language and guide to get started",
+    "languageLabel": "Language",
+    "guideLabel": "Guide",
+    "preview": "Listen",
+    "playing": "Playing...",
+    "start": "Get started →",
+    "georgeDesc": "Male voice, British",
+    "aliceDesc": "Female voice, British"
+  },
+  "toasts": {
+    "csvExported": "CSV exported",
+    "excelExported": "Excel exported",
+    "pngExported": "PNG exported",
+    "importCompleted": "Import completed",
+    "filtersApplied": "Filters applied",
+    "filtersReset": "Filters reset",
+    "planValidated": "Plan validated",
+    "taskDetail": "Task detail",
+    "taskCopied": "Task copied",
+    "editMode": "Edit mode",
+    "timelineExported": "Timeline exported",
+    "progressUpdated": "Progress updated",
+    "download": "Downloading...",
+    "upload": "Upload opened",
+    "messageSent": "Message sent",
+    "reportGenerating": "Generating report..."
   }
 }
