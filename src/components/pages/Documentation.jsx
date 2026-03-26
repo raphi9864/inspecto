@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
+import formatDate from '../../utils/formatDate'
 
 /* ─── Icons (inline SVG helpers) ─── */
 const I = { size: 14, sw: 2 }
@@ -122,7 +123,7 @@ export default function Documentation() {
   const addFolder = () => {
     if (!newFolderValue.trim()) return
     const id = 'f' + Date.now()
-    setUserFolders(prev => [...prev, { id, name: newFolderValue.trim(), date: new Date().toLocaleDateString('en-GB').replace(/\//g, '-') + ' 00:00:00' }])
+    setUserFolders(prev => [...prev, { id, name: newFolderValue.trim(), date: formatDate(new Date()) }])
     setNewFolderMode(false)
     setNewFolderValue('')
     showToast(t('documentation.newFolder'), 'success')
@@ -207,7 +208,7 @@ export default function Documentation() {
               <IconFolder c="var(--text-secondary)" s={16} />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: selectedId === f.id ? 600 : 400, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{f.name}</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>{f.date}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>{formatDate(f.date)}</div>
               </div>
             </div>
           ))}
@@ -262,7 +263,7 @@ export default function Documentation() {
                           </div>
                         </td>
                         <td style={{ color: 'var(--text-tertiary)' }}>—</td>
-                        <td style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>{file.date}</td>
+                        <td style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>{formatDate(file.date)}</td>
                         <td>
                           {deleteId === file.id ? (
                             <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: '0.82rem' }}>

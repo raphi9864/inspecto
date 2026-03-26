@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
+import formatDate from '../../utils/formatDate'
 
 const timelineData = [
   { dateSep: "Aujourd'hui — 18 mars 2026" },
@@ -140,7 +141,7 @@ export default function Traceability() {
                     <td><span className={`trace-tag trace-tag-${doc.typeTag}`} style={{ fontSize: '0.85rem' }}>{doc.type}</span></td>
                     <td>{doc.project}</td>
                     <td>{doc.addedBy}</td>
-                    <td>{doc.date}</td>
+                    <td>{formatDate(doc.date)}</td>
                     <td>{doc.size}</td>
                     <td><button className="proj-icon-btn" title={t('common.download')} onClick={() => showToast('File downloaded', 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button></td>
                   </tr>

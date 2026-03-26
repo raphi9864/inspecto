@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
 import { exportCSV } from '../../utils/exportUtils'
+import formatDate from '../../utils/formatDate'
 
 const DEMO_FILES = [
   { id: 1, name: 'Certificat ISO 19443 — ABB France', folder: '1 - Certificat de conformité', expirationDate: '15-04-2026 15:00:00', daysLeft: 20, createdAt: '15-04-2025 10:35:23', sentBy: 'crenaud@inspectogroup.com', pdfUrl: '/demo/certificat-iso-19443.html', status: 'urgent' },
@@ -120,7 +121,7 @@ export default function ExpiringFiles() {
   }
   const confirmCalendar = () => {
     if (!calendarFile || !calendarDate) return
-    const newDateStr = `${String(calendarDate.getDate()).padStart(2, '0')}-${String(calendarDate.getMonth() + 1).padStart(2, '0')}-${calendarDate.getFullYear()} 00:00:00`
+    const newDateStr = formatDate(calendarDate)
     const now = new Date()
     const diff = Math.ceil((calendarDate - now) / (1000 * 60 * 60 * 24))
     setFiles(prev => prev.map(f => f.id === calendarFile.id ? { ...f, expirationDate: newDateStr, daysLeft: diff, status: diff < 0 ? 'expired' : diff <= 7 ? 'urgent' : 'ok' } : f))

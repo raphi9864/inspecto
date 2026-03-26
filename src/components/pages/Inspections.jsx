@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { getInspections, FAKE_INSPECTION_COUNTERS } from '../../data/fakeInspections'
+import formatDate from '../../utils/formatDate'
 import ImageEditor from '../ImageEditor/ImageEditor'
 import { showToast } from '../Toast'
 import { exportCSV } from '../../utils/exportUtils'
@@ -571,8 +572,8 @@ export default function Inspections() {
             {getInspections(t).map(ins => (
               <tr key={ins.id} onClick={() => openDetail(ins)} style={{ cursor: 'pointer' }}>
                 <td><strong>{ins.name}</strong></td>
-                <td>{ins.startDate}</td>
-                <td>{ins.endDate}</td>
+                <td>{formatDate(ins.startDate)}</td>
+                <td>{formatDate(ins.endDate)}</td>
                 <td><StatusBadge status={ins.status} /></td>
                 <td>{ins.responses}</td>
                 <td><RowActions /></td>

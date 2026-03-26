@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
+import formatDate from '../../utils/formatDate'
 import ImageEditor from '../ImageEditor/ImageEditor'
 import { exportCSV } from '../../utils/exportUtils'
 import FilterPanel from '../shared/FilterPanel'
@@ -311,7 +312,7 @@ export default function FindingsNC() {
           <div className="panel-header"><div className="panel-title">{detailItem.id}</div>{statusBadge(detailItem.status)}</div>
           <div className="panel-body">
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div><label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-tertiary)' }}>{t('findings.formLabels.reportDate')}</label><div style={{ fontSize: '0.9rem', marginTop: 4 }}>{detailItem.date}</div></div>
+              <div><label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-tertiary)' }}>{t('findings.formLabels.reportDate')}</label><div style={{ fontSize: '0.9rem', marginTop: 4 }}>{formatDate(detailItem.date)}</div></div>
               <div><label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-tertiary)' }}>{t('findings.area')}</label><div style={{ fontSize: '0.9rem', marginTop: 4 }}>{detailItem.area}</div></div>
               <div><label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-tertiary)' }}>Criticality</label><div style={{ marginTop: 4 }}>{critBadge(detailItem.criticality)}</div></div>
               <div><label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-tertiary)' }}>{t('findings.formLabels.status')}</label><div style={{ marginTop: 4 }}>{statusBadge(detailItem.status)}</div></div>
@@ -350,7 +351,7 @@ export default function FindingsNC() {
             {findings.map(f => (
               <tr key={f.id} onClick={() => setDetailItem(f)} style={{ cursor: 'pointer' }}>
                 <td style={{ fontFamily: 'monospace', fontSize: '0.88rem' }}>{f.id}</td>
-                <td>{f.date}</td>
+                <td>{formatDate(f.date)}</td>
                 <td>{f.area}</td>
                 <td>{statusBadge(f.status)}</td>
                 <td>{critBadge(f.criticality)}</td>
