@@ -1,0 +1,307 @@
+{
+  "common": {
+    "back": "← Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close ✕",
+    "next": "Next →",
+    "search": "Search...",
+    "export": "Export",
+    "import": "Import",
+    "seeAll": "SEE ALL",
+    "explore": "EXPLORE",
+    "newProject": "+ NEW PROJECT",
+    "filters": "Filters",
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "total": "Total",
+    "ongoing": "ONGOING",
+    "remaining_tasks": "REMAINING TASKS",
+    "findings_nc": "FINDINGS / NC",
+    "expiring_files": "Expiring files",
+    "pdf_exported": "PDF exported",
+    "signed": "SIGNED",
+    "sign_here": "SIGN HERE",
+    "endOfList": "End of list",
+    "underConstruction": "This page is under construction.",
+    "navigation": "Navigation",
+    "tips": "Tips",
+    "files": "Files",
+    "tags": "Tags",
+    "date": "Date",
+    "actions": "Actions",
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "description": "Description",
+    "revision": "Revision",
+    "createdAt": "Created at",
+    "company": "Company",
+    "saveChanges": "Save changes",
+    "settingsSaved": "Settings saved",
+    "createReport": "CREATE REPORT",
+    "selected": "selected",
+    "selectFolder": "Select a folder",
+    "noFiles": "No files in this folder",
+    "dossierCreation": "Folder Creation",
+    "uploadOpened": "Upload opened",
+    "pasteClipboard": "Paste from clipboard",
+    "reportGenerated": "Report generated successfully",
+    "dropLogo": "Drop your logo here or",
+    "clickUpload": "click to upload",
+    "copied": "Copied",
+    "preview": "Preview",
+    "deleteConfirm": "Delete this item?",
+    "newTemplate": "+ NEW TEMPLATE",
+    "customizeTemplates": "Customize templates",
+    "customizeFieldtypes": "Customize field types",
+    "loadMore": "Load more",
+    "addDocument": "Add a document",
+    "download": "Download",
+    "inviteMember": "Invite a member",
+    "all": "All",
+    "allPeriods": "All",
+    "last7days": "Last 7 days",
+    "last30days": "30 days",
+    "last3months": "3 months",
+    "allTime": "All time",
+    "nonConformities": "Non-conformities",
+    "documents": "Documents",
+    "projects": "Projects",
+    "teamLabel": "Team"
+  },
+
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Book a demo" },
+
+  "presenter": {
+    "greeting": "Hello! I'm your INSPECTO DQI guide. With over 500 active accounts in 6 countries, our platform supports the most demanding industries. Click a category to explore the modules.",
+    "footer_cta": "Book a free demo →",
+    "footer_copy": "© 2026 Inspecto Group —",
+    "backToCategories": "Back to category view",
+    "categories": {
+      "project-management": { "title": "Project Management", "description": "Plan, organize and track all your industrial projects in real time." },
+      "quality": { "title": "Quality", "description": "Control non-conformities, corrective actions and quality traceability." },
+      "library": { "title": "Library", "description": "Centralize your documents, templates and compliance history." },
+      "dashboard-analytics": { "title": "Dashboard & Analytics", "description": "Visualize 500+ quality indicators, trends and alerts at a glance." }
+    },
+    "categoryTexts": {
+      "project-management": "The Project Management module centralizes the management of your industrial projects. Plan activities, manage tasks and resources, and track progress with the interactive Gantt chart.",
+      "quality": "The Quality module covers the full inspection cycle: field audits, non-conformity management, corrective action plans, quality control plans and CFSI compliance.",
+      "library": "The Library centralizes all your project documentation: technical files, regulatory documents, expiration alerts and internal messaging.",
+      "dashboard-analytics": "Dashboard & Analytics gives you an overview: real-time KPIs, advanced statistics, full traceability and team management."
+    }
+  },
+
+  "sidebar": {
+    "project": "Project", "allProjects": "All projects", "home": "Home", "dashboard": "Dashboard",
+    "projectManagement": "Project management", "activities": "Activities", "tasksResources": "Tasks & Resources",
+    "ganttChart": "Gantt chart", "quality": "Quality", "inspections": "Inspections",
+    "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Quality control plan",
+    "cfsi": "CFSI", "library": "Library", "documentation": "Documentation",
+    "expiringFiles": "Expiring files", "message": "Message", "traceability": "Traceability",
+    "team": "Team", "settings": "Settings"
+  },
+
+  "topbar": {
+    "demo": "Demo", "demoTooltip": "Launch guided demo", "brand": "INSPECTO", "language": "Language", "openMenu": "Open menu",
+    "pages": {
+      "/home": "Home", "/app": "Home", "/app/dashboard": "Dashboard", "/app/projets": "Projects",
+      "/app/activites": "Activity management", "/app/taches": "Tasks & Resources", "/app/gantt": "Gantt chart",
+      "/app/inspections": "Inspections", "/app/findings": "Findings / NC", "/app/actions": "Actions",
+      "/app/qcp": "Quality Control Plan", "/app/cfsi": "CFSI", "/app/documentation": "Documentation",
+      "/app/expiring": "Expiring files", "/app/message": "Message", "/app/statistiques": "Statistics",
+      "/app/traceabilite": "Traceability", "/app/team": "Team", "/app/templates": "Form: Templates",
+      "/app/settings": "Settings", "/templates": "Form: Templates", "/templates/fieldtypes": "Form: FieldType Edition",
+      "/statistics": "Statistics", "/advanced-stats": "Advanced Statistics", "/global-gantt": "Gantt chart"
+    },
+    "pagesWithProject": {
+      "/app/dashboard": "Project: Dashboard", "/app/projets": "Project: Projects",
+      "/app/inspections": "Project: Inspections (Inspections, Controls, Audits, Forms)",
+      "/app/findings": "Project: Findings / NC", "/app/actions": "Project: Actions",
+      "/app/qcp": "Project: Quality Control Plan", "/app/cfsi": "Project: CFSI",
+      "/app/documentation": "Project: Documentation", "/app/expiring": "Project: Expiring files"
+    }
+  },
+
+  "demo": { "skip": "Skip demo ×", "phase": "Phase" },
+
+  "tourGuide": { "title": "INSPECTO DQI Guide", "subtitle": "AI Quality Assistant" },
+
+  "intro": { "activeAccounts": "active accounts", "countries": "countries covered", "inspections": "inspections", "compliance": "compliance" },
+
+  "home": {
+    "projects": "Projects", "incomingTasks": "Incoming tasks", "activity": "Activity",
+    "projectLabel": "Project", "company": "Company", "progress": "Progress",
+    "startDate": "Start date", "endDate": "End date", "activityTimeline": "Activity Timeline"
+  },
+
+  "projects": { "progress": "Progress", "actions": "Actions", "inspections": "Inspections", "findingsNC": "Findings / NC" },
+
+  "activities": {
+    "title": "Activity list", "newActivity": "+ NEW ACTIVITY", "results": "result(s)",
+    "tableHeaders": { "name": "Name", "startDate": "Start date", "endDate": "End date", "action": "Action" },
+    "modalTitleNew": "New Activity", "modalTitleEdit": "Edit Activity",
+    "formName": "Name *", "formStart": "Start date *", "formEnd": "End date *",
+    "placeholder": "Activity name",
+    "toastDeleted": "Activity deleted", "toastCreated": "Activity created", "toastUpdated": "Activity updated",
+    "confirmDelete": "Delete this activity?"
+  },
+
+  "tasks": {
+    "newTask": "+ NEW TASK",
+    "status": { "open": "Open", "inProgress": "In Progress", "overdue": "Overdue", "closed": "Closed" },
+    "priority": { "critical": "Critical", "high": "High", "medium": "Medium", "low": "Low" },
+    "exportExcel": "Export Excel", "exportCSV": "Export CSV", "import": "Import",
+    "deleteConfirm": "Delete this task?", "toastDeleted": "Task deleted",
+    "toastCreated": "Task created", "toastUpdated": "Task updated",
+    "modalTitleNew": "New task", "modalTitleEdit": "Edit task",
+    "assignee": "Assigned to", "progressLabel": "Progress"
+  },
+
+  "inspections": {
+    "newInspection": "+ NEW INSPECTION", "fillForm": "FILL A FORM",
+    "counters": { "ongoing": "Ongoing", "overdue": "Overdue", "pending": "Pending", "closed": "Closed" },
+    "tabs": { "info": "Information", "findings": "Findings / NC", "form": "Form" },
+    "planningTitle": "ISO 9001 Audit — Paris Site", "teamLabel": "Team: S. Dupont and J. Martin",
+    "reference": "Reference", "norm": "Standard", "responsible": "Responsible",
+    "location": "Location", "scope": "Scope",
+    "planInspection": "PLAN AN INSPECTION", "backToList": "Back"
+  },
+
+  "findings": {
+    "status": { "open": "OPEN", "pending": "PENDING", "overdue": "OVERDUE", "closed": "CLOSED" },
+    "criticality": { "critical": "Critical", "major": "Major", "minor": "Minor" },
+    "wizardSteps": ["Information", "Pictures", "Resolution", "Signature"],
+    "formLabels": { "findingNC": "Finding / NC", "referenceNo": "Reference No.", "description": "Description", "reportDate": "Report date", "status": "Status" },
+    "sendNotification": "Send notification",
+    "newNC": "+ NEW NC", "inspection": "Inspection", "area": "Area",
+    "event": "Event", "other": "Other", "lessonLearnt": "Lesson Learnt",
+    "whyAnalysis": "Root cause analysis (5 Whys)", "addWhy": "Add a why",
+    "resolution": "Resolution", "signAndClose": "Sign and close",
+    "saveDraft": "Save draft", "closed_toast": "NC closed successfully",
+    "ncCreated": "NC created"
+  },
+
+  "gantt": { "activities": "Activities", "resources": "Resources", "png": "PNG", "excel": "Excel", "zoom": "Zoom:" },
+
+  "actionsPage": {
+    "newAction": "+ NEW ACTION",
+    "counters": { "open": "Open", "ongoing": "Ongoing", "overdue": "Overdue", "closed": "Closed" },
+    "actionTitle": "Action title", "actionType": "Type (Corrective/Preventive)",
+    "assignee": "Assigned to", "deadline": "Deadline", "linkedNC": "Linked NC",
+    "generalInfo": "General information", "datesStatus": "Dates and status",
+    "addCost": "Add cost", "attachments": "Attachments",
+    "effectiveness": "Effectiveness monitoring",
+    "costRate": "Hourly rate", "costHours": "Hours", "costTotal": "Total",
+    "toastCreated": "Action created", "toastUpdated": "Action updated",
+    "toastDeleted": "Action deleted", "deleteConfirm": "Delete this action?",
+    "modalTitleNew": "New action", "modalTitleEdit": "Edit action"
+  },
+
+  "qcp": {
+    "contractor": "Contractor", "clientThirdParties": "Client and Third Parties", "record": "Record",
+    "newPlan": "+ NEW QUALITY CONTROL PLAN", "createPlan": "Create a quality control plan",
+    "revision": "Revision", "planName": "Plan name", "step": "Step",
+    "task": "Task", "itns": "ITNS", "docInfo": "Doc. Ref.", "docRev": "Rev.",
+    "operator": "Operator", "qc": "QC", "tc": "TC",
+    "notif": "Notif.", "recReq": "Rec. required", "recNum": "Rec. No.", "ncr": "NCR",
+    "documentSigned": "Document signed"
+  },
+
+  "cfsi": {
+    "closedSuccess": "CFSI closed successfully"
+  },
+
+  "documentation": { "folders": "Folders", "upload": "Upload", "paste": "Paste", "newFolder": "New folder" },
+
+  "traceability": {
+    "tabs": { "timeline": "TIMELINE", "library": "LIBRARY", "team": "TEAM" },
+    "filters": { "period": "Period", "actionType": "Action type", "user": "User" }
+  },
+
+  "team": {
+    "title": "Team Members", "invite": "+ INVITE MEMBERS",
+    "modalTitle": "Invite a new member", "emailLabel": "Email address",
+    "roleLabel": "Role", "emailPlaceholder": "colleague@company.com",
+    "sendInvite": "Send Invite",
+    "roles": { "administrator": "Administrator", "inspector": "Inspector", "viewer": "Viewer" },
+    "memberStats": { "inspections": "Inspections", "nc": "NC" }
+  },
+
+  "settings": {
+    "tabs": { "general": "General", "forms": "Forms", "notifications": "Notifications" },
+    "companyInfo": "Company Information", "formConfig": "Form Configuration",
+    "emailNotifications": "Email Notifications", "companyName": "Company name",
+    "timezone": "Timezone", "companyLogo": "Company logo",
+    "notifLabels": { "newInspection": "New inspection", "findingCreated": "Finding / NC created", "actionClosed": "Action closed", "memberAdded": "Team member added" },
+    "manageTemplates": "Manage your inspection templates and custom field types from the dedicated page.",
+    "goToTemplates": "Go to form templates",
+    "notifItems": {
+      "ncCreated": "NC created", "ncCreatedDesc": "Receive an email when a NC is created",
+      "inspOverdue": "Inspection overdue", "inspOverdueDesc": "Alert when an inspection exceeds its deadline",
+      "actionAssigned": "Action assigned", "actionAssignedDesc": "Notification when a corrective action is assigned to you",
+      "signatureReq": "Signature required", "signatureReqDesc": "Alert when your signature is requested",
+      "weeklyReport": "Weekly report", "weeklyReportDesc": "Receive a weekly summary of all activities",
+      "memberJoined": "Member joined", "memberJoinedDesc": "Notification when a new member accepts an invitation"
+    }
+  },
+
+  "statistics": {
+    "tabs": { "general": "GENERAL", "findings": "FINDINGS / NC" },
+    "filters": { "project": "Project", "period": "Period", "allProjects": "All projects", "exportPDF": "Export PDF" },
+    "kpi": {
+      "totalInspections": "Total Inspections", "allPeriods": "All periods",
+      "ongoing": "Ongoing", "activeMonth": "Active this month",
+      "noNC": "Without NC", "compliant": "Compliant inspections",
+      "totalFindings": "Total Findings", "cumulatedNC": "Cumulated NC",
+      "totalNC": "Total NC", "totalActions": "Total actions", "closureRate": "Closure rate"
+    },
+    "charts": {
+      "timeDistribution": "Inspection time distribution",
+      "monthlyInspections": "Inspections per month", "inspectionStatus": "Inspection status",
+      "ncCategories": "NC by cause category", "ncTrend": "NC trend — 12-month rolling",
+      "ncByArea": "NC by area", "inspectionCoverage": "Inspection coverage",
+      "resolutionTime": "Resolution time", "detectionTime": "Detection time"
+    },
+    "legend": { "closed": "Closed", "pending": "Pending", "ongoing": "Ongoing" },
+    "statsLabels": {
+      "planned": "Planned", "overdue": "Overdue", "complianceRate": "Compliance rate",
+      "vsLastYear": "vs last year", "closedLabel": "Closed", "openLabel": "Open"
+    }
+  },
+
+  "templates": {
+    "revoked": "REVOKED", "editable": "EDITABLE",
+    "sections": { "generalInfo": "General Information", "conformity": "Conformity", "conclusion": "Conclusion" },
+    "tabs": { "info": "INFORMATION", "edition": "EDITION", "preview": "PREVIEW" },
+    "templateCopied": "Template copied", "templateDeleted": "Template deleted",
+    "editorOpened": "Template editor opened", "previewOpened": "Preview opened",
+    "deleteConfirm": "Delete this template?"
+  },
+
+  "fieldtypes": {
+    "newFieldType": "+ NEW FIELD TYPE",
+    "doubleClickTip": "Double click on an item to view its content",
+    "cannotModify": "You cannot modify a published item",
+    "editTable": "Edit table", "published": "PUBLISHED",
+    "columns": "Columns", "lines": "Lines", "addColumn": "Add column", "addLine": "Add line"
+  },
+
+  "globalStats": {
+    "totalInspections": "Total Inspections", "totalNC": "Total NC",
+    "totalActions": "Total Actions", "closureRate": "Closure rate",
+    "inspectionsByMonth": "Inspections per month", "ncByMonth": "NC per month",
+    "complianceByProject": "Compliance by project",
+    "ncRate": "NC rate", "inspectionCoverage": "Inspection coverage"
+  },
+
+  "advancedStats": {
+    "ncByArea": "NC by activity area", "resolutionTrend": "Resolution trend",
+    "complianceRadar": "Compliance radar",
+    "resolutionTime": "Resolution time (days)", "detectionTime": "Detection time (days)"
+  },
+
+  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" }
+}

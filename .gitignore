@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.vercel/
+
+# Legacy files (vanilla JS, no longer used)
+css/
+js/
+pages/
+
+# Exploration / temp
+exploration/
+AGENT_*_DONE.md
+DECISIONS.md
+I18N_AUDIT.md

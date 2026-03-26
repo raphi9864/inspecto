@@ -1,0 +1,223 @@
+{
+  "common": {
+    "back": "← Volver", "cancel": "Cancelar", "save": "Guardar", "delete": "Eliminar",
+    "edit": "Editar", "close": "Cerrar ✕", "next": "Siguiente →", "search": "Buscar...",
+    "export": "Exportar", "import": "Importar", "seeAll": "VER TODO", "explore": "EXPLORAR",
+    "newProject": "+ NUEVO PROYECTO", "filters": "Filtros", "notifications": "Notificaciones",
+    "noNotifications": "Sin nuevas notificaciones", "total": "Total", "ongoing": "EN CURSO",
+    "remaining_tasks": "TAREAS PENDIENTES", "findings_nc": "HALLAZGOS / NC",
+    "expiring_files": "Archivos por vencer", "pdf_exported": "PDF exportado",
+    "signed": "FIRMADO", "sign_here": "FIRMAR AQUÍ",
+    "endOfList": "Fin de la lista", "underConstruction": "Esta página está en construcción.",
+    "navigation": "Navegación", "tips": "Consejos", "files": "Archivos", "tags": "Etiquetas",
+    "date": "Fecha", "actions": "Acciones", "name": "Nombre", "type": "Tipo", "status": "Estado",
+    "description": "Descripción", "revision": "Revisión", "createdAt": "Creado el",
+    "company": "Empresa", "saveChanges": "Guardar cambios", "settingsSaved": "Configuración guardada",
+    "createReport": "CREAR INFORME", "selected": "seleccionado(s)", "selectFolder": "Seleccione una carpeta",
+    "noFiles": "No hay archivos en esta carpeta", "dossierCreation": "Creación de carpeta",
+    "uploadOpened": "Carga abierta", "pasteClipboard": "Pegar desde portapapeles",
+    "reportGenerated": "Informe generado con éxito", "dropLogo": "Suelta tu logo aquí o",
+    "clickUpload": "haz clic para subir", "copied": "Copiado", "preview": "Vista previa",
+    "deleteConfirm": "¿Eliminar este elemento?", "newTemplate": "+ NUEVA PLANTILLA",
+    "customizeTemplates": "Personalizar plantillas", "customizeFieldtypes": "Personalizar tipos de campo",
+    "loadMore": "Cargar más", "addDocument": "Agregar un documento", "download": "Descargar",
+    "inviteMember": "Invitar un miembro", "all": "Todos", "allPeriods": "Todos",
+    "last7days": "Últimos 7 días", "last30days": "30 días", "last3months": "3 meses", "allTime": "Todo",
+    "nonConformities": "No conformidades", "documents": "Documentos", "projects": "Proyectos", "teamLabel": "Equipo"
+  },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Solicitar una demo" },
+  "presenter": {
+    "greeting": "¡Hola! Soy tu guía INSPECTO DQI. Con más de 500 cuentas activas en 6 países, nuestra plataforma acompaña a las industrias más exigentes. Haz clic en una categoría para explorar los módulos.",
+    "footer_cta": "Solicitar una demo gratuita →", "footer_copy": "© 2026 Inspecto Group —",
+    "backToCategories": "Volver a la vista de categorías",
+    "categories": {
+      "project-management": { "title": "Gestión de Proyectos", "description": "Planifica, organiza y realiza el seguimiento de todos tus proyectos industriales en tiempo real." },
+      "quality": { "title": "Calidad", "description": "Controla las no conformidades, acciones correctivas y trazabilidad de calidad." },
+      "library": { "title": "Biblioteca", "description": "Centraliza tus documentos, plantillas e historial de conformidad." },
+      "dashboard-analytics": { "title": "Dashboard & Analytics", "description": "Visualiza más de 500 indicadores de calidad, tendencias y alertas de un vistazo." }
+    },
+    "categoryTexts": {
+      "project-management": "El módulo de Gestión de Proyectos centraliza la gestión de tus proyectos industriales. Planifica actividades, gestiona tareas y recursos, y sigue el avance con el Gantt interactivo.",
+      "quality": "El módulo de Calidad cubre todo el ciclo de inspección: auditorías de campo, gestión de no conformidades, planes de acciones correctivas, planes de control de calidad y conformidad CFSI.",
+      "library": "La Biblioteca centraliza toda la documentación del proyecto: archivos técnicos, documentos normativos, alertas de vencimiento y mensajería interna.",
+      "dashboard-analytics": "Dashboard & Analytics ofrece una visión general: KPIs en tiempo real, estadísticas avanzadas, trazabilidad completa y gestión de equipos."
+    }
+  },
+  "sidebar": {
+    "project": "Proyecto", "allProjects": "Todos los proyectos", "home": "Inicio", "dashboard": "Dashboard",
+    "projectManagement": "Gestión de proyectos", "activities": "Actividades", "tasksResources": "Tareas y Recursos",
+    "ganttChart": "Diagrama de Gantt", "quality": "Calidad", "inspections": "Inspecciones",
+    "findingsNC": "Hallazgos / NC", "actions": "Acciones", "qualityControlPlan": "Plan de control de calidad",
+    "cfsi": "CFSI", "library": "Biblioteca", "documentation": "Documentación",
+    "expiringFiles": "Archivos por vencer", "message": "Mensajes", "traceability": "Trazabilidad",
+    "team": "Equipo", "settings": "Configuración"
+  },
+  "topbar": {
+    "demo": "Demo", "demoTooltip": "Iniciar demo guiada", "brand": "INSPECTO", "language": "Idioma", "openMenu": "Abrir menú",
+    "pages": {
+      "/home": "Inicio", "/app": "Inicio", "/app/dashboard": "Dashboard", "/app/projets": "Proyectos",
+      "/app/activites": "Gestión de actividades", "/app/taches": "Tareas y Recursos", "/app/gantt": "Diagrama de Gantt",
+      "/app/inspections": "Inspecciones", "/app/findings": "Hallazgos / NC", "/app/actions": "Acciones",
+      "/app/qcp": "Plan de control de calidad", "/app/cfsi": "CFSI", "/app/documentation": "Documentación",
+      "/app/expiring": "Archivos por vencer", "/app/message": "Mensajes", "/app/statistiques": "Estadísticas",
+      "/app/traceabilite": "Trazabilidad", "/app/team": "Equipo", "/app/templates": "Formulario: Plantillas",
+      "/app/settings": "Configuración", "/templates": "Formulario: Plantillas", "/templates/fieldtypes": "Formulario: Edición FieldType",
+      "/statistics": "Estadísticas", "/advanced-stats": "Estadísticas avanzadas", "/global-gantt": "Diagrama de Gantt"
+    },
+    "pagesWithProject": {
+      "/app/dashboard": "Proyecto: Dashboard", "/app/projets": "Proyecto: Proyectos",
+      "/app/inspections": "Proyecto: Inspecciones (Inspecciones, Controles, Auditorías, Formularios)",
+      "/app/findings": "Proyecto: Hallazgos / NC", "/app/actions": "Proyecto: Acciones",
+      "/app/qcp": "Proyecto: Plan de control de calidad", "/app/cfsi": "Proyecto: CFSI",
+      "/app/documentation": "Proyecto: Documentación", "/app/expiring": "Proyecto: Archivos por vencer"
+    }
+  },
+  "demo": { "skip": "Saltar demo ×", "phase": "Fase" },
+  "tourGuide": { "title": "Guía INSPECTO DQI", "subtitle": "Asistente de calidad IA" },
+  "intro": { "activeAccounts": "cuentas activas", "countries": "países cubiertos", "inspections": "inspecciones", "compliance": "conformidad" },
+  "home": { "projects": "Proyectos", "incomingTasks": "Tareas entrantes", "activity": "Actividad", "projectLabel": "Proyecto", "company": "Empresa", "progress": "Progreso", "startDate": "Fecha de inicio", "endDate": "Fecha de fin", "activityTimeline": "Línea de tiempo" },
+  "projects": { "progress": "Progreso", "actions": "Acciones", "inspections": "Inspecciones", "findingsNC": "Hallazgos / NC" },
+  "activities": {
+    "title": "Lista de actividades", "newActivity": "+ NUEVA ACTIVIDAD", "results": "resultado(s)",
+    "tableHeaders": { "name": "Nombre", "startDate": "Fecha inicio", "endDate": "Fecha fin", "action": "Acción" },
+    "modalTitleNew": "Nueva actividad", "modalTitleEdit": "Editar actividad",
+    "formName": "Nombre *", "formStart": "Fecha inicio *", "formEnd": "Fecha fin *",
+    "placeholder": "Nombre de la actividad",
+    "toastDeleted": "Actividad eliminada", "toastCreated": "Actividad creada", "toastUpdated": "Actividad actualizada",
+    "confirmDelete": "¿Eliminar esta actividad?"
+  },
+  "tasks": {
+    "newTask": "+ NUEVA TAREA",
+    "status": { "open": "Abierto", "inProgress": "En curso", "overdue": "Atrasado", "closed": "Cerrado" },
+    "priority": { "critical": "Crítico", "high": "Alta", "medium": "Media", "low": "Baja" },
+    "exportExcel": "Exportar Excel", "exportCSV": "Exportar CSV", "import": "Importar",
+    "deleteConfirm": "¿Eliminar esta tarea?", "toastDeleted": "Tarea eliminada",
+    "toastCreated": "Tarea creada", "toastUpdated": "Tarea actualizada",
+    "modalTitleNew": "Nueva tarea", "modalTitleEdit": "Editar tarea",
+    "assignee": "Asignado a", "progressLabel": "Progreso"
+  },
+  "inspections": {
+    "newInspection": "+ NUEVA INSPECCIÓN", "fillForm": "COMPLETAR UN FORMULARIO",
+    "counters": { "ongoing": "En curso", "overdue": "Atrasadas", "pending": "Pendientes", "closed": "Cerradas" },
+    "tabs": { "info": "Información", "findings": "Hallazgos / NC", "form": "Formulario" },
+    "planningTitle": "Auditoría ISO 9001 — Sitio París", "teamLabel": "Equipo: S. Dupont y J. Martin",
+    "reference": "Referencia", "norm": "Norma", "responsible": "Responsable",
+    "location": "Ubicación", "scope": "Alcance",
+    "planInspection": "PLANIFICAR UNA INSPECCIÓN", "backToList": "Volver"
+  },
+  "findings": {
+    "status": { "open": "ABIERTO", "pending": "PENDIENTE", "overdue": "ATRASADO", "closed": "CERRADO" },
+    "criticality": { "critical": "Crítico", "major": "Mayor", "minor": "Menor" },
+    "wizardSteps": ["Información", "Fotos", "Resolución", "Firma"],
+    "formLabels": { "findingNC": "Hallazgo / NC", "referenceNo": "N° Referencia", "description": "Descripción", "reportDate": "Fecha del informe", "status": "Estado" },
+    "sendNotification": "Enviar notificación",
+    "newNC": "+ NUEVA NC", "inspection": "Inspección", "area": "Zona",
+    "event": "Evento", "other": "Otro", "lessonLearnt": "Lección aprendida",
+    "whyAnalysis": "Análisis de causas (5 Por qué)", "addWhy": "Agregar un por qué",
+    "resolution": "Resolución", "signAndClose": "Firmar y cerrar",
+    "saveDraft": "Guardar borrador", "closed_toast": "NC cerrada con éxito",
+    "ncCreated": "NC creada"
+  },
+  "gantt": { "activities": "Actividades", "resources": "Recursos", "png": "PNG", "excel": "Excel", "zoom": "Zoom:" },
+  "actionsPage": {
+    "newAction": "+ NUEVA ACCIÓN",
+    "counters": { "open": "Abiertas", "ongoing": "En curso", "overdue": "Atrasadas", "closed": "Cerradas" },
+    "actionTitle": "Título de la acción", "actionType": "Tipo (Correctiva/Preventiva)",
+    "assignee": "Asignado a", "deadline": "Fecha límite", "linkedNC": "NC vinculada",
+    "generalInfo": "Información general", "datesStatus": "Fechas y estado",
+    "addCost": "Agregar costo", "attachments": "Adjuntos",
+    "effectiveness": "Seguimiento de eficacia",
+    "costRate": "Tarifa por hora", "costHours": "Horas", "costTotal": "Total",
+    "toastCreated": "Acción creada", "toastUpdated": "Acción actualizada",
+    "toastDeleted": "Acción eliminada", "deleteConfirm": "¿Eliminar esta acción?",
+    "modalTitleNew": "Nueva acción", "modalTitleEdit": "Editar acción"
+  },
+  "qcp": {
+    "contractor": "Contratista", "clientThirdParties": "Cliente y Terceros", "record": "Registro",
+    "newPlan": "+ NUEVO PLAN DE CONTROL", "createPlan": "Crear un plan de control de calidad",
+    "revision": "Revisión", "planName": "Nombre del plan", "step": "Paso",
+    "task": "Tarea", "itns": "ITNS", "docInfo": "Ref. Doc.", "docRev": "Rev.",
+    "operator": "Operador", "qc": "CC", "tc": "CT",
+    "notif": "Notif.", "recReq": "Reg. requerido", "recNum": "N° Reg.", "ncr": "NCR",
+    "documentSigned": "Documento firmado"
+  },
+  "cfsi": { "closedSuccess": "CFSI cerrado con éxito" },
+  "documentation": { "folders": "Carpetas", "upload": "Subir", "paste": "Pegar", "newFolder": "Nueva carpeta" },
+  "traceability": {
+    "tabs": { "timeline": "LÍNEA DE TIEMPO", "library": "BIBLIOTECA", "team": "EQUIPO" },
+    "filters": { "period": "Período", "actionType": "Tipo de acción", "user": "Usuario" }
+  },
+  "team": {
+    "title": "Miembros del equipo", "invite": "+ INVITAR MIEMBROS",
+    "modalTitle": "Invitar a un nuevo miembro", "emailLabel": "Dirección de email",
+    "roleLabel": "Rol", "emailPlaceholder": "colega@empresa.com",
+    "sendInvite": "Enviar invitación",
+    "roles": { "administrator": "Administrador", "inspector": "Inspector", "viewer": "Visualizador" },
+    "memberStats": { "inspections": "Inspecciones", "nc": "NC" }
+  },
+  "settings": {
+    "tabs": { "general": "General", "forms": "Formularios", "notifications": "Notificaciones" },
+    "companyInfo": "Información de la empresa", "formConfig": "Configuración de formularios",
+    "emailNotifications": "Notificaciones por email", "companyName": "Nombre de la empresa",
+    "timezone": "Zona horaria", "companyLogo": "Logo de la empresa",
+    "notifLabels": { "newInspection": "Nueva inspección", "findingCreated": "Hallazgo / NC creado", "actionClosed": "Acción cerrada", "memberAdded": "Miembro añadido" },
+    "manageTemplates": "Gestione sus plantillas de inspección y tipos de campo personalizados desde la página dedicada.",
+    "goToTemplates": "Ir a plantillas de formulario",
+    "notifItems": {
+      "ncCreated": "NC creada", "ncCreatedDesc": "Recibir un email cuando se crea una NC",
+      "inspOverdue": "Inspección atrasada", "inspOverdueDesc": "Alerta cuando una inspección supera su fecha límite",
+      "actionAssigned": "Acción asignada", "actionAssignedDesc": "Notificación cuando se le asigna una acción correctiva",
+      "signatureReq": "Firma requerida", "signatureReqDesc": "Alerta cuando se solicita su firma",
+      "weeklyReport": "Informe semanal", "weeklyReportDesc": "Recibir un resumen semanal de todas las actividades",
+      "memberJoined": "Miembro incorporado", "memberJoinedDesc": "Notificación cuando un nuevo miembro acepta una invitación"
+    }
+  },
+  "statistics": {
+    "tabs": { "general": "GENERAL", "findings": "HALLAZGOS / NC" },
+    "filters": { "project": "Proyecto", "period": "Período", "allProjects": "Todos los proyectos", "exportPDF": "Exportar PDF" },
+    "kpi": {
+      "totalInspections": "Inspecciones totales", "allPeriods": "Todos los períodos",
+      "ongoing": "En curso", "activeMonth": "Activas este mes",
+      "noNC": "Sin NC", "compliant": "Inspecciones conformes",
+      "totalFindings": "Hallazgos totales", "cumulatedNC": "NC acumuladas",
+      "totalNC": "Total NC", "totalActions": "Total acciones", "closureRate": "Tasa de cierre"
+    },
+    "charts": {
+      "timeDistribution": "Distribución temporal de inspecciones",
+      "monthlyInspections": "Inspecciones por mes", "inspectionStatus": "Estado de las inspecciones",
+      "ncCategories": "NC por categoría de causa", "ncTrend": "Tendencia NC — 12 meses móviles",
+      "ncByArea": "NC por zona", "inspectionCoverage": "Cobertura de inspecciones",
+      "resolutionTime": "Tiempo de resolución", "detectionTime": "Tiempo de detección"
+    },
+    "legend": { "closed": "Cerradas", "pending": "Pendientes", "ongoing": "En curso" },
+    "statsLabels": { "planned": "Planificadas", "overdue": "Atrasadas", "complianceRate": "Tasa de conformidad", "vsLastYear": "vs año anterior", "closedLabel": "Cerradas", "openLabel": "Abiertas" }
+  },
+  "templates": {
+    "revoked": "REVOCADO", "editable": "EDITABLE",
+    "sections": { "generalInfo": "Información general", "conformity": "Conformidad", "conclusion": "Conclusión" },
+    "tabs": { "info": "INFORMACIÓN", "edition": "EDICIÓN", "preview": "VISTA PREVIA" },
+    "templateCopied": "Plantilla copiada", "templateDeleted": "Plantilla eliminada",
+    "editorOpened": "Editor de plantilla abierto", "previewOpened": "Vista previa abierta",
+    "deleteConfirm": "¿Eliminar esta plantilla?"
+  },
+  "fieldtypes": {
+    "newFieldType": "+ NUEVO TIPO DE CAMPO",
+    "doubleClickTip": "Haga doble clic en un elemento para ver su contenido",
+    "cannotModify": "No puede modificar un elemento publicado",
+    "editTable": "Editar tabla", "published": "PUBLICADO",
+    "columns": "Columnas", "lines": "Filas", "addColumn": "Agregar columna", "addLine": "Agregar fila"
+  },
+  "globalStats": {
+    "totalInspections": "Inspecciones totales", "totalNC": "Total NC",
+    "totalActions": "Total acciones", "closureRate": "Tasa de cierre",
+    "inspectionsByMonth": "Inspecciones por mes", "ncByMonth": "NC por mes",
+    "complianceByProject": "Conformidad por proyecto",
+    "ncRate": "Tasa de NC", "inspectionCoverage": "Cobertura de inspecciones"
+  },
+  "advancedStats": {
+    "ncByArea": "NC por zona de actividad", "resolutionTrend": "Tendencia de resolución",
+    "complianceRadar": "Radar de conformidad",
+    "resolutionTime": "Tiempo de resolución (días)", "detectionTime": "Tiempo de detección (días)"
+  },
+  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" }
+}
