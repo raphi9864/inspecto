@@ -131,7 +131,7 @@ function AllProjectsView({ containerRef }) {
               <div key={p.id} className="proj-row" style={{ padding: '0.875rem 1.25rem', borderBottom: i < overviewProjects.length - 1 ? '1px solid var(--gray-border)' : 'none', cursor: 'pointer' }}>
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--surface-light)', marginBottom: '0.15rem' }}>{p.name}</div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--gray)', marginBottom: '0.5rem' }}>{p.company}</div>
-                <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, marginBottom: '0.4rem' }}>
+                <div style={{ height: 4, background: 'var(--border-primary)', borderRadius: 2, marginBottom: '0.4rem' }}>
                   <div style={{ width: `${p.progress}%`, height: '100%', background: 'var(--blue)', borderRadius: 2 }}></div>
                 </div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--gray)', marginBottom: '0.4rem' }}>{p.progress}%</div>
@@ -292,6 +292,7 @@ function ProjectDashboardView({ containerRef, project }) {
 /* ─── Sub-components ─── */
 
 function KpiProgress({ value, detail }) {
+  const { t } = useTranslation()
   const circumference = 2 * Math.PI * 54
   const offset = circumference - (value / 100) * circumference
   return (
