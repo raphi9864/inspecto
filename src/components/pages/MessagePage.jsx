@@ -1,297 +1,278 @@
 import { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
 
-const CONVERSATIONS = [
-  { id: 1, name: 'R. Attal', lastMsg: 'Voir la NC-2026-0043', time: '14:32', unread: 2 },
-  { id: 2, name: 'S. Dupont', lastMsg: 'Rapport Pilatus OK', time: '11:15', unread: 0 },
-  { id: 3, name: 'Équipe QSE', lastMsg: 'Revue hebdo confirmée', time: 'Hier', unread: 0 },
+const DEMO_MESSAGES = [
+  { id: 1, object: 'Rapport HPC', sentBy: 'C. Renaud', recipients: 2, preview: 'TEST', date: '13/01/2026 16:25', replies: 1 },
+  { id: 2, object: 'NC-2026-0043 Porosité', sentBy: 'R. Attal', recipients: 3, preview: 'Rework prévu vendredi', date: '18/03/2026 09:14', replies: 2 },
+  { id: 3, object: 'Revue hebdo QSE', sentBy: 'S. Dupont', recipients: 5, preview: 'Confirmée lundi 9h', date: '25/03/2026 17:43', replies: 0 },
 ]
 
-const MESSAGES_MAP = {
-  1: [
-    { from: 'R. Attal', text: 'La NC-2026-0043 est toujours ouverte, tu peux jeter un œil ?', time: '14:28', sent: false },
-    { from: 'Vous', text: 'Je regarde ça maintenant, merci.', time: '14:30', sent: true },
-    { from: 'R. Attal', text: 'Le rework est planifié pour vendredi, on devrait pouvoir clôturer lundi.', time: '14:32', sent: false },
-    { from: 'Vous', text: 'Parfait, je prépare la re-inspection pour lundi matin.', time: '14:35', sent: true },
-  ],
-  2: [
-    { from: 'S. Dupont', text: 'Le rapport Pilatus est validé, on peut l\'envoyer au client.', time: '11:10', sent: false },
-    { from: 'Vous', text: 'Rapport Pilatus OK', time: '11:15', sent: true },
-  ],
-  3: [
-    { from: 'J. Martin', text: 'La revue hebdo est confirmée pour jeudi 10h.', time: 'Hier', sent: false },
-    { from: 'Vous', text: 'Revue hebdo confirmée', time: 'Hier', sent: true },
-  ],
-}
+const DEMO_REPLY = { from: 'R. Attal', text: 'Le rework est planifié pour vendredi matin, on devrait pouvoir clôturer dans la foulée.', date: '18/03/2026 10:02' }
 
-function getInitials(name) {
-  return name.split(' ').map(w => w[0]).join('').toUpperCase()
-}
+const TEAM_MEMBERS = ['R. Attal', 'S. Dupont', 'A. Leroy', 'J. Martin', 'C. Renaud']
 
 export default function MessagePage() {
+  const { t } = useTranslation()
   const containerRef = useRef(null)
-  const messagesEndRef = useRef(null)
-  const [activeConv, setActiveConv] = useState(1)
-  const [inputText, setInputText] = useState('')
+  const [messages, setMessages] = useState(DEMO_MESSAGES)
+  const [search, setSearch] = useState('')
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [showCreate, setShowCreate] = useState(false)
+  const [viewMsg, setViewMsg] = useState(null)
+  const [deleteId, setDeleteId] = useState(null)
+  const [form, setForm] = useState({ object: '', sendTo: '', externalEmails: '', message: '' })
 
-  const messages = MESSAGES_MAP[activeConv] || []
+  const filtered = messages.filter(m => {
+    if (search) {
+      const q = search.toLowerCase()
+      if (!m.object.toLowerCase().includes(q) && !m.sentBy.toLowerCase().includes(q)) return false
+    }
+    if (dateFrom) {
+      const [d, mo, y] = m.date.split(' ')[0].split('/')
+      const msgDate = new Date(`${y}-${mo}-${d}`)
+      if (msgDate < new Date(dateFrom)) return false
+    }
+    if (dateTo) {
+      const [d, mo, y] = m.date.split(' ')[0].split('/')
+      const msgDate = new Date(`${y}-${mo}-${d}`)
+      if (msgDate > new Date(dateTo)) return false
+    }
+    return true
+  })
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.msg-sidebar-item', { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out', delay: 0.2 })
-      gsap.fromTo('.msg-bubble', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, stagger: 0.04, ease: 'power2.out', delay: 0.3 })
+      gsap.fromTo('.data-table tbody tr', { opacity: 0, y: 8 }, {
+        opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out', delay: 0.3,
+      })
     }, containerRef)
     return () => ctx.revert()
-  }, [activeConv])
+  }, [filtered.length])
 
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [activeConv])
-
+  const resetFilters = () => { setSearch(''); setDateFrom(''); setDateTo(''); setIsFilterOpen(false) }
+  const openCreate = () => { setForm({ object: '', sendTo: '', externalEmails: '', message: '' }); setShowCreate(true) }
   const handleSend = () => {
-    if (!inputText.trim()) return
-    showToast('Message envoyé', 'success')
-    setInputText('')
-  }
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSend()
+    if (!form.object || !form.message) return
+    const newMsg = {
+      id: Date.now(),
+      object: form.object,
+      sentBy: 'Vous',
+      recipients: form.sendTo ? 1 : 0,
+      preview: form.message.slice(0, 40),
+      date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+      replies: 0,
     }
+    setMessages(prev => [newMsg, ...prev])
+    setShowCreate(false)
+    showToast(t('messages.modal.send'), 'success')
   }
-
-  const activeConvData = CONVERSATIONS.find(c => c.id === activeConv)
+  const confirmDelete = (id) => { setMessages(prev => prev.filter(m => m.id !== id)); setDeleteId(null); showToast(t('common.delete'), 'info') }
 
   return (
-    <div
-      ref={containerRef}
-      data-demo-target="message-page"
-      style={{
-        display: 'flex',
-        height: '100%',
-        minHeight: 0,
-        borderRadius: '8px',
-        overflow: 'hidden',
-        border: '1px solid var(--border-primary)',
-      }}
-    >
-      {/* ─── Left sidebar: conversation list ─── */}
-      <div style={{
-        width: '280px',
-        minWidth: '280px',
-        background: 'var(--bg-secondary)',
-        borderRight: '1px solid var(--border-primary)',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        {/* Sidebar header */}
-        <div style={{
-          padding: '16px',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)' }}>Messages</span>
-        </div>
-
-        {/* Conversation list */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
-          {CONVERSATIONS.map(conv => (
-            <div
-              key={conv.id}
-              className="msg-sidebar-item"
-              onClick={() => setActiveConv(conv.id)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '12px 16px',
-                cursor: 'pointer',
-                borderLeft: activeConv === conv.id ? '3px solid var(--blue)' : '3px solid transparent',
-                background: activeConv === conv.id ? 'rgba(26,111,196,0.08)' : 'transparent',
-                transition: 'background 0.15s, border-color 0.15s',
-              }}
-              onMouseEnter={e => { if (activeConv !== conv.id) e.currentTarget.style.background = 'var(--bg-hover)' }}
-              onMouseLeave={e => { if (activeConv !== conv.id) e.currentTarget.style.background = 'transparent' }}
-            >
-              {/* Avatar circle */}
-              <div style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                background: 'var(--blue)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                color: '#fff',
-                flexShrink: 0,
-              }}>
-                {getInitials(conv.name)}
-              </div>
-
-              {/* Name + last message */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
-                  <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)' }}>{conv.name}</span>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', flexShrink: 0 }}>{conv.time}</span>
-                </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {conv.lastMsg}
-                </div>
-              </div>
-
-              {/* Unread badge */}
-              {conv.unread > 0 && (
-                <div style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: '50%',
-                  background: '#d7294a',
-                  color: '#fff',
-                  fontSize: '0.7rem',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}>
-                  {conv.unread}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ─── Right panel: chat view ─── */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'var(--bg-primary)',
-        minWidth: 0,
-      }}>
-        {/* Chat header */}
-        <div style={{
-          padding: '14px 20px',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: '50%',
-            background: 'var(--blue)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            color: '#fff',
-          }}>
-            {activeConvData ? getInitials(activeConvData.name) : '?'}
-          </div>
-          <div>
-            <div style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-              {activeConvData?.name}
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>En ligne</div>
-          </div>
-        </div>
-
-        {/* Messages area */}
-        <div style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-        }}>
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className="msg-bubble"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: msg.sent ? 'flex-end' : 'flex-start',
-                maxWidth: '70%',
-                alignSelf: msg.sent ? 'flex-end' : 'flex-start',
-              }}
-            >
-              {!msg.sent && (
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', marginBottom: '4px', marginLeft: '4px' }}>
-                  {msg.from}
-                </span>
-              )}
-              <div style={{
-                background: msg.sent ? 'var(--blue)' : 'var(--bg-tertiary)',
-                color: msg.sent ? '#fff' : 'var(--text-primary)',
-                padding: '10px 14px',
-                borderRadius: msg.sent ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                fontSize: '0.88rem',
-                lineHeight: 1.45,
-              }}>
-                {msg.text}
-              </div>
-              <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', marginTop: '4px', padding: '0 4px' }}>
-                {msg.time}
-              </span>
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input bar */}
-        <div style={{
-          padding: '12px 20px',
-          borderTop: '1px solid var(--border-primary)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-        }}>
-          <input
-            type="text"
-            value={inputText}
-            onChange={e => setInputText(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Écrire un message..."
-            style={{
-              flex: 1,
-              background: 'var(--bg-tertiary)',
-              border: '1px solid var(--border-primary)',
-              borderRadius: '8px',
-              padding: '10px 14px',
-              fontSize: '0.88rem',
-              color: 'var(--text-primary)',
-              outline: 'none',
-            }}
-          />
-          <button
-            className="btn-primary"
-            onClick={handleSend}
-            style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-            </svg>
-            Envoyer
+    <div ref={containerRef}>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} onClick={() => setIsFilterOpen(!isFilterOpen)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+            {t('messages.filters')}
           </button>
         </div>
+        <button className="btn-primary" onClick={openCreate}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          {t('messages.newMessage')}
+        </button>
       </div>
+
+      {/* Filter bar */}
+      {isFilterOpen && (
+        <div className="panel" style={{ marginBottom: '16px', opacity: 1, transform: 'none' }}>
+          <div className="panel-body" style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap', padding: '12px 16px' }}>
+            <div style={{ flex: '1 1 180px' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.search')}</label>
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('messages.search')} style={{ width: '100%' }} />
+            </div>
+            <div style={{ flex: '0 1 150px' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.dateFrom')}</label>
+              <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} />
+            </div>
+            <div style={{ flex: '0 1 150px' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.dateTo')}</label>
+              <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} />
+            </div>
+            <button className="btn-outline" onClick={resetFilters}>{t('messages.resetFilters')}</button>
+          </div>
+        </div>
+      )}
+
+      {/* Table panel */}
+      <div className="panel" style={{ opacity: 1, transform: 'none' }}>
+        <div className="panel-header">
+          <div className="panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            {t('messages.title')}
+          </div>
+          <span style={{ fontSize: '0.9rem', color: 'var(--status-success)', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '12px', padding: '2px 10px', fontWeight: 600 }}>
+            {filtered.length} / {messages.length} {t('messages.results')}
+          </span>
+        </div>
+        <div className="panel-body" style={{ padding: 0 }}>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>{t('messages.columns.object')}</th>
+                <th>{t('messages.columns.sentBy')}</th>
+                <th>{t('messages.columns.recipients')}</th>
+                <th>{t('messages.columns.message')}</th>
+                <th>{t('messages.columns.date')}</th>
+                <th>{t('messages.columns.replies')}</th>
+                <th>{t('messages.columns.actions')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map(m => (
+                <tr key={m.id} onClick={() => setViewMsg(m)} style={{ cursor: 'pointer' }}>
+                  <td><strong>{m.object}</strong></td>
+                  <td>{m.sentBy}</td>
+                  <td>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'var(--bg-tertiary)', borderRadius: '12px', padding: '2px 10px', fontSize: '0.82rem' }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      {m.recipients} {t('messages.users')}
+                    </span>
+                  </td>
+                  <td style={{ color: 'var(--text-tertiary)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.preview}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{m.date}</td>
+                  <td>
+                    {m.replies > 0 ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%', background: 'rgba(46,163,242,0.12)', color: 'var(--blue)', fontSize: '0.82rem', fontWeight: 700 }}>{m.replies}</span>
+                    ) : (
+                      <span style={{ color: 'var(--text-tertiary)' }}>—</span>
+                    )}
+                  </td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button className="btn-icon" title={t('messages.modal.viewTitle')} onClick={(e) => { e.stopPropagation(); setViewMsg(m) }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      </button>
+                      <button className="btn-icon" title={t('common.delete')} onClick={(e) => { e.stopPropagation(); setDeleteId(m.id) }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ textAlign: 'center', padding: '16px', fontSize: '0.88rem', color: 'var(--text-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {t('messages.endOfList')}
+          </div>
+        </div>
+      </div>
+
+      {/* Delete confirmation */}
+      {deleteId && (
+        <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '380px' }}>
+            <h3 className="modal-title">{t('messages.delete.confirm')}</h3>
+            <div className="modal-actions">
+              <button className="btn-outline" onClick={() => setDeleteId(null)}>{t('messages.delete.no')}</button>
+              <button className="btn-primary" style={{ background: 'var(--status-error)' }} onClick={() => confirmDelete(deleteId)}>{t('messages.delete.yes')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create modal */}
+      {showCreate && (
+        <div className="modal-overlay" onClick={() => setShowCreate(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '560px' }}>
+            <h3 className="modal-title">{t('messages.modal.createTitle')}</h3>
+            <div className="modal-field">
+              <label>{t('messages.modal.object')}</label>
+              <div style={{ position: 'relative' }}>
+                <input maxLength={64} value={form.object} onChange={e => setForm({ ...form, object: e.target.value })} placeholder={t('messages.modal.objectPlaceholder')} />
+                <span style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>{form.object.length}/64</span>
+              </div>
+            </div>
+            <div className="modal-field">
+              <label>{t('messages.modal.sendTo')}</label>
+              <select value={form.sendTo} onChange={e => setForm({ ...form, sendTo: e.target.value })}>
+                <option value="">—</option>
+                {TEAM_MEMBERS.map(m => <option key={m} value={m}>{m}</option>)}
+              </select>
+            </div>
+            <div className="modal-field">
+              <label>{t('messages.modal.externalEmails')}</label>
+              <input value={form.externalEmails} onChange={e => setForm({ ...form, externalEmails: e.target.value })} placeholder="email@example.com" />
+            </div>
+            <div className="modal-field">
+              <label>{t('messages.modal.attachments')}</label>
+              <div style={{ border: '1px dashed var(--border-secondary)', borderRadius: '6px', padding: '16px', textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.85rem', cursor: 'pointer' }} onClick={() => showToast(t('messages.modal.attachments'), 'info')}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: 'block', margin: '0 auto 6px' }}><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                {t('messages.modal.maxSize')}
+              </div>
+            </div>
+            <div className="modal-field">
+              <label>{t('messages.modal.message')}</label>
+              <textarea rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} style={{ resize: 'vertical' }} />
+            </div>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: '12px' }}>
+              {t('messages.modal.recipientsInfo')}
+            </p>
+            <div className="modal-actions">
+              <button className="btn-outline" onClick={() => setShowCreate(false)}>{t('messages.modal.cancel')}</button>
+              <button className="btn-primary" disabled={!form.object || !form.message} onClick={handleSend}>{t('messages.modal.send')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View modal */}
+      {viewMsg && (
+        <div className="modal-overlay" onClick={() => setViewMsg(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '560px' }}>
+            <h3 className="modal-title">{t('messages.modal.viewTitle')}</h3>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.columns.object')}</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{viewMsg.object}</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+              <div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.columns.sentBy')}</div>
+                <div style={{ color: 'var(--text-primary)' }}>{viewMsg.sentBy}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.columns.date')}</div>
+                <div style={{ color: 'var(--text-primary)' }}>{viewMsg.date}</div>
+              </div>
+            </div>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 4 }}>{t('messages.modal.message')}</div>
+              <div style={{ background: 'var(--bg-tertiary)', borderRadius: '8px', padding: '12px', color: 'var(--text-primary)', lineHeight: 1.5 }}>{viewMsg.preview}</div>
+            </div>
+            {viewMsg.replies > 0 && (
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginBottom: 8 }}>{t('messages.modal.replies')} ({viewMsg.replies})</div>
+                <div style={{ borderLeft: '3px solid var(--blue)', paddingLeft: '12px', marginLeft: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)' }}>{DEMO_REPLY.from}</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{DEMO_REPLY.date}</span>
+                  </div>
+                  <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{DEMO_REPLY.text}</div>
+                </div>
+              </div>
+            )}
+            <div className="modal-actions">
+              <button className="btn-outline" onClick={() => setViewMsg(null)}>{t('messages.modal.close')}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

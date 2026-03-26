@@ -404,5 +404,101 @@
       "procurement": "PROCUREMENT",
       "engineering": "ENGINEERING"
     }
+  },
+
+  "messages": {
+    "title": "Messages",
+    "newMessage": "New message",
+    "filters": "Filters",
+    "search": "Search",
+    "dateFrom": "From",
+    "dateTo": "To",
+    "resetFilters": "Reset",
+    "results": "result(s)",
+    "columns": {
+      "object": "Subject",
+      "sentBy": "Sent by",
+      "recipients": "Recipients",
+      "message": "Message",
+      "date": "Date",
+      "replies": "Replies",
+      "actions": "Actions"
+    },
+    "users": "users",
+    "endOfList": "End of list",
+    "modal": {
+      "createTitle": "New message",
+      "viewTitle": "View message",
+      "object": "Subject",
+      "objectPlaceholder": "Message subject",
+      "recipients": "Recipients",
+      "recipientsInfo": "At least one internal or external recipient is required",
+      "sendTo": "Send to",
+      "externalEmails": "External emails",
+      "attachments": "Attachments",
+      "maxSize": "Max size: 25 MB",
+      "message": "Message",
+      "replies": "Replies",
+      "send": "Send",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "delete": {
+      "confirm": "Delete this message?",
+      "yes": "Confirm",
+      "no": "Cancel"
+    }
+  },
+  "expiringFiles": {
+    "title": "Files — Expirations",
+    "filters": "Filters",
+    "search": "Search",
+    "dateFrom": "Expiration date (from)",
+    "dateTo": "Expiration date (to)",
+    "resetFilters": "Reset",
+    "results": "result(s)",
+    "filterAll": "ALL",
+    "filter7": "<= 7 d",
+    "filterExpired": "EXPIRED",
+    "columns": {
+      "name": "Name",
+      "folder": "Folder | Folders",
+      "expirationDate": "Expiration date",
+      "daysLeft": "Days left",
+      "createdAt": "Created at",
+      "sentBy": "Sent by",
+      "actions": "Actions"
+    },
+    "endOfList": "End of list",
+    "expired": "EXPIRED",
+    "daysLeft": "d",
+    "modal": {
+      "expirationTitle": "Expiration date",
+      "expirationSubtitle": "Choose the new expiration date for this file",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "viewTitle": "Document viewer"
+    },
+    "delete": {
+      "confirm": "Delete this file?",
+      "yes": "Confirm",
+      "no": "Cancel"
+    }
+  },
+  "documentation": {
+    "title": "Folders",
+    "search": "Search",
+    "dossierCreation": "Dossier Creation",
+    "selectFolder": "Select a folder",
+    "columns": { "files": "Files", "tags": "Tags", "date": "Date", "actions": "Actions" },
+    "actions": { "rename": "Rename", "expiration": "Expiration date", "detail": "Detail", "view": "View", "ai": "Analyze with AI", "download": "Download", "move": "Move", "delete": "Delete", "cancel": "Cancel", "save": "Save", "move_confirm": "Move" },
+    "rename": { "title": "Rename file", "label": "Name" },
+    "expiration": { "title": "Expiration date", "subtitle": "Set the document validity date", "label": "Expiration date" },
+    "move": { "title": "Move to" },
+    "download": { "pdf": "PDF", "word": "Word" },
+    "delete": { "confirm": "Delete this file?", "yes": "Confirm", "no": "Cancel" },
+    "newFolder": "New folder",
+    "endOfList": "End of list",
+    "reportBuilder": { "title": "Report Builder", "subtitle": "Check the files to include in your report", "titleField": "Title", "subtitleField": "Subtitle", "image": "Illustrative image", "isCorrection": "Is this a correction of a previous report?", "signatureLoop": "Signature loop?", "displayTitles": "Display titles before each section?", "createReport": "CREATE REPORT" }
   }
 }

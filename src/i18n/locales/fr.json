@@ -409,5 +409,101 @@
       "procurement": "ACHAT",
       "engineering": "INGÉNIERIE"
     }
+  },
+
+  "messages": {
+    "title": "Messages",
+    "newMessage": "Nouveau message",
+    "filters": "Filtres",
+    "search": "Rechercher",
+    "dateFrom": "Du",
+    "dateTo": "Au",
+    "resetFilters": "Réinitialiser",
+    "results": "résultat(s)",
+    "columns": {
+      "object": "Objet",
+      "sentBy": "Envoyé par",
+      "recipients": "Destinataires",
+      "message": "Message",
+      "date": "Date",
+      "replies": "Réponses",
+      "actions": "Actions"
+    },
+    "users": "utilisateurs",
+    "endOfList": "Fin de liste",
+    "modal": {
+      "createTitle": "Nouveau message",
+      "viewTitle": "Voir le message",
+      "object": "Objet",
+      "objectPlaceholder": "Objet du message",
+      "recipients": "Destinataires",
+      "recipientsInfo": "Au moins un destinataire interne ou externe est requis",
+      "sendTo": "Envoyer à",
+      "externalEmails": "Emails externes",
+      "attachments": "Pièces jointes",
+      "maxSize": "Taille max : 25 Mo",
+      "message": "Message",
+      "replies": "Réponses",
+      "send": "Envoyer",
+      "cancel": "Annuler",
+      "close": "Fermer"
+    },
+    "delete": {
+      "confirm": "Supprimer ce message ?",
+      "yes": "Confirmer",
+      "no": "Annuler"
+    }
+  },
+  "expiringFiles": {
+    "title": "Fichiers — Expirations",
+    "filters": "Filtres",
+    "search": "Rechercher",
+    "dateFrom": "Date d'expiration (du)",
+    "dateTo": "Date d'expiration (au)",
+    "resetFilters": "Réinitialiser",
+    "results": "résultat(s)",
+    "filterAll": "TOUS",
+    "filter7": "<= 7 j",
+    "filterExpired": "EXPIRÉ",
+    "columns": {
+      "name": "Nom",
+      "folder": "Dossier | Dossiers",
+      "expirationDate": "Date d'expiration",
+      "daysLeft": "Jours restants",
+      "createdAt": "Créé le",
+      "sentBy": "Envoyé par",
+      "actions": "Actions"
+    },
+    "endOfList": "Fin de liste",
+    "expired": "EXPIRÉ",
+    "daysLeft": "j",
+    "modal": {
+      "expirationTitle": "Date d'expiration",
+      "expirationSubtitle": "Choisir la nouvelle date d'expiration pour ce fichier",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "viewTitle": "Visualisation du document"
+    },
+    "delete": {
+      "confirm": "Supprimer ce fichier ?",
+      "yes": "Confirmer",
+      "no": "Annuler"
+    }
+  },
+  "documentation": {
+    "title": "Dossiers",
+    "search": "Rechercher",
+    "dossierCreation": "Dossier Creation",
+    "selectFolder": "Sélectionner un dossier",
+    "columns": { "files": "Fichiers", "tags": "Tags", "date": "Date", "actions": "Actions" },
+    "actions": { "rename": "Renommer", "expiration": "Date d'expiration", "detail": "Détail", "view": "Voir", "ai": "Analyser avec IA", "download": "Télécharger", "move": "Déplacer", "delete": "Supprimer", "cancel": "Annuler", "save": "Enregistrer", "move_confirm": "Déplacer" },
+    "rename": { "title": "Renommer le fichier", "label": "Nom" },
+    "expiration": { "title": "Date d'expiration", "subtitle": "Définir la date de validité du document", "label": "Date d'expiration" },
+    "move": { "title": "Déplacer vers" },
+    "download": { "pdf": "PDF", "word": "Word" },
+    "delete": { "confirm": "Supprimer ce fichier ?", "yes": "Confirmer", "no": "Annuler" },
+    "newFolder": "Nouveau dossier",
+    "endOfList": "Fin de liste",
+    "reportBuilder": { "title": "Report Builder", "subtitle": "Cochez les fichiers à inclure dans votre rapport", "titleField": "Titre", "subtitleField": "Sous-titre", "image": "Image illustrative", "isCorrection": "Est-ce une correction d'un rapport précédent ?", "signatureLoop": "Boucle de signature ?", "displayTitles": "Afficher les titres avant chaque section ?", "createReport": "CRÉER LE RAPPORT" }
   }
 }

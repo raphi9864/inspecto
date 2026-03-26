@@ -320,5 +320,101 @@
       "procurement": "COMPRAS",
       "engineering": "INGENIERÍA"
     }
+  },
+
+  "messages": {
+    "title": "Mensajes",
+    "newMessage": "Nuevo mensaje",
+    "filters": "Filtros",
+    "search": "Buscar",
+    "dateFrom": "Desde",
+    "dateTo": "Hasta",
+    "resetFilters": "Reiniciar",
+    "results": "resultado(s)",
+    "columns": {
+      "object": "Asunto",
+      "sentBy": "Enviado por",
+      "recipients": "Destinatarios",
+      "message": "Mensaje",
+      "date": "Fecha",
+      "replies": "Respuestas",
+      "actions": "Acciones"
+    },
+    "users": "usuarios",
+    "endOfList": "Fin de la lista",
+    "modal": {
+      "createTitle": "Nuevo mensaje",
+      "viewTitle": "Ver mensaje",
+      "object": "Asunto",
+      "objectPlaceholder": "Asunto del mensaje",
+      "recipients": "Destinatarios",
+      "recipientsInfo": "Se requiere al menos un destinatario interno o externo",
+      "sendTo": "Enviar a",
+      "externalEmails": "Emails externos",
+      "attachments": "Adjuntos",
+      "maxSize": "Tamaño máx.: 25 MB",
+      "message": "Mensaje",
+      "replies": "Respuestas",
+      "send": "Enviar",
+      "cancel": "Cancelar",
+      "close": "Cerrar"
+    },
+    "delete": {
+      "confirm": "¿Eliminar este mensaje?",
+      "yes": "Confirmar",
+      "no": "Cancelar"
+    }
+  },
+  "expiringFiles": {
+    "title": "Archivos — Vencimientos",
+    "filters": "Filtros",
+    "search": "Buscar",
+    "dateFrom": "Fecha de vencimiento (desde)",
+    "dateTo": "Fecha de vencimiento (hasta)",
+    "resetFilters": "Reiniciar",
+    "results": "resultado(s)",
+    "filterAll": "TODOS",
+    "filter7": "<= 7 d",
+    "filterExpired": "VENCIDO",
+    "columns": {
+      "name": "Nombre",
+      "folder": "Carpeta | Carpetas",
+      "expirationDate": "Fecha de vencimiento",
+      "daysLeft": "Días restantes",
+      "createdAt": "Creado el",
+      "sentBy": "Enviado por",
+      "actions": "Acciones"
+    },
+    "endOfList": "Fin de la lista",
+    "expired": "VENCIDO",
+    "daysLeft": "d",
+    "modal": {
+      "expirationTitle": "Fecha de vencimiento",
+      "expirationSubtitle": "Elegir la nueva fecha de vencimiento para este archivo",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "viewTitle": "Visualización del documento"
+    },
+    "delete": {
+      "confirm": "¿Eliminar este archivo?",
+      "yes": "Confirmar",
+      "no": "Cancelar"
+    }
+  },
+  "documentation": {
+    "title": "Carpetas",
+    "search": "Buscar",
+    "dossierCreation": "Creación de expediente",
+    "selectFolder": "Seleccionar una carpeta",
+    "columns": { "files": "Archivos", "tags": "Etiquetas", "date": "Fecha", "actions": "Acciones" },
+    "actions": { "rename": "Renombrar", "expiration": "Fecha de vencimiento", "detail": "Detalle", "view": "Ver", "ai": "Analizar con IA", "download": "Descargar", "move": "Mover", "delete": "Eliminar", "cancel": "Cancelar", "save": "Guardar", "move_confirm": "Mover" },
+    "rename": { "title": "Renombrar archivo", "label": "Nombre" },
+    "expiration": { "title": "Fecha de vencimiento", "subtitle": "Definir la fecha de validez del documento", "label": "Fecha de vencimiento" },
+    "move": { "title": "Mover a" },
+    "download": { "pdf": "PDF", "word": "Word" },
+    "delete": { "confirm": "¿Eliminar este archivo?", "yes": "Confirmar", "no": "Cancelar" },
+    "newFolder": "Nueva carpeta",
+    "endOfList": "Fin de la lista",
+    "reportBuilder": { "title": "Report Builder", "subtitle": "Marque los archivos a incluir en su informe", "titleField": "Título", "subtitleField": "Subtítulo", "image": "Imagen ilustrativa", "isCorrection": "¿Es una corrección de un informe anterior?", "signatureLoop": "¿Bucle de firma?", "displayTitles": "¿Mostrar títulos antes de cada sección?", "createReport": "CREAR INFORME" }
   }
 }

@@ -320,5 +320,101 @@
       "procurement": "BESCHAFFUNG",
       "engineering": "KONSTRUKTION"
     }
+  },
+
+  "messages": {
+    "title": "Nachrichten",
+    "newMessage": "Neue Nachricht",
+    "filters": "Filter",
+    "search": "Suchen",
+    "dateFrom": "Von",
+    "dateTo": "Bis",
+    "resetFilters": "Zurücksetzen",
+    "results": "Ergebnis(se)",
+    "columns": {
+      "object": "Betreff",
+      "sentBy": "Gesendet von",
+      "recipients": "Empfänger",
+      "message": "Nachricht",
+      "date": "Datum",
+      "replies": "Antworten",
+      "actions": "Aktionen"
+    },
+    "users": "Benutzer",
+    "endOfList": "Ende der Liste",
+    "modal": {
+      "createTitle": "Neue Nachricht",
+      "viewTitle": "Nachricht anzeigen",
+      "object": "Betreff",
+      "objectPlaceholder": "Nachrichtenbetreff",
+      "recipients": "Empfänger",
+      "recipientsInfo": "Mindestens ein interner oder externer Empfänger ist erforderlich",
+      "sendTo": "Senden an",
+      "externalEmails": "Externe E-Mails",
+      "attachments": "Anhänge",
+      "maxSize": "Max. Größe: 25 MB",
+      "message": "Nachricht",
+      "replies": "Antworten",
+      "send": "Senden",
+      "cancel": "Abbrechen",
+      "close": "Schließen"
+    },
+    "delete": {
+      "confirm": "Diese Nachricht löschen?",
+      "yes": "Bestätigen",
+      "no": "Abbrechen"
+    }
+  },
+  "expiringFiles": {
+    "title": "Dateien — Ablaufdaten",
+    "filters": "Filter",
+    "search": "Suchen",
+    "dateFrom": "Ablaufdatum (von)",
+    "dateTo": "Ablaufdatum (bis)",
+    "resetFilters": "Zurücksetzen",
+    "results": "Ergebnis(se)",
+    "filterAll": "ALLE",
+    "filter7": "<= 7 T",
+    "filterExpired": "ABGELAUFEN",
+    "columns": {
+      "name": "Name",
+      "folder": "Ordner",
+      "expirationDate": "Ablaufdatum",
+      "daysLeft": "Verbleibende Tage",
+      "createdAt": "Erstellt am",
+      "sentBy": "Gesendet von",
+      "actions": "Aktionen"
+    },
+    "endOfList": "Ende der Liste",
+    "expired": "ABGELAUFEN",
+    "daysLeft": "T",
+    "modal": {
+      "expirationTitle": "Ablaufdatum",
+      "expirationSubtitle": "Wählen Sie das neue Ablaufdatum für diese Datei",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen",
+      "viewTitle": "Dokumentenansicht"
+    },
+    "delete": {
+      "confirm": "Diese Datei löschen?",
+      "yes": "Bestätigen",
+      "no": "Abbrechen"
+    }
+  },
+  "documentation": {
+    "title": "Ordner",
+    "search": "Suchen",
+    "dossierCreation": "Dossier-Erstellung",
+    "selectFolder": "Ordner auswählen",
+    "columns": { "files": "Dateien", "tags": "Tags", "date": "Datum", "actions": "Aktionen" },
+    "actions": { "rename": "Umbenennen", "expiration": "Ablaufdatum", "detail": "Detail", "view": "Anzeigen", "ai": "Mit KI analysieren", "download": "Herunterladen", "move": "Verschieben", "delete": "Löschen", "cancel": "Abbrechen", "save": "Speichern", "move_confirm": "Verschieben" },
+    "rename": { "title": "Datei umbenennen", "label": "Name" },
+    "expiration": { "title": "Ablaufdatum", "subtitle": "Gültigkeitsdatum des Dokuments festlegen", "label": "Ablaufdatum" },
+    "move": { "title": "Verschieben nach" },
+    "download": { "pdf": "PDF", "word": "Word" },
+    "delete": { "confirm": "Diese Datei löschen?", "yes": "Bestätigen", "no": "Abbrechen" },
+    "newFolder": "Neuer Ordner",
+    "endOfList": "Ende der Liste",
+    "reportBuilder": { "title": "Report Builder", "subtitle": "Wählen Sie die Dateien für Ihren Bericht aus", "titleField": "Titel", "subtitleField": "Untertitel", "image": "Illustratives Bild", "isCorrection": "Ist dies eine Korrektur eines vorherigen Berichts?", "signatureLoop": "Unterschriftenschleife?", "displayTitles": "Titel vor jedem Abschnitt anzeigen?", "createReport": "BERICHT ERSTELLEN" }
   }
 }

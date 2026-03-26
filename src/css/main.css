@@ -312,16 +312,16 @@ p  { font-size: 1rem; color: var(--text-secondary); }
 }
 
 .country-path {
-  fill: rgba(0, 47, 95, 0.45);
-  stroke: rgba(0, 120, 255, 0.3);
-  stroke-width: 0.3;
+  fill: rgba(0, 47, 95, 0.5);
+  stroke: rgba(0, 120, 255, 0.35);
+  stroke-width: 0.5;
   stroke-linejoin: round;
 }
 
 .country-path.emphasis {
-  stroke: rgba(0, 180, 255, 0.6);
-  stroke-width: 0.45;
-  fill: rgba(0, 47, 95, 0.55);
+  stroke: rgba(0, 180, 255, 0.75);
+  stroke-width: 1;
+  fill: rgba(0, 47, 95, 0.6);
 }
 
 .city-dot {
@@ -332,28 +332,29 @@ p  { font-size: 1rem; color: var(--text-secondary); }
 .city-pulse {
   fill: none;
   stroke: #d7294a;
-  stroke-width: 0.15;
+  stroke-width: 1;
   animation: cityPulse 2s ease-out infinite;
 }
 
 @keyframes cityPulse {
-  0% { r: 0.35; opacity: 0.8; }
-  100% { r: 1.4; opacity: 0; }
+  0% { r: 3; opacity: 0.8; }
+  100% { r: 14; opacity: 0; }
 }
 
 .city-label {
   font-family: 'Inter', sans-serif;
-  font-size: 1px;
+  font-size: 10px;
   fill: rgba(255, 255, 255, 0.7);
   font-weight: 600;
 }
 
 .arc-path {
-  animation: dashMove 3s linear infinite;
+  stroke-dasharray: 6 4;
+  animation: dashMove 2s linear infinite;
 }
 
 @keyframes dashMove {
-  to { stroke-dashoffset: -4; }
+  to { stroke-dashoffset: -20; }
 }
 
 .europe-scanline {

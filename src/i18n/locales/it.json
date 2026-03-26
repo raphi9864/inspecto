@@ -320,5 +320,101 @@
       "procurement": "ACQUISTI",
       "engineering": "INGEGNERIA"
     }
+  },
+
+  "messages": {
+    "title": "Messaggi",
+    "newMessage": "Nuovo messaggio",
+    "filters": "Filtri",
+    "search": "Cerca",
+    "dateFrom": "Da",
+    "dateTo": "A",
+    "resetFilters": "Reimposta",
+    "results": "risultato/i",
+    "columns": {
+      "object": "Oggetto",
+      "sentBy": "Inviato da",
+      "recipients": "Destinatari",
+      "message": "Messaggio",
+      "date": "Data",
+      "replies": "Risposte",
+      "actions": "Azioni"
+    },
+    "users": "utenti",
+    "endOfList": "Fine della lista",
+    "modal": {
+      "createTitle": "Nuovo messaggio",
+      "viewTitle": "Visualizza messaggio",
+      "object": "Oggetto",
+      "objectPlaceholder": "Oggetto del messaggio",
+      "recipients": "Destinatari",
+      "recipientsInfo": "È richiesto almeno un destinatario interno o esterno",
+      "sendTo": "Invia a",
+      "externalEmails": "Email esterne",
+      "attachments": "Allegati",
+      "maxSize": "Dimensione max: 25 MB",
+      "message": "Messaggio",
+      "replies": "Risposte",
+      "send": "Invia",
+      "cancel": "Annulla",
+      "close": "Chiudi"
+    },
+    "delete": {
+      "confirm": "Eliminare questo messaggio?",
+      "yes": "Conferma",
+      "no": "Annulla"
+    }
+  },
+  "expiringFiles": {
+    "title": "File — Scadenze",
+    "filters": "Filtri",
+    "search": "Cerca",
+    "dateFrom": "Data di scadenza (da)",
+    "dateTo": "Data di scadenza (a)",
+    "resetFilters": "Reimposta",
+    "results": "risultato/i",
+    "filterAll": "TUTTI",
+    "filter7": "<= 7 g",
+    "filterExpired": "SCADUTO",
+    "columns": {
+      "name": "Nome",
+      "folder": "Cartella | Cartelle",
+      "expirationDate": "Data di scadenza",
+      "daysLeft": "Giorni rimanenti",
+      "createdAt": "Creato il",
+      "sentBy": "Inviato da",
+      "actions": "Azioni"
+    },
+    "endOfList": "Fine della lista",
+    "expired": "SCADUTO",
+    "daysLeft": "g",
+    "modal": {
+      "expirationTitle": "Data di scadenza",
+      "expirationSubtitle": "Scegli la nuova data di scadenza per questo file",
+      "cancel": "Annulla",
+      "confirm": "Conferma",
+      "viewTitle": "Visualizzazione documento"
+    },
+    "delete": {
+      "confirm": "Eliminare questo file?",
+      "yes": "Conferma",
+      "no": "Annulla"
+    }
+  },
+  "documentation": {
+    "title": "Cartelle",
+    "search": "Cerca",
+    "dossierCreation": "Creazione dossier",
+    "selectFolder": "Seleziona una cartella",
+    "columns": { "files": "File", "tags": "Tag", "date": "Data", "actions": "Azioni" },
+    "actions": { "rename": "Rinomina", "expiration": "Data di scadenza", "detail": "Dettaglio", "view": "Visualizza", "ai": "Analizza con IA", "download": "Scarica", "move": "Sposta", "delete": "Elimina", "cancel": "Annulla", "save": "Salva", "move_confirm": "Sposta" },
+    "rename": { "title": "Rinomina file", "label": "Nome" },
+    "expiration": { "title": "Data di scadenza", "subtitle": "Impostare la data di validità del documento", "label": "Data di scadenza" },
+    "move": { "title": "Sposta in" },
+    "download": { "pdf": "PDF", "word": "Word" },
+    "delete": { "confirm": "Eliminare questo file?", "yes": "Conferma", "no": "Annulla" },
+    "newFolder": "Nuova cartella",
+    "endOfList": "Fine della lista",
+    "reportBuilder": { "title": "Report Builder", "subtitle": "Seleziona i file da includere nel report", "titleField": "Titolo", "subtitleField": "Sottotitolo", "image": "Immagine illustrativa", "isCorrection": "È una correzione di un report precedente?", "signatureLoop": "Ciclo di firma?", "displayTitles": "Mostrare i titoli prima di ogni sezione?", "createReport": "CREA REPORT" }
   }
 }
