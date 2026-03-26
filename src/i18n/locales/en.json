@@ -303,5 +303,106 @@
     "resolutionTime": "Resolution time (days)", "detectionTime": "Detection time (days)"
   },
 
-  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" }
+  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" },
+
+  "data": {
+    "status": {
+      "opened": "Opened",
+      "overdue": "Overdue",
+      "pending": "Pending",
+      "closed": "Closed",
+      "ongoing": "Ongoing",
+      "archived": "Archived"
+    },
+    "months": {
+      "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr",
+      "may": "May", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+      "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dec"
+    },
+    "overview": {
+      "projects": "Projects",
+      "inspectionsAudits": "Inspections / Audits",
+      "ncFindings": "Non-conformities / Findings",
+      "actions": "Actions",
+      "ongoingArchived": "Ongoing / Archived",
+      "openedPendingOverdueClosed": "Opened / Pending / Overdue / Closed"
+    },
+    "gantt": {
+      "engineeringDesign": "Engineering & Design",
+      "materialProcurement": "Material Procurement",
+      "fabricationPhase1": "Fabrication Phase 1",
+      "qualityInspections": "Quality Inspections",
+      "fabricationPhase2": "Fabrication Phase 2",
+      "assemblyIntegration": "Assembly & Integration",
+      "finalTestingValidation": "Final Testing & Validation",
+      "supplierQualification": "Supplier Qualification",
+      "incomingMaterialAudit": "Incoming Material Audit",
+      "productionMonitoring": "Production Monitoring",
+      "inProcessInspection": "In-Process Inspection",
+      "finalProductAudit": "Final Product Audit",
+      "certificationDelivery": "Certification & Delivery",
+      "fuselageStructure": "Fuselage Structure",
+      "wingAssembly": "Wing Assembly",
+      "avionicsIntegration": "Avionics Integration",
+      "landingGearInstallation": "Landing Gear Installation",
+      "engineMountTesting": "Engine Mount & Testing",
+      "flightTestPreparation": "Flight Test Preparation",
+      "certificationDocs": "Certification Docs",
+      "coreLamination": "Core Lamination",
+      "windingProcess": "Winding Process",
+      "insulationTesting": "Insulation Testing",
+      "assemblyOfStator": "Assembly of Stator",
+      "highVoltageTesting": "High Voltage Testing",
+      "paintingFinishing": "Painting & Finishing",
+      "customerAcceptanceTest": "Customer Acceptance Test",
+      "pressureVesselDesign": "Pressure Vessel Design",
+      "steelPlateProcurement": "Steel Plate Procurement",
+      "shellHeadForming": "Shell & Head Forming",
+      "weldingNDE": "Welding & NDE",
+      "heatTreatment": "Heat Treatment",
+      "hydrostaticTesting": "Hydrostatic Testing",
+      "insulationDelivery": "Insulation & Delivery",
+      "equipmentInventoryAudit": "Equipment Inventory Audit",
+      "preventiveMaintenancePlan": "Preventive Maintenance Plan",
+      "correctiveInterventions": "Corrective Interventions",
+      "sparePartsProcurement": "Spare Parts Procurement",
+      "workshopSafetyInspection": "Workshop Safety Inspection",
+      "finalReportDocumentation": "Final Report & Documentation",
+      "castIronSourcing": "Cast Iron Sourcing",
+      "caliperMachining": "Caliper Machining",
+      "frictionPadProduction": "Friction Pad Production",
+      "hydraulicUnitAssembly": "Hydraulic Unit Assembly",
+      "brakeSystemIntegration": "Brake System Integration",
+      "dynamometerTesting": "Dynamometer Testing",
+      "homologationShipping": "Homologation & Shipping",
+      "documentReview": "Document Review",
+      "onSiteAuditWeek1": "On-Site Audit Week 1",
+      "onSiteAuditWeek2": "On-Site Audit Week 2",
+      "nonConformityResolution": "Non-Conformity Resolution",
+      "correctiveActionFollowUp": "Corrective Action Follow-Up",
+      "finalReportCertification": "Final Report & Certification",
+      "designReview": "Design review",
+      "finalAudit": "Final audit",
+      "fabricationOversight": "Fabrication oversight",
+      "qualityControl": "Quality control",
+      "ncResolution": "NC resolution",
+      "weldingInspection": "Welding inspection",
+      "testing": "Testing",
+      "assemblySupport": "Assembly support"
+    },
+    "inspectionNames": {
+      "bearingVerification": "Bearing verification",
+      "managementAudit": "Management audit"
+    },
+    "taskTitles": {
+      "steelPlates": "Steel plates",
+      "weldingSpecification": "Welding specification",
+      "dishedHeads": "Dished heads",
+      "inspectionControlPlan": "Inspection and control plan"
+    },
+    "activityNames": {
+      "procurement": "PROCUREMENT",
+      "engineering": "ENGINEERING"
+    }
+  }
 }

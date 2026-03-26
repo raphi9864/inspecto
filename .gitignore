@@ -4,9 +4,9 @@ dist/
 .vercel/
 
 # Legacy files (vanilla JS, no longer used)
-css/
-js/
-pages/
+/css/
+/js/
+/pages/
 
 # Exploration / temp
 exploration/

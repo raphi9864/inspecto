@@ -219,5 +219,106 @@
     "complianceRadar": "Radar de conformidad",
     "resolutionTime": "Tiempo de resolución (días)", "detectionTime": "Tiempo de detección (días)"
   },
-  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" }
+  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" },
+
+  "data": {
+    "status": {
+      "opened": "Abierto",
+      "overdue": "Vencido",
+      "pending": "Pendiente",
+      "closed": "Cerrado",
+      "ongoing": "En curso",
+      "archived": "Archivado"
+    },
+    "months": {
+      "jan": "Ene", "feb": "Feb", "mar": "Mar", "apr": "Abr",
+      "may": "May", "jun": "Jun", "jul": "Jul", "aug": "Ago",
+      "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dic"
+    },
+    "overview": {
+      "projects": "Proyectos",
+      "inspectionsAudits": "Inspecciones / Auditorías",
+      "ncFindings": "No conformidades / Hallazgos",
+      "actions": "Acciones",
+      "ongoingArchived": "En curso / Archivado",
+      "openedPendingOverdueClosed": "Abierto / Pendiente / Vencido / Cerrado"
+    },
+    "gantt": {
+      "engineeringDesign": "Ingeniería y diseño",
+      "materialProcurement": "Aprovisionamiento de materiales",
+      "fabricationPhase1": "Fabricación Fase 1",
+      "qualityInspections": "Inspecciones de calidad",
+      "fabricationPhase2": "Fabricación Fase 2",
+      "assemblyIntegration": "Ensamblaje e integración",
+      "finalTestingValidation": "Pruebas finales y validación",
+      "supplierQualification": "Calificación de proveedor",
+      "incomingMaterialAudit": "Auditoría materiales entrantes",
+      "productionMonitoring": "Seguimiento de producción",
+      "inProcessInspection": "Inspección en proceso",
+      "finalProductAudit": "Auditoría producto final",
+      "certificationDelivery": "Certificación y entrega",
+      "fuselageStructure": "Estructura del fuselaje",
+      "wingAssembly": "Ensamblaje de ala",
+      "avionicsIntegration": "Integración aviónica",
+      "landingGearInstallation": "Instalación tren de aterrizaje",
+      "engineMountTesting": "Montaje motor y pruebas",
+      "flightTestPreparation": "Preparación pruebas de vuelo",
+      "certificationDocs": "Documentos de certificación",
+      "coreLamination": "Laminación del núcleo",
+      "windingProcess": "Proceso de bobinado",
+      "insulationTesting": "Pruebas de aislamiento",
+      "assemblyOfStator": "Ensamblaje del estator",
+      "highVoltageTesting": "Pruebas de alta tensión",
+      "paintingFinishing": "Pintura y acabado",
+      "customerAcceptanceTest": "Prueba de aceptación del cliente",
+      "pressureVesselDesign": "Diseño recipiente a presión",
+      "steelPlateProcurement": "Aprovisionamiento chapas",
+      "shellHeadForming": "Conformado virola y fondos",
+      "weldingNDE": "Soldadura y END",
+      "heatTreatment": "Tratamiento térmico",
+      "hydrostaticTesting": "Prueba hidrostática",
+      "insulationDelivery": "Aislamiento y entrega",
+      "equipmentInventoryAudit": "Auditoría inventario equipos",
+      "preventiveMaintenancePlan": "Plan mantenimiento preventivo",
+      "correctiveInterventions": "Intervenciones correctivas",
+      "sparePartsProcurement": "Aprovisionamiento repuestos",
+      "workshopSafetyInspection": "Inspección seguridad taller",
+      "finalReportDocumentation": "Informe final y documentación",
+      "castIronSourcing": "Aprovisionamiento fundición",
+      "caliperMachining": "Mecanizado de pinza",
+      "frictionPadProduction": "Producción pastillas de freno",
+      "hydraulicUnitAssembly": "Ensamblaje unidad hidráulica",
+      "brakeSystemIntegration": "Integración sistema de frenos",
+      "dynamometerTesting": "Pruebas en dinamómetro",
+      "homologationShipping": "Homologación y envío",
+      "documentReview": "Revisión documental",
+      "onSiteAuditWeek1": "Auditoría en sitio – Semana 1",
+      "onSiteAuditWeek2": "Auditoría en sitio – Semana 2",
+      "nonConformityResolution": "Resolución no conformidades",
+      "correctiveActionFollowUp": "Seguimiento acciones correctivas",
+      "finalReportCertification": "Informe final y certificación",
+      "designReview": "Revisión de diseño",
+      "finalAudit": "Auditoría final",
+      "fabricationOversight": "Supervisión fabricación",
+      "qualityControl": "Control de calidad",
+      "ncResolution": "Resolución NC",
+      "weldingInspection": "Inspección de soldadura",
+      "testing": "Pruebas",
+      "assemblySupport": "Soporte ensamblaje"
+    },
+    "inspectionNames": {
+      "bearingVerification": "Verificación cojinete",
+      "managementAudit": "Auditoría de dirección"
+    },
+    "taskTitles": {
+      "steelPlates": "Chapas de acero",
+      "weldingSpecification": "Especificación de soldadura",
+      "dishedHeads": "Fondos abombados",
+      "inspectionControlPlan": "Plan de inspección y control"
+    },
+    "activityNames": {
+      "procurement": "COMPRAS",
+      "engineering": "INGENIERÍA"
+    }
+  }
 }

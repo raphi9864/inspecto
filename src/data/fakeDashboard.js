@@ -1,9 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════
    Per-project dashboard data — each project has unique KPI,
-   detail, Gantt, inspections and activity data
+   detail, Gantt, inspections and activity data.
+   i18n: call getProjectData(projectId, t) with the i18next t function.
    ═══════════════════════════════════════════════════════════════ */
 
-export const PROJECT_DATA = {
+const PROJECT_DATA = {
   /* ─── 1. Fabrication moteur HT ─── */
   1: {
     kpi: {
@@ -11,28 +12,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 11,
         breakdown: [
-          { label: "Opened", count: 0,  color: "#38a169" },
-          { label: "Overdue", count: 2, color: "#CC0000" },
-          { label: "Pending", count: 9, color: "#dd6b20" },
-          { label: "Closed",  count: 0, color: "#718096" },
+          { statusKey: "opened",  count: 0,  color: "#38a169" },
+          { statusKey: "overdue", count: 2,  color: "#CC0000" },
+          { statusKey: "pending", count: 9,  color: "#dd6b20" },
+          { statusKey: "closed",  count: 0,  color: "#718096" },
         ]
       },
       inspections: {
         total: 143,
         breakdown: [
-          { label: "Opened",  count: 2,   color: "#38a169" },
-          { label: "Pending", count: 38,  color: "#dd6b20" },
-          { label: "Overdue", count: 141, color: "#CC0000" },
-          { label: "Closed",  count: 11,  color: "#718096" },
+          { statusKey: "opened",  count: 2,   color: "#38a169" },
+          { statusKey: "pending", count: 38,  color: "#dd6b20" },
+          { statusKey: "overdue", count: 141, color: "#CC0000" },
+          { statusKey: "closed",  count: 11,  color: "#718096" },
         ]
       },
       findings: {
         total: 42,
         breakdown: [
-          { label: "Opened",  count: 4,  color: "#38a169" },
-          { label: "Pending", count: 34, color: "#dd6b20" },
-          { label: "Overdue", count: 0,  color: "#CC0000" },
-          { label: "Closed",  count: 4,  color: "#718096" },
+          { statusKey: "opened",  count: 4,  color: "#38a169" },
+          { statusKey: "pending", count: 34, color: "#dd6b20" },
+          { statusKey: "overdue", count: 0,  color: "#CC0000" },
+          { statusKey: "closed",  count: 4,  color: "#718096" },
         ]
       },
     },
@@ -41,18 +42,18 @@ export const PROJECT_DATA = {
       startDate: "08-09-2024",
       endDate: "08-09-2025",
       image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=300&fit=crop",
-      currentActivity: { label: "INSPECTION-1", status: "Overdue", date: "September 8, 2024 — September 20, 2024" },
+      currentActivity: { label: "INSPECTION-1", statusKey: "overdue", date: "September 8, 2024 — September 20, 2024" },
     },
     gantt: [
-      { id: 1, label: "Engineering & Design",       start: 0,  duration: 3,  progress: 100, color: "#2ea3f2" },
-      { id: 2, label: "Material Procurement",       start: 1,  duration: 4,  progress: 85,  color: "#38a169" },
-      { id: 3, label: "Fabrication Phase 1",        start: 3,  duration: 3,  progress: 60,  color: "#dd6b20" },
-      { id: 4, label: "Quality Inspections",        start: 4,  duration: 5,  progress: 30,  color: "#CC0000" },
-      { id: 5, label: "Fabrication Phase 2",        start: 6,  duration: 3,  progress: 10,  color: "#805ad5" },
-      { id: 6, label: "Assembly & Integration",     start: 8,  duration: 2,  progress: 0,   color: "#00897b" },
-      { id: 7, label: "Final Testing & Validation", start: 9,  duration: 3,  progress: 0,   color: "#e53e3e" },
+      { id: 1, labelKey: "engineeringDesign",       start: 0,  duration: 3,  progress: 100, color: "#2ea3f2" },
+      { id: 2, labelKey: "materialProcurement",      start: 1,  duration: 4,  progress: 85,  color: "#38a169" },
+      { id: 3, labelKey: "fabricationPhase1",         start: 3,  duration: 3,  progress: 60,  color: "#dd6b20" },
+      { id: 4, labelKey: "qualityInspections",        start: 4,  duration: 5,  progress: 30,  color: "#CC0000" },
+      { id: 5, labelKey: "fabricationPhase2",         start: 6,  duration: 3,  progress: 10,  color: "#805ad5" },
+      { id: 6, labelKey: "assemblyIntegration",       start: 8,  duration: 2,  progress: 0,   color: "#00897b" },
+      { id: 7, labelKey: "finalTestingValidation",    start: 9,  duration: 3,  progress: 0,   color: "#e53e3e" },
     ],
-    months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    months: ["sep", "oct", "nov", "dec", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep"],
   },
 
   /* ─── 2. Jupiter Bach ─── */
@@ -62,28 +63,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 5,
         breakdown: [
-          { label: "Opened", count: 1,  color: "#38a169" },
-          { label: "Overdue", count: 0, color: "#CC0000" },
-          { label: "Pending", count: 2, color: "#dd6b20" },
-          { label: "Closed",  count: 2, color: "#718096" },
+          { statusKey: "opened",  count: 1, color: "#38a169" },
+          { statusKey: "overdue", count: 0, color: "#CC0000" },
+          { statusKey: "pending", count: 2, color: "#dd6b20" },
+          { statusKey: "closed",  count: 2, color: "#718096" },
         ]
       },
       inspections: {
         total: 64,
         breakdown: [
-          { label: "Opened",  count: 5,  color: "#38a169" },
-          { label: "Pending", count: 12, color: "#dd6b20" },
-          { label: "Overdue", count: 8,  color: "#CC0000" },
-          { label: "Closed",  count: 39, color: "#718096" },
+          { statusKey: "opened",  count: 5,  color: "#38a169" },
+          { statusKey: "pending", count: 12, color: "#dd6b20" },
+          { statusKey: "overdue", count: 8,  color: "#CC0000" },
+          { statusKey: "closed",  count: 39, color: "#718096" },
         ]
       },
       findings: {
         total: 18,
         breakdown: [
-          { label: "Opened",  count: 2,  color: "#38a169" },
-          { label: "Pending", count: 5,  color: "#dd6b20" },
-          { label: "Overdue", count: 1,  color: "#CC0000" },
-          { label: "Closed",  count: 10, color: "#718096" },
+          { statusKey: "opened",  count: 2,  color: "#38a169" },
+          { statusKey: "pending", count: 5,  color: "#dd6b20" },
+          { statusKey: "overdue", count: 1,  color: "#CC0000" },
+          { statusKey: "closed",  count: 10, color: "#718096" },
         ]
       },
     },
@@ -92,17 +93,17 @@ export const PROJECT_DATA = {
       startDate: "15-01-2025",
       endDate: "15-01-2026",
       image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=300&fit=crop",
-      currentActivity: { label: "AUDIT-FOURNISSEUR-3", status: "Pending", date: "March 1, 2025 — March 15, 2025" },
+      currentActivity: { label: "AUDIT-FOURNISSEUR-3", statusKey: "pending", date: "March 1, 2025 — March 15, 2025" },
     },
     gantt: [
-      { id: 1, label: "Supplier Qualification",  start: 0, duration: 2,  progress: 100, color: "#38a169" },
-      { id: 2, label: "Incoming Material Audit",  start: 1, duration: 3,  progress: 100, color: "#2ea3f2" },
-      { id: 3, label: "Production Monitoring",    start: 3, duration: 5,  progress: 80,  color: "#dd6b20" },
-      { id: 4, label: "In-Process Inspection",    start: 4, duration: 4,  progress: 65,  color: "#CC0000" },
-      { id: 5, label: "Final Product Audit",      start: 8, duration: 2,  progress: 20,  color: "#805ad5" },
-      { id: 6, label: "Certification & Delivery", start: 10, duration: 2, progress: 0,   color: "#00897b" },
+      { id: 1, labelKey: "supplierQualification",   start: 0,  duration: 2,  progress: 100, color: "#38a169" },
+      { id: 2, labelKey: "incomingMaterialAudit",    start: 1,  duration: 3,  progress: 100, color: "#2ea3f2" },
+      { id: 3, labelKey: "productionMonitoring",     start: 3,  duration: 5,  progress: 80,  color: "#dd6b20" },
+      { id: 4, labelKey: "inProcessInspection",      start: 4,  duration: 4,  progress: 65,  color: "#CC0000" },
+      { id: 5, labelKey: "finalProductAudit",        start: 8,  duration: 2,  progress: 20,  color: "#805ad5" },
+      { id: 6, labelKey: "certificationDelivery",    start: 10, duration: 2,  progress: 0,   color: "#00897b" },
     ],
-    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"],
+    months: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan"],
   },
 
   /* ─── 3. Pilatus PC21 — Projet Raphy ─── */
@@ -112,28 +113,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 23,
         breakdown: [
-          { label: "Opened", count: 8,  color: "#38a169" },
-          { label: "Overdue", count: 5, color: "#CC0000" },
-          { label: "Pending", count: 10, color: "#dd6b20" },
-          { label: "Closed",  count: 0,  color: "#718096" },
+          { statusKey: "opened",  count: 8,  color: "#38a169" },
+          { statusKey: "overdue", count: 5,  color: "#CC0000" },
+          { statusKey: "pending", count: 10, color: "#dd6b20" },
+          { statusKey: "closed",  count: 0,  color: "#718096" },
         ]
       },
       inspections: {
         total: 87,
         breakdown: [
-          { label: "Opened",  count: 12, color: "#38a169" },
-          { label: "Pending", count: 45, color: "#dd6b20" },
-          { label: "Overdue", count: 28, color: "#CC0000" },
-          { label: "Closed",  count: 2,  color: "#718096" },
+          { statusKey: "opened",  count: 12, color: "#38a169" },
+          { statusKey: "pending", count: 45, color: "#dd6b20" },
+          { statusKey: "overdue", count: 28, color: "#CC0000" },
+          { statusKey: "closed",  count: 2,  color: "#718096" },
         ]
       },
       findings: {
         total: 31,
         breakdown: [
-          { label: "Opened",  count: 9,  color: "#38a169" },
-          { label: "Pending", count: 18, color: "#dd6b20" },
-          { label: "Overdue", count: 4,  color: "#CC0000" },
-          { label: "Closed",  count: 0,  color: "#718096" },
+          { statusKey: "opened",  count: 9,  color: "#38a169" },
+          { statusKey: "pending", count: 18, color: "#dd6b20" },
+          { statusKey: "overdue", count: 4,  color: "#CC0000" },
+          { statusKey: "closed",  count: 0,  color: "#718096" },
         ]
       },
     },
@@ -142,18 +143,18 @@ export const PROJECT_DATA = {
       startDate: "01-03-2026",
       endDate: "01-03-2027",
       image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=600&h=300&fit=crop",
-      currentActivity: { label: "WING-ASSEMBLY-2", status: "Overdue", date: "April 10, 2026 — May 28, 2026" },
+      currentActivity: { label: "WING-ASSEMBLY-2", statusKey: "overdue", date: "April 10, 2026 — May 28, 2026" },
     },
     gantt: [
-      { id: 1, label: "Fuselage Structure",       start: 0, duration: 4,  progress: 30,  color: "#CC0000" },
-      { id: 2, label: "Wing Assembly",             start: 2, duration: 5,  progress: 15,  color: "#2ea3f2" },
-      { id: 3, label: "Avionics Integration",      start: 4, duration: 3,  progress: 0,   color: "#805ad5" },
-      { id: 4, label: "Landing Gear Installation", start: 5, duration: 2,  progress: 0,   color: "#dd6b20" },
-      { id: 5, label: "Engine Mount & Testing",    start: 7, duration: 3,  progress: 0,   color: "#38a169" },
-      { id: 6, label: "Flight Test Preparation",   start: 9, duration: 2,  progress: 0,   color: "#e53e3e" },
-      { id: 7, label: "Certification Docs",        start: 10, duration: 2, progress: 0,   color: "#00897b" },
+      { id: 1, labelKey: "fuselageStructure",        start: 0,  duration: 4,  progress: 30,  color: "#CC0000" },
+      { id: 2, labelKey: "wingAssembly",              start: 2,  duration: 5,  progress: 15,  color: "#2ea3f2" },
+      { id: 3, labelKey: "avionicsIntegration",       start: 4,  duration: 3,  progress: 0,   color: "#805ad5" },
+      { id: 4, labelKey: "landingGearInstallation",   start: 5,  duration: 2,  progress: 0,   color: "#dd6b20" },
+      { id: 5, labelKey: "engineMountTesting",        start: 7,  duration: 3,  progress: 0,   color: "#38a169" },
+      { id: 6, labelKey: "flightTestPreparation",     start: 9,  duration: 2,  progress: 0,   color: "#e53e3e" },
+      { id: 7, labelKey: "certificationDocs",         start: 10, duration: 2,  progress: 0,   color: "#00897b" },
     ],
-    months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
+    months: ["mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"],
   },
 
   /* ─── 4. ABB France — Pièce N2 ─── */
@@ -163,28 +164,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 8,
         breakdown: [
-          { label: "Opened", count: 0,  color: "#38a169" },
-          { label: "Overdue", count: 1, color: "#CC0000" },
-          { label: "Pending", count: 3, color: "#dd6b20" },
-          { label: "Closed",  count: 4, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "overdue", count: 1, color: "#CC0000" },
+          { statusKey: "pending", count: 3, color: "#dd6b20" },
+          { statusKey: "closed",  count: 4, color: "#718096" },
         ]
       },
       inspections: {
         total: 52,
         breakdown: [
-          { label: "Opened",  count: 0,  color: "#38a169" },
-          { label: "Pending", count: 7,  color: "#dd6b20" },
-          { label: "Overdue", count: 14, color: "#CC0000" },
-          { label: "Closed",  count: 31, color: "#718096" },
+          { statusKey: "opened",  count: 0,  color: "#38a169" },
+          { statusKey: "pending", count: 7,  color: "#dd6b20" },
+          { statusKey: "overdue", count: 14, color: "#CC0000" },
+          { statusKey: "closed",  count: 31, color: "#718096" },
         ]
       },
       findings: {
         total: 9,
         breakdown: [
-          { label: "Opened",  count: 0, color: "#38a169" },
-          { label: "Pending", count: 2, color: "#dd6b20" },
-          { label: "Overdue", count: 1, color: "#CC0000" },
-          { label: "Closed",  count: 6, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "pending", count: 2, color: "#dd6b20" },
+          { statusKey: "overdue", count: 1, color: "#CC0000" },
+          { statusKey: "closed",  count: 6, color: "#718096" },
         ]
       },
     },
@@ -193,18 +194,18 @@ export const PROJECT_DATA = {
       startDate: "12-06-2024",
       endDate: "12-06-2025",
       image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=300&fit=crop",
-      currentActivity: { label: "WINDING-INSP-4", status: "Pending", date: "January 5, 2025 — February 12, 2025" },
+      currentActivity: { label: "WINDING-INSP-4", statusKey: "pending", date: "January 5, 2025 — February 12, 2025" },
     },
     gantt: [
-      { id: 1, label: "Core Lamination",         start: 0, duration: 3,  progress: 100, color: "#805ad5" },
-      { id: 2, label: "Winding Process",          start: 2, duration: 4,  progress: 90,  color: "#2ea3f2" },
-      { id: 3, label: "Insulation Testing",       start: 4, duration: 2,  progress: 60,  color: "#dd6b20" },
-      { id: 4, label: "Assembly of Stator",       start: 5, duration: 3,  progress: 40,  color: "#38a169" },
-      { id: 5, label: "High Voltage Testing",     start: 7, duration: 2,  progress: 10,  color: "#CC0000" },
-      { id: 6, label: "Painting & Finishing",     start: 9, duration: 2,  progress: 0,   color: "#00897b" },
-      { id: 7, label: "Customer Acceptance Test", start: 10, duration: 2, progress: 0,   color: "#e53e3e" },
+      { id: 1, labelKey: "coreLamination",           start: 0,  duration: 3,  progress: 100, color: "#805ad5" },
+      { id: 2, labelKey: "windingProcess",            start: 2,  duration: 4,  progress: 90,  color: "#2ea3f2" },
+      { id: 3, labelKey: "insulationTesting",         start: 4,  duration: 2,  progress: 60,  color: "#dd6b20" },
+      { id: 4, labelKey: "assemblyOfStator",          start: 5,  duration: 3,  progress: 40,  color: "#38a169" },
+      { id: 5, labelKey: "highVoltageTesting",        start: 7,  duration: 2,  progress: 10,  color: "#CC0000" },
+      { id: 6, labelKey: "paintingFinishing",         start: 9,  duration: 2,  progress: 0,   color: "#00897b" },
+      { id: 7, labelKey: "customerAcceptanceTest",    start: 10, duration: 2,  progress: 0,   color: "#e53e3e" },
     ],
-    months: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    months: ["jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar", "apr", "may", "jun"],
   },
 
   /* ─── 5. Transformateur de vapeur ─── */
@@ -214,28 +215,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 19,
         breakdown: [
-          { label: "Opened", count: 6,  color: "#38a169" },
-          { label: "Overdue", count: 3, color: "#CC0000" },
-          { label: "Pending", count: 8, color: "#dd6b20" },
-          { label: "Closed",  count: 2, color: "#718096" },
+          { statusKey: "opened",  count: 6, color: "#38a169" },
+          { statusKey: "overdue", count: 3, color: "#CC0000" },
+          { statusKey: "pending", count: 8, color: "#dd6b20" },
+          { statusKey: "closed",  count: 2, color: "#718096" },
         ]
       },
       inspections: {
         total: 38,
         breakdown: [
-          { label: "Opened",  count: 10, color: "#38a169" },
-          { label: "Pending", count: 18, color: "#dd6b20" },
-          { label: "Overdue", count: 7,  color: "#CC0000" },
-          { label: "Closed",  count: 3,  color: "#718096" },
+          { statusKey: "opened",  count: 10, color: "#38a169" },
+          { statusKey: "pending", count: 18, color: "#dd6b20" },
+          { statusKey: "overdue", count: 7,  color: "#CC0000" },
+          { statusKey: "closed",  count: 3,  color: "#718096" },
         ]
       },
       findings: {
         total: 14,
         breakdown: [
-          { label: "Opened",  count: 5, color: "#38a169" },
-          { label: "Pending", count: 7, color: "#dd6b20" },
-          { label: "Overdue", count: 2, color: "#CC0000" },
-          { label: "Closed",  count: 0, color: "#718096" },
+          { statusKey: "opened",  count: 5, color: "#38a169" },
+          { statusKey: "pending", count: 7, color: "#dd6b20" },
+          { statusKey: "overdue", count: 2, color: "#CC0000" },
+          { statusKey: "closed",  count: 0, color: "#718096" },
         ]
       },
     },
@@ -244,18 +245,18 @@ export const PROJECT_DATA = {
       startDate: "26-01-2026",
       endDate: "26-01-2027",
       image: "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&h=300&fit=crop",
-      currentActivity: { label: "VESSEL-WELDING-1", status: "Overdue", date: "March 15, 2026 — April 30, 2026" },
+      currentActivity: { label: "VESSEL-WELDING-1", statusKey: "overdue", date: "March 15, 2026 — April 30, 2026" },
     },
     gantt: [
-      { id: 1, label: "Pressure Vessel Design",     start: 0, duration: 3,  progress: 50,  color: "#dd6b20" },
-      { id: 2, label: "Steel Plate Procurement",     start: 1, duration: 3,  progress: 30,  color: "#38a169" },
-      { id: 3, label: "Shell & Head Forming",        start: 3, duration: 4,  progress: 10,  color: "#2ea3f2" },
-      { id: 4, label: "Welding & NDE",               start: 4, duration: 5,  progress: 0,   color: "#CC0000" },
-      { id: 5, label: "Heat Treatment",              start: 8, duration: 2,  progress: 0,   color: "#805ad5" },
-      { id: 6, label: "Hydrostatic Testing",         start: 9, duration: 2,  progress: 0,   color: "#00897b" },
-      { id: 7, label: "Insulation & Delivery",       start: 10, duration: 2, progress: 0,   color: "#e53e3e" },
+      { id: 1, labelKey: "pressureVesselDesign",     start: 0,  duration: 3,  progress: 50,  color: "#dd6b20" },
+      { id: 2, labelKey: "steelPlateProcurement",     start: 1,  duration: 3,  progress: 30,  color: "#38a169" },
+      { id: 3, labelKey: "shellHeadForming",           start: 3,  duration: 4,  progress: 10,  color: "#2ea3f2" },
+      { id: 4, labelKey: "weldingNDE",                 start: 4,  duration: 5,  progress: 0,   color: "#CC0000" },
+      { id: 5, labelKey: "heatTreatment",              start: 8,  duration: 2,  progress: 0,   color: "#805ad5" },
+      { id: 6, labelKey: "hydrostaticTesting",         start: 9,  duration: 2,  progress: 0,   color: "#00897b" },
+      { id: 7, labelKey: "insulationDelivery",         start: 10, duration: 2,  progress: 0,   color: "#e53e3e" },
     ],
-    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"],
+    months: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan"],
   },
 
   /* ─── 6. ALLIA — Maintenance EQUI ─── */
@@ -265,28 +266,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 3,
         breakdown: [
-          { label: "Opened", count: 0,  color: "#38a169" },
-          { label: "Overdue", count: 0, color: "#CC0000" },
-          { label: "Pending", count: 1, color: "#dd6b20" },
-          { label: "Closed",  count: 2, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "overdue", count: 0, color: "#CC0000" },
+          { statusKey: "pending", count: 1, color: "#dd6b20" },
+          { statusKey: "closed",  count: 2, color: "#718096" },
         ]
       },
       inspections: {
         total: 156,
         breakdown: [
-          { label: "Opened",  count: 0,   color: "#38a169" },
-          { label: "Pending", count: 4,   color: "#dd6b20" },
-          { label: "Overdue", count: 12,  color: "#CC0000" },
-          { label: "Closed",  count: 140, color: "#718096" },
+          { statusKey: "opened",  count: 0,   color: "#38a169" },
+          { statusKey: "pending", count: 4,   color: "#dd6b20" },
+          { statusKey: "overdue", count: 12,  color: "#CC0000" },
+          { statusKey: "closed",  count: 140, color: "#718096" },
         ]
       },
       findings: {
         total: 7,
         breakdown: [
-          { label: "Opened",  count: 0, color: "#38a169" },
-          { label: "Pending", count: 1, color: "#dd6b20" },
-          { label: "Overdue", count: 0, color: "#CC0000" },
-          { label: "Closed",  count: 6, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "pending", count: 1, color: "#dd6b20" },
+          { statusKey: "overdue", count: 0, color: "#CC0000" },
+          { statusKey: "closed",  count: 6, color: "#718096" },
         ]
       },
     },
@@ -295,17 +296,17 @@ export const PROJECT_DATA = {
       startDate: "03-09-2025",
       endDate: "03-03-2026",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=300&fit=crop",
-      currentActivity: { label: "PREVENTIVE-MAINT-12", status: "Closed", date: "February 1, 2026 — February 15, 2026" },
+      currentActivity: { label: "PREVENTIVE-MAINT-12", statusKey: "closed", date: "February 1, 2026 — February 15, 2026" },
     },
     gantt: [
-      { id: 1, label: "Equipment Inventory Audit",      start: 0, duration: 2,  progress: 100, color: "#2d3748" },
-      { id: 2, label: "Preventive Maintenance Plan",    start: 1, duration: 3,  progress: 100, color: "#2ea3f2" },
-      { id: 3, label: "Corrective Interventions",       start: 2, duration: 4,  progress: 95,  color: "#CC0000" },
-      { id: 4, label: "Spare Parts Procurement",        start: 3, duration: 3,  progress: 90,  color: "#38a169" },
-      { id: 5, label: "Workshop Safety Inspection",     start: 5, duration: 2,  progress: 80,  color: "#dd6b20" },
-      { id: 6, label: "Final Report & Documentation",   start: 7, duration: 1,  progress: 50,  color: "#805ad5" },
+      { id: 1, labelKey: "equipmentInventoryAudit",     start: 0, duration: 2,  progress: 100, color: "#2d3748" },
+      { id: 2, labelKey: "preventiveMaintenancePlan",    start: 1, duration: 3,  progress: 100, color: "#2ea3f2" },
+      { id: 3, labelKey: "correctiveInterventions",      start: 2, duration: 4,  progress: 95,  color: "#CC0000" },
+      { id: 4, labelKey: "sparePartsProcurement",        start: 3, duration: 3,  progress: 90,  color: "#38a169" },
+      { id: 5, labelKey: "workshopSafetyInspection",     start: 5, duration: 2,  progress: 80,  color: "#dd6b20" },
+      { id: 6, labelKey: "finalReportDocumentation",     start: 7, duration: 1,  progress: 50,  color: "#805ad5" },
     ],
-    months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
+    months: ["sep", "oct", "nov", "dec", "jan", "feb", "mar"],
   },
 
   /* ─── 7. BRAKE manufacturing Alstom ─── */
@@ -315,28 +316,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 15,
         breakdown: [
-          { label: "Opened", count: 4,  color: "#38a169" },
-          { label: "Overdue", count: 3, color: "#CC0000" },
-          { label: "Pending", count: 6, color: "#dd6b20" },
-          { label: "Closed",  count: 2, color: "#718096" },
+          { statusKey: "opened",  count: 4, color: "#38a169" },
+          { statusKey: "overdue", count: 3, color: "#CC0000" },
+          { statusKey: "pending", count: 6, color: "#dd6b20" },
+          { statusKey: "closed",  count: 2, color: "#718096" },
         ]
       },
       inspections: {
         total: 72,
         breakdown: [
-          { label: "Opened",  count: 8,  color: "#38a169" },
-          { label: "Pending", count: 22, color: "#dd6b20" },
-          { label: "Overdue", count: 18, color: "#CC0000" },
-          { label: "Closed",  count: 24, color: "#718096" },
+          { statusKey: "opened",  count: 8,  color: "#38a169" },
+          { statusKey: "pending", count: 22, color: "#dd6b20" },
+          { statusKey: "overdue", count: 18, color: "#CC0000" },
+          { statusKey: "closed",  count: 24, color: "#718096" },
         ]
       },
       findings: {
         total: 28,
         breakdown: [
-          { label: "Opened",  count: 6,  color: "#38a169" },
-          { label: "Pending", count: 12, color: "#dd6b20" },
-          { label: "Overdue", count: 3,  color: "#CC0000" },
-          { label: "Closed",  count: 7,  color: "#718096" },
+          { statusKey: "opened",  count: 6,  color: "#38a169" },
+          { statusKey: "pending", count: 12, color: "#dd6b20" },
+          { statusKey: "overdue", count: 3,  color: "#CC0000" },
+          { statusKey: "closed",  count: 7,  color: "#718096" },
         ]
       },
     },
@@ -345,18 +346,18 @@ export const PROJECT_DATA = {
       startDate: "10-04-2025",
       endDate: "10-04-2026",
       image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&h=300&fit=crop",
-      currentActivity: { label: "CALIPER-MACHINING-3", status: "Overdue", date: "October 1, 2025 — November 20, 2025" },
+      currentActivity: { label: "CALIPER-MACHINING-3", statusKey: "overdue", date: "October 1, 2025 — November 20, 2025" },
     },
     gantt: [
-      { id: 1, label: "Cast Iron Sourcing",          start: 0, duration: 2,  progress: 100, color: "#00897b" },
-      { id: 2, label: "Caliper Machining",            start: 1, duration: 4,  progress: 70,  color: "#2ea3f2" },
-      { id: 3, label: "Friction Pad Production",      start: 3, duration: 3,  progress: 40,  color: "#dd6b20" },
-      { id: 4, label: "Hydraulic Unit Assembly",       start: 4, duration: 3,  progress: 20,  color: "#805ad5" },
-      { id: 5, label: "Brake System Integration",      start: 6, duration: 3,  progress: 5,   color: "#CC0000" },
-      { id: 6, label: "Dynamometer Testing",           start: 8, duration: 2,  progress: 0,   color: "#38a169" },
-      { id: 7, label: "Homologation & Shipping",       start: 10, duration: 2, progress: 0,   color: "#e53e3e" },
+      { id: 1, labelKey: "castIronSourcing",           start: 0,  duration: 2,  progress: 100, color: "#00897b" },
+      { id: 2, labelKey: "caliperMachining",            start: 1,  duration: 4,  progress: 70,  color: "#2ea3f2" },
+      { id: 3, labelKey: "frictionPadProduction",       start: 3,  duration: 3,  progress: 40,  color: "#dd6b20" },
+      { id: 4, labelKey: "hydraulicUnitAssembly",       start: 4,  duration: 3,  progress: 20,  color: "#805ad5" },
+      { id: 5, labelKey: "brakeSystemIntegration",      start: 6,  duration: 3,  progress: 5,   color: "#CC0000" },
+      { id: 6, labelKey: "dynamometerTesting",          start: 8,  duration: 2,  progress: 0,   color: "#38a169" },
+      { id: 7, labelKey: "homologationShipping",        start: 10, duration: 2,  progress: 0,   color: "#e53e3e" },
     ],
-    months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
+    months: ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar", "apr"],
   },
 
   /* ─── 8. Audit Supplier ISO 19443 ─── */
@@ -366,28 +367,28 @@ export const PROJECT_DATA = {
       actions: {
         total: 2,
         breakdown: [
-          { label: "Opened", count: 0,  color: "#38a169" },
-          { label: "Overdue", count: 0, color: "#CC0000" },
-          { label: "Pending", count: 0, color: "#dd6b20" },
-          { label: "Closed",  count: 2, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "overdue", count: 0, color: "#CC0000" },
+          { statusKey: "pending", count: 0, color: "#dd6b20" },
+          { statusKey: "closed",  count: 2, color: "#718096" },
         ]
       },
       inspections: {
         total: 24,
         breakdown: [
-          { label: "Opened",  count: 0,  color: "#38a169" },
-          { label: "Pending", count: 1,  color: "#dd6b20" },
-          { label: "Overdue", count: 0,  color: "#CC0000" },
-          { label: "Closed",  count: 23, color: "#718096" },
+          { statusKey: "opened",  count: 0,  color: "#38a169" },
+          { statusKey: "pending", count: 1,  color: "#dd6b20" },
+          { statusKey: "overdue", count: 0,  color: "#CC0000" },
+          { statusKey: "closed",  count: 23, color: "#718096" },
         ]
       },
       findings: {
         total: 6,
         breakdown: [
-          { label: "Opened",  count: 0, color: "#38a169" },
-          { label: "Pending", count: 0, color: "#dd6b20" },
-          { label: "Overdue", count: 0, color: "#CC0000" },
-          { label: "Closed",  count: 6, color: "#718096" },
+          { statusKey: "opened",  count: 0, color: "#38a169" },
+          { statusKey: "pending", count: 0, color: "#dd6b20" },
+          { statusKey: "overdue", count: 0, color: "#CC0000" },
+          { statusKey: "closed",  count: 6, color: "#718096" },
         ]
       },
     },
@@ -396,21 +397,49 @@ export const PROJECT_DATA = {
       startDate: "01-05-2025",
       endDate: "01-08-2025",
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop",
-      currentActivity: { label: "CLOSING-MEETING", status: "Closed", date: "July 20, 2025 — July 25, 2025" },
+      currentActivity: { label: "CLOSING-MEETING", statusKey: "closed", date: "July 20, 2025 — July 25, 2025" },
     },
     gantt: [
-      { id: 1, label: "Document Review",              start: 0, duration: 2,  progress: 100, color: "#e53e3e" },
-      { id: 2, label: "On-Site Audit Week 1",         start: 2, duration: 1,  progress: 100, color: "#2ea3f2" },
-      { id: 3, label: "On-Site Audit Week 2",         start: 3, duration: 1,  progress: 100, color: "#2ea3f2" },
-      { id: 4, label: "Non-Conformity Resolution",    start: 4, duration: 3,  progress: 100, color: "#CC0000" },
-      { id: 5, label: "Corrective Action Follow-Up",  start: 5, duration: 2,  progress: 90,  color: "#dd6b20" },
-      { id: 6, label: "Final Report & Certification",  start: 7, duration: 1,  progress: 80,  color: "#38a169" },
+      { id: 1, labelKey: "documentReview",                start: 0, duration: 2, progress: 100, color: "#e53e3e" },
+      { id: 2, labelKey: "onSiteAuditWeek1",              start: 2, duration: 1, progress: 100, color: "#2ea3f2" },
+      { id: 3, labelKey: "onSiteAuditWeek2",              start: 3, duration: 1, progress: 100, color: "#2ea3f2" },
+      { id: 4, labelKey: "nonConformityResolution",        start: 4, duration: 3, progress: 100, color: "#CC0000" },
+      { id: 5, labelKey: "correctiveActionFollowUp",       start: 5, duration: 2, progress: 90,  color: "#dd6b20" },
+      { id: 6, labelKey: "finalReportCertification",       start: 7, duration: 1, progress: 80,  color: "#38a169" },
     ],
-    months: ["May", "Jun", "Jul", "Aug"],
+    months: ["may", "jun", "jul", "aug"],
   },
 }
 
-/* Helper to get project data with a fallback */
-export function getProjectData(projectId) {
-  return PROJECT_DATA[projectId] || PROJECT_DATA[1]
+/* ─── Helpers ─── */
+
+function translateBreakdown(bd, t) {
+  return {
+    ...bd,
+    breakdown: bd.breakdown.map(b => ({
+      ...b,
+      label: t(`data.status.${b.statusKey}`),
+    })),
+  }
+}
+
+export function getProjectData(projectId, t) {
+  const raw = PROJECT_DATA[projectId] || PROJECT_DATA[1]
+  return {
+    kpi: {
+      progress: raw.kpi.progress,
+      actions: translateBreakdown(raw.kpi.actions, t),
+      inspections: translateBreakdown(raw.kpi.inspections, t),
+      findings: translateBreakdown(raw.kpi.findings, t),
+    },
+    detail: {
+      ...raw.detail,
+      currentActivity: {
+        ...raw.detail.currentActivity,
+        status: t(`data.status.${raw.detail.currentActivity.statusKey}`),
+      },
+    },
+    gantt: raw.gantt.map(g => ({ ...g, label: t(`data.gantt.${g.labelKey}`) })),
+    months: raw.months.map(m => t(`data.months.${m}`)),
+  }
 }

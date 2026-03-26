@@ -5,13 +5,15 @@ import { useProject } from '../../context/ProjectContext'
 import { getProjectData } from '../../data/fakeDashboard'
 import { showToast } from '../Toast'
 
-const RESOURCE_VIEW = [
-  { id: 1, label: 'R. Attal', tasks: [{ start: 0, duration: 4, color: 'var(--blue)', name: 'Design review' }, { start: 6, duration: 3, color: '#805ad5', name: 'Final audit' }] },
-  { id: 2, label: 'S. Dupont', tasks: [{ start: 1, duration: 5, color: 'var(--status-success)', name: 'Fabrication oversight' }] },
-  { id: 3, label: 'J. Martin', tasks: [{ start: 3, duration: 4, color: 'var(--status-warning)', name: 'Quality control' }, { start: 8, duration: 2, color: 'var(--status-overdue)', name: 'NC resolution' }] },
-  { id: 4, label: 'A. Leroy', tasks: [{ start: 2, duration: 3, color: 'var(--status-error)', name: 'Welding inspection' }, { start: 7, duration: 3, color: '#00897b', name: 'Testing' }] },
-  { id: 5, label: 'T. Bernard', tasks: [{ start: 5, duration: 4, color: 'var(--text-primary)', name: 'Assembly support' }] },
-]
+function getResourceView(t) {
+  return [
+    { id: 1, label: 'R. Attal', tasks: [{ start: 0, duration: 4, color: 'var(--blue)', name: t('data.gantt.designReview') }, { start: 6, duration: 3, color: '#805ad5', name: t('data.gantt.finalAudit') }] },
+    { id: 2, label: 'S. Dupont', tasks: [{ start: 1, duration: 5, color: 'var(--status-success)', name: t('data.gantt.fabricationOversight') }] },
+    { id: 3, label: 'J. Martin', tasks: [{ start: 3, duration: 4, color: 'var(--status-warning)', name: t('data.gantt.qualityControl') }, { start: 8, duration: 2, color: 'var(--status-overdue)', name: t('data.gantt.ncResolution') }] },
+    { id: 4, label: 'A. Leroy', tasks: [{ start: 2, duration: 3, color: 'var(--status-error)', name: t('data.gantt.weldingInspection') }, { start: 7, duration: 3, color: '#00897b', name: t('data.gantt.testing') }] },
+    { id: 5, label: 'T. Bernard', tasks: [{ start: 5, duration: 4, color: 'var(--text-primary)', name: t('data.gantt.assemblySupport') }] },
+  ]
+}
 
 export default function GanttPage() {
   const { t } = useTranslation()
@@ -22,7 +24,7 @@ export default function GanttPage() {
   const [selectedTask, setSelectedTask] = useState(null)
   const [taskProgress, setTaskProgress] = useState(null)
 
-  const data = activeProject ? getProjectData(activeProject.id) : getProjectData(1)
+  const data = activeProject ? getProjectData(activeProject.id, t) : getProjectData(1, t)
   const { gantt, months } = data
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function GanttPage() {
   }, [viewMode, activeProject])
 
   const totalMonths = months.length
-  const rows = viewMode === 'activities' ? gantt : RESOURCE_VIEW
+  const rows = viewMode === 'activities' ? gantt : getResourceView(t)
 
   return (
     <div ref={containerRef}>

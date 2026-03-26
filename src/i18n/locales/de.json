@@ -219,5 +219,106 @@
     "complianceRadar": "Konformitätsradar",
     "resolutionTime": "Lösungszeit (Tage)", "detectionTime": "Erkennungszeit (Tage)"
   },
-  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" }
+  "languages": { "fr": "Français", "en": "English", "it": "Italiano", "es": "Español", "de": "Deutsch" },
+
+  "data": {
+    "status": {
+      "opened": "Offen",
+      "overdue": "Überfällig",
+      "pending": "Ausstehend",
+      "closed": "Geschlossen",
+      "ongoing": "Laufend",
+      "archived": "Archiviert"
+    },
+    "months": {
+      "jan": "Jan", "feb": "Feb", "mar": "Mär", "apr": "Apr",
+      "may": "Mai", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+      "sep": "Sep", "oct": "Okt", "nov": "Nov", "dec": "Dez"
+    },
+    "overview": {
+      "projects": "Projekte",
+      "inspectionsAudits": "Inspektionen / Audits",
+      "ncFindings": "Abweichungen / Befunde",
+      "actions": "Maßnahmen",
+      "ongoingArchived": "Laufend / Archiviert",
+      "openedPendingOverdueClosed": "Offen / Ausstehend / Überfällig / Geschlossen"
+    },
+    "gantt": {
+      "engineeringDesign": "Konstruktion und Design",
+      "materialProcurement": "Materialbeschaffung",
+      "fabricationPhase1": "Fertigung Phase 1",
+      "qualityInspections": "Qualitätsprüfungen",
+      "fabricationPhase2": "Fertigung Phase 2",
+      "assemblyIntegration": "Montage und Integration",
+      "finalTestingValidation": "Abschlussprüfung und Validierung",
+      "supplierQualification": "Lieferantenqualifizierung",
+      "incomingMaterialAudit": "Wareneingangsprüfung",
+      "productionMonitoring": "Produktionsüberwachung",
+      "inProcessInspection": "Fertigungsbegleitende Prüfung",
+      "finalProductAudit": "Endproduktaudit",
+      "certificationDelivery": "Zertifizierung und Lieferung",
+      "fuselageStructure": "Rumpfstruktur",
+      "wingAssembly": "Flügelmontage",
+      "avionicsIntegration": "Avionik-Integration",
+      "landingGearInstallation": "Fahrwerkseinbau",
+      "engineMountTesting": "Triebwerksmontage und Tests",
+      "flightTestPreparation": "Flugtestvorbereitung",
+      "certificationDocs": "Zertifizierungsdokumente",
+      "coreLamination": "Kernlamellierung",
+      "windingProcess": "Wickelprozess",
+      "insulationTesting": "Isolationsprüfung",
+      "assemblyOfStator": "Statormontage",
+      "highVoltageTesting": "Hochspannungsprüfung",
+      "paintingFinishing": "Lackierung und Endbearbeitung",
+      "customerAcceptanceTest": "Kundenabnahmeprüfung",
+      "pressureVesselDesign": "Druckbehälterauslegung",
+      "steelPlateProcurement": "Stahlblechbeschaffung",
+      "shellHeadForming": "Mantel- und Bodenformung",
+      "weldingNDE": "Schweißen und ZfP",
+      "heatTreatment": "Wärmebehandlung",
+      "hydrostaticTesting": "Druckprüfung",
+      "insulationDelivery": "Isolierung und Lieferung",
+      "equipmentInventoryAudit": "Anlagenbestandsaudit",
+      "preventiveMaintenancePlan": "Vorbeugende Wartungsplanung",
+      "correctiveInterventions": "Korrektive Eingriffe",
+      "sparePartsProcurement": "Ersatzteilbeschaffung",
+      "workshopSafetyInspection": "Werkstattsicherheitsprüfung",
+      "finalReportDocumentation": "Abschlussbericht und Dokumentation",
+      "castIronSourcing": "Gusseisenbeschaffung",
+      "caliperMachining": "Sattelbearbeitung",
+      "frictionPadProduction": "Bremsbelagfertigung",
+      "hydraulicUnitAssembly": "Hydraulikaggregat-Montage",
+      "brakeSystemIntegration": "Bremsanlage-Integration",
+      "dynamometerTesting": "Prüfstandtests",
+      "homologationShipping": "Homologation und Versand",
+      "documentReview": "Dokumentenprüfung",
+      "onSiteAuditWeek1": "Vor-Ort-Audit – Woche 1",
+      "onSiteAuditWeek2": "Vor-Ort-Audit – Woche 2",
+      "nonConformityResolution": "Abweichungsbearbeitung",
+      "correctiveActionFollowUp": "Nachverfolgung Korrekturmaßnahmen",
+      "finalReportCertification": "Abschlussbericht und Zertifizierung",
+      "designReview": "Designprüfung",
+      "finalAudit": "Schlussaudit",
+      "fabricationOversight": "Fertigungsüberwachung",
+      "qualityControl": "Qualitätskontrolle",
+      "ncResolution": "NC-Behebung",
+      "weldingInspection": "Schweißnahtprüfung",
+      "testing": "Prüfungen",
+      "assemblySupport": "Montageunterstützung"
+    },
+    "inspectionNames": {
+      "bearingVerification": "Lagerprüfung",
+      "managementAudit": "Managementaudit"
+    },
+    "taskTitles": {
+      "steelPlates": "Stahlbleche",
+      "weldingSpecification": "Schweißspezifikation",
+      "dishedHeads": "Gewölbte Böden",
+      "inspectionControlPlan": "Prüf- und Kontrollplan"
+    },
+    "activityNames": {
+      "procurement": "BESCHAFFUNG",
+      "engineering": "KONSTRUKTION"
+    }
+  }
 }

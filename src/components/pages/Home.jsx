@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { useProject } from '../../context/ProjectContext'
 import { getProjectData } from '../../data/fakeDashboard'
-import { FAKE_OVERVIEW_KPI, FAKE_OVERVIEW_PROJECTS, FAKE_INCOMING_TASKS } from '../../data/fakeOverview'
+import { getOverviewKPI, getOverviewProjects, getIncomingTasks } from '../../data/fakeOverview'
 
 export default function Home() {
   const { activeProject } = useProject()
@@ -32,7 +32,8 @@ function AllProjectsView({ containerRef }) {
         opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.5,
       })
       // Count-up KPIs
-      const kpiValues = FAKE_OVERVIEW_KPI.map(k => k.total)
+      const overviewKPI = getOverviewKPI(t)
+      const kpiValues = overviewKPI.map(k => k.total)
       document.querySelectorAll('.home-kpi-hdr-count').forEach((el, i) => {
         const obj = { val: 0 }
         gsap.to(obj, {
@@ -67,20 +68,24 @@ function AllProjectsView({ containerRef }) {
           plugins: { legend: { display: false }, tooltip: { ...tooltipStyle, callbacks: { label: (c) => ` ${c.label}: ${c.raw}` } } }
         }
       })
-      FAKE_OVERVIEW_KPI.forEach(kpi => {
+      overviewKPI.forEach(kpi => {
         const el = document.getElementById(`donut-overview-${kpi.key}`)
         if (el) charts.push(new Chart(el, donutOpts(kpi.donut.labels, kpi.donut.data, kpi.donut.colors)))
       })
     }).catch(() => {})
 
     return () => { ctx.revert(); charts.forEach(c => c.destroy()) }
-  }, [])
+  }, [t])
+
+  const kpiData = getOverviewKPI(t)
+  const overviewProjects = getOverviewProjects()
+  const incomingTasks = getIncomingTasks(t)
 
   return (
     <div ref={containerRef} data-demo-target="home-page">
       {/* KPI Grid */}
       <div className="home-kpi-grid home-kpi-row" id="kpi-bar">
-        {FAKE_OVERVIEW_KPI.map(kpi => (
+        {kpiData.map(kpi => (
           <div className="home-kpi-card" key={kpi.key} onClick={() => {
             const routes = { projects: '/app/projets', inspections: '/app/inspections', nc: '/app/findings', actions: '/app/actions' }
             navigate(routes[kpi.key] || '/app')
@@ -122,8 +127,8 @@ function AllProjectsView({ containerRef }) {
             </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            {FAKE_OVERVIEW_PROJECTS.map((p, i) => (
-              <div key={p.id} className="proj-row" style={{ padding: '0.875rem 1.25rem', borderBottom: i < FAKE_OVERVIEW_PROJECTS.length - 1 ? '1px solid var(--gray-border)' : 'none', cursor: 'pointer' }}>
+            {overviewProjects.map((p, i) => (
+              <div key={p.id} className="proj-row" style={{ padding: '0.875rem 1.25rem', borderBottom: i < overviewProjects.length - 1 ? '1px solid var(--gray-border)' : 'none', cursor: 'pointer' }}>
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--surface-light)', marginBottom: '0.15rem' }}>{p.name}</div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--gray)', marginBottom: '0.5rem' }}>{p.company}</div>
                 <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, marginBottom: '0.4rem' }}>
@@ -152,8 +157,8 @@ function AllProjectsView({ containerRef }) {
             <div className="panel-title">{t('home.incomingTasks')}</div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            {FAKE_INCOMING_TASKS.map((task, i) => (
-              <div key={task.id} className="task-item" style={{ padding: '0.875rem 1.25rem', borderBottom: i < FAKE_INCOMING_TASKS.length - 1 ? '1px solid var(--gray-border)' : 'none' }}>
+            {incomingTasks.map((task, i) => (
+              <div key={task.id} className="task-item" style={{ padding: '0.875rem 1.25rem', borderBottom: i < incomingTasks.length - 1 ? '1px solid var(--gray-border)' : 'none' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
                   <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--surface-light)' }}>{task.title}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -183,7 +188,7 @@ function AllProjectsView({ containerRef }) {
    ═══════════════════════════════════════════════════════════════ */
 function ProjectDashboardView({ containerRef, project }) {
   const { t } = useTranslation()
-  const data = getProjectData(project.id)
+  const data = getProjectData(project.id, t)
   const { kpi, detail, gantt, months } = data
 
   useEffect(() => {
@@ -238,7 +243,7 @@ function ProjectDashboardView({ containerRef, project }) {
     }).catch(() => {})
 
     return () => { ctx.revert(); charts.forEach(c => c.destroy()) }
-  }, [project])
+  }, [project, t])
 
   return (
     <div className="home-page" ref={containerRef}>

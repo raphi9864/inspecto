@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
-import { FAKE_INSPECTIONS, FAKE_INSPECTION_COUNTERS } from '../../data/fakeInspections'
+import { getInspections, FAKE_INSPECTION_COUNTERS } from '../../data/fakeInspections'
 import ImageEditor from '../ImageEditor/ImageEditor'
 import { showToast } from '../Toast'
 
@@ -525,7 +525,8 @@ export default function Inspections() {
           <button className="btn-outline">{t('common.export')}</button>
           <button className="btn-primary" data-demo-target="btn-new-inspection" onClick={() => setView('plan')}>{t('inspections.newInspection')}</button>
           <button className="btn-primary" data-demo-target="btn-fill-form" onClick={() => {
-            const num = FAKE_INSPECTIONS.length + Math.floor(Math.random() * 10) + 1
+            const inspections = getInspections(t)
+            const num = inspections.length + Math.floor(Math.random() * 10) + 1
             const now = new Date()
             const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')
             const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
@@ -564,7 +565,7 @@ export default function Inspections() {
             </tr>
           </thead>
           <tbody>
-            {FAKE_INSPECTIONS.map(ins => (
+            {getInspections(t).map(ins => (
               <tr key={ins.id} onClick={() => openDetail(ins)} style={{ cursor: 'pointer' }}>
                 <td><strong>{ins.name}</strong></td>
                 <td>{ins.startDate}</td>
