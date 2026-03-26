@@ -73,7 +73,7 @@
     "teamLabel": "Team"
   },
 
-  "navbar": { "brand": "INSPECTO", "demoBtn": "Book a demo" },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Book a demo", "startDemo": "Start Demo" },
 
   "presenter": {
     "greeting": "Hello! I'm your INSPECTO DQI guide. With over 500 active accounts in 6 countries, our platform supports the most demanding industries. Click a category to explore the modules.",

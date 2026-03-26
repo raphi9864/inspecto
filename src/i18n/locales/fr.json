@@ -75,7 +75,8 @@
 
   "navbar": {
     "brand": "INSPECTO",
-    "demoBtn": "Planifier une démo"
+    "demoBtn": "Planifier une démo",
+    "startDemo": "Lancer la démo"
   },
 
   "presenter": {
