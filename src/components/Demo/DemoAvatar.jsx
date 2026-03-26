@@ -6,7 +6,7 @@ import gsap from 'gsap'
 
 export default function DemoAvatar() {
   const { t } = useTranslation()
-  const { status, runEngine, startDemo } = useDemoContext()
+  const { status, runEngine, startDemo, dismissDemo } = useDemoContext()
   const { voiceGender, setVoiceGender } = useVoiceSettings()
   const engineStarted = useRef(false)
   const containerRef = useRef(null)
@@ -57,7 +57,7 @@ export default function DemoAvatar() {
     }
   }, [status])
 
-  if (status === 'idle') return null
+  if (status !== 'running' && status !== 'paused' && status !== 'complete') return null
 
   /* ─── End of demo: conclusion card (D5) ─── */
   if (status === 'complete') {
@@ -76,6 +76,9 @@ export default function DemoAvatar() {
           </svg>
         </div>
         <div className="demo-speech-bubble demo-speech-solid">
+          <button className="demo-close-btn" onClick={dismissDemo} aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
           <p className="demo-speech-text">{t('demo.conclusion')}</p>
           <div className="demo-end-actions">
             <a

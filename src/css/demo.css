@@ -235,6 +235,24 @@
   min-height: 2em;
 }
 
+/* ─── Close button on conclusion card ─── */
+.demo-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary, #8494A7);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.demo-close-btn:hover {
+  color: var(--text-primary, #0D1B2E);
+  background: rgba(0,0,0,0.06);
+}
+
 /* ─── End of demo actions (D5) ─── */
 .demo-avatar-complete {
   pointer-events: all;

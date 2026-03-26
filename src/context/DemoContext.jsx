@@ -313,6 +313,7 @@ export function DemoProvider({ children }) {
     pauseDemo,
     resumeDemo,
     nextStep,
+    dismissDemo: useCallback(() => setStatus('idle'), []),
   }
 
   return (
