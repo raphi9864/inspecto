@@ -33,8 +33,12 @@ export function waitForElement(selector, timeout = 5000) {
   })
 }
 
-export function sleep(ms) {
-  return new Promise(r => setTimeout(r, ms))
+export function sleep(ms, signal) {
+  return new Promise((resolve) => {
+    if (signal?.aborted) { resolve(); return }
+    const id = setTimeout(resolve, ms)
+    signal?.addEventListener('abort', () => { clearTimeout(id); resolve() }, { once: true })
+  })
 }
 
 /* ─── React-compatible input setter ─── */

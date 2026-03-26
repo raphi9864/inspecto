@@ -36,12 +36,14 @@ export function DemoProvider({ children }) {
   const [totalPhases] = useState(6)
 
   /* Refs for cleanup */
-  const abortRef = useRef(null)
+  const abortRef = useRef(null)        // main demo abort
+  const stepAbortRef = useRef(null)    // per-step abort (for "Next")
   const typedRef = useRef(null)
+  const typedResolveRef = useRef(null) // resolve fn for typing promise
   const timeoutsRef = useRef(new Set())
   const runningRef = useRef(false)
   const pausedRef = useRef(false)
-  const skipStepRef = useRef(false)
+  const skippingRef = useRef(false)
 
   /* ─── Speech (Typed.js + ElevenLabs TTS in parallel) ─── */
   const speakTo = useCallback((textEl, text, speed = 20, stepId = null) => {
@@ -51,13 +53,14 @@ export function DemoProvider({ children }) {
         typedRef.current.destroy()
         typedRef.current = null
       }
+      typedResolveRef.current = resolve
       if (!textEl) { resolve(); return }
       textEl.innerHTML = ''
       typedRef.current = new Typed(textEl, {
         strings: [text],
         typeSpeed: speed,
         showCursor: false,
-        onComplete: () => resolve(),
+        onComplete: () => { typedResolveRef.current = null; resolve() },
       })
     })
 
@@ -88,87 +91,101 @@ export function DemoProvider({ children }) {
   const executeStep = useCallback(async (step, signal, textEl) => {
     if (signal.aborted) return
 
-    // Update phase info
-    if (step.phaseTitle) {
-      setCurrentPhase(step.phase)
-      setPhaseTitle(step.phaseTitle)
+    // Create per-step abort controller (for "Next" button)
+    const stepController = new AbortController()
+    stepAbortRef.current = stepController
+    const ss = stepController.signal // step signal
+
+    // Combine: abort step if main demo is aborted
+    const onMainAbort = () => stepController.abort()
+    signal.addEventListener('abort', onMainAbort, { once: true })
+
+    try {
+      // Update phase info
+      if (step.phaseTitle) {
+        setCurrentPhase(step.phase)
+        setPhaseTitle(step.phaseTitle)
+      }
+      setCurrentStep(step)
+
+      // Pre-delay
+      if (step.delay) await sleep(step.delay, ss)
+      if (ss.aborted) return
+
+      // Highlight before action
+      if (step.highlightBefore && step.selector) {
+        spotlight(step.selector)
+        await sleep(800, ss)
+        if (ss.aborted) return
+      }
+
+      // Speak (non-blocking for most steps, blocking for 'speak' type)
+      const speechPromise = (step.speak || step.text)
+        ? speakTo(textEl, step.speak || step.text, step.typeSpeed || 20, step.id)
+        : Promise.resolve()
+
+      if (step.type === 'speak') {
+        await Promise.race([speechPromise, new Promise(r => ss.addEventListener('abort', r, { once: true }))])
+        if (ss.aborted) return
+        await sleep(step.delayAfter ?? 600, ss)
+        return
+      }
+
+      // Execute primary action
+      switch (step.type) {
+        case 'navigate':
+          await executeNavigate(step, navigate, ss)
+          break
+        case 'click':
+          if (step.selector) spotlight(step.selector)
+          await sleep(400, ss)
+          if (!ss.aborted) await executeClick(step, ss)
+          break
+        case 'type':
+          if (step.selector) spotlight(step.selector)
+          await sleep(300, ss)
+          if (!ss.aborted) await executeType(step, ss)
+          break
+        case 'select':
+          if (step.selector) spotlight(step.selector)
+          await sleep(300, ss)
+          if (!ss.aborted) await executeSelect(step, ss)
+          break
+        case 'highlight':
+          if (step.selector) spotlight(step.selector)
+          await Promise.race([speechPromise, new Promise(r => ss.addEventListener('abort', r, { once: true }))])
+          break
+        case 'draw-signature':
+          if (step.selector || step.canvasSelector) {
+            spotlight(step.selector || step.canvasSelector)
+          }
+          await sleep(400, ss)
+          if (!ss.aborted) await executeDrawSignature(
+            { ...step, selector: step.canvasSelector || step.selector },
+            ss
+          )
+          break
+        case 'wait':
+          await sleep(step.duration || 1000, ss)
+          break
+        case 'call':
+          if (step.fn && !ss.aborted) await step.fn(ss)
+          break
+        default:
+          break
+      }
+
+      if (ss.aborted) return
+
+      // Clear spotlight
+      spotlight(null)
+
+      // Post-delay
+      await sleep(step.delayAfter ?? 600, ss)
+    } finally {
+      signal.removeEventListener('abort', onMainAbort)
+      stepAbortRef.current = null
     }
-    setCurrentStep(step)
-
-    // Pre-delay
-    if (step.delay) await sleep(step.delay)
-    if (signal.aborted) return
-
-    // Highlight before action
-    if (step.highlightBefore && step.selector) {
-      spotlight(step.selector)
-      await sleep(800)
-      if (signal.aborted) return
-    }
-
-    // Speak (non-blocking for most steps, blocking for 'speak' type)
-    const speechPromise = (step.speak || step.text)
-      ? speakTo(textEl, step.speak || step.text, step.typeSpeed || 20, step.id)
-      : Promise.resolve()
-
-    if (step.type === 'speak') {
-      await speechPromise
-      if (signal.aborted) return
-      await sleep(step.delayAfter ?? 600)
-      return
-    }
-
-    // Execute primary action
-    switch (step.type) {
-      case 'navigate':
-        await executeNavigate(step, navigate, signal)
-        break
-      case 'click':
-        if (step.selector) spotlight(step.selector)
-        await sleep(400)
-        await executeClick(step, signal)
-        break
-      case 'type':
-        if (step.selector) spotlight(step.selector)
-        await sleep(300)
-        await executeType(step, signal)
-        break
-      case 'select':
-        if (step.selector) spotlight(step.selector)
-        await sleep(300)
-        await executeSelect(step, signal)
-        break
-      case 'highlight':
-        if (step.selector) spotlight(step.selector)
-        await speechPromise
-        break
-      case 'draw-signature':
-        if (step.selector || step.canvasSelector) {
-          spotlight(step.selector || step.canvasSelector)
-        }
-        await sleep(400)
-        await executeDrawSignature(
-          { ...step, selector: step.canvasSelector || step.selector },
-          signal
-        )
-        break
-      case 'wait':
-        await sleep(step.duration || 1000)
-        break
-      case 'call':
-        if (step.fn) await step.fn(signal)
-        break
-      default:
-        break
-    }
-
-    if (signal.aborted) return
-
-    // Clear spotlight
-    spotlight(null)
-
-    // Post-delay
-    await sleep(step.delayAfter ?? 600)
   }, [navigate, speakTo, spotlight])
 
   /* ─── Request demo start (mounts avatar, then avatar calls runEngine) ─── */
@@ -226,25 +243,48 @@ export function DemoProvider({ children }) {
 
   /* ─── Skip current step, advance to next ─── */
   const nextStep = useCallback(() => {
-    skipStepRef.current = true
+    if (skippingRef.current) return
+    skippingRef.current = true
+
+    // Stop audio + typed
     stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null
     }
+    // Resolve any pending typing promise
+    if (typedResolveRef.current) {
+      typedResolveRef.current()
+      typedResolveRef.current = null
+    }
+
+    // Abort only the current step (not the whole demo)
+    if (stepAbortRef.current) {
+      stepAbortRef.current.abort()
+    }
+
+    // Resume if paused
     if (pausedRef.current) {
       pausedRef.current = false
       setStatus('running')
     }
+
+    // Reset guard after a tick
+    setTimeout(() => { skippingRef.current = false }, 50)
   }, [])
 
   /* ─── Skip / abort the demo ─── */
   const skipDemo = useCallback(() => {
+    if (stepAbortRef.current) stepAbortRef.current.abort()
     if (abortRef.current) abortRef.current.abort()
     stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null
+    }
+    if (typedResolveRef.current) {
+      typedResolveRef.current()
+      typedResolveRef.current = null
     }
     gsap.killTweensOf('*')
     timeoutsRef.current.forEach(id => clearTimeout(id))
@@ -253,6 +293,7 @@ export function DemoProvider({ children }) {
     setSpotlightTarget(null)
     setStatus('complete')
     pausedRef.current = false
+    skippingRef.current = false
     runningRef.current = false
     sessionStorage.setItem('demo-seen', '1')
     navigate('/app')
