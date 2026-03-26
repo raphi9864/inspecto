@@ -12,6 +12,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "chart.js": "^4.4.4",
     "gsap": "^3.12.5",
+    "html2canvas": "^1.4.1",
     "i18next": "^25.10.9",
     "lenis": "^1.1.14",
     "react": "^19.2.4",
@@ -20,7 +21,8 @@
     "react-i18next": "^16.6.6",
     "react-router-dom": "^7.13.1",
     "splitting": "^1.0.6",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0",

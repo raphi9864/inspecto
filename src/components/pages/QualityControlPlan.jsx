@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
+import { exportCSV } from '../../utils/exportUtils'
+import FilterPanel from '../shared/FilterPanel'
 
 const INITIAL_PLANS = [
   { id: 1, revision: 3, name: 'ABB France - Quality Control Plan - 130126', desc: 'Auto-generated PcqLiner for project ABB France', created: '13-01-2026 16:12:01' },
@@ -42,6 +44,7 @@ export default function QualityControlPlan() {
   const [showCreate, setShowCreate] = useState(false)
   const [detailPlan, setDetailPlan] = useState(null)
   const [createForm, setCreateForm] = useState({ name: '', revision: 0, desc: '' })
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,7 +71,7 @@ export default function QualityControlPlan() {
           <div style={{ flex: 1 }}>
             <input type="text" placeholder={t('common.search')} style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border-primary)', borderRadius: 6, fontSize: '0.85rem' }} />
           </div>
-          <button className="btn-outline" onClick={() => showToast('Exported', 'info')}>{t('common.export').toUpperCase()}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(DETAIL_TASKS, `inspecto-qcp-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export').toUpperCase()}</button>
           <button className="btn-primary" onClick={() => showToast('Plan validated', 'success')}>VALIDATE</button>
         </div>
         <div style={{ overflowX: 'auto', background: 'var(--bg-secondary)', borderRadius: 12, border: '1px solid var(--border-primary)' }}>
@@ -133,7 +136,7 @@ export default function QualityControlPlan() {
   return (
     <div ref={containerRef}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <button className="btn-outline" onClick={() => showToast('Filters opened', 'info')}>{t('common.filters')}</button>
+        <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
         <button className="btn-primary" onClick={() => setShowCreate(true)}>{t('qcp.newPlan')}</button>
       </div>
 
@@ -199,6 +202,20 @@ export default function QualityControlPlan() {
           </div>
         </div>
       )}
+
+      <FilterPanel
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        filterConfig={[
+          { type: 'select', label: 'Statut', key: 'status', options: [
+            { value: '', label: 'Tous' },
+            { value: 'active', label: 'Actif' },
+            { value: 'draft', label: 'Brouillon' },
+          ]},
+        ]}
+      />
     </div>
   )
 }

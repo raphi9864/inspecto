@@ -1,391 +1,412 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import gsap from 'gsap'
-import Splitting from 'splitting'
-import 'splitting/dist/splitting.css'
+import EuropeWireframe3D from '../globe/EuropeWireframe3D'
+import FakeDashboard from './FakeDashboard'
 
-/* ─── KPI data ─── */
-const INTRO_KPIS = [
-  { value: 500, suffix: '+', label: 'comptes actifs' },
-  { value: 6, suffix: '', label: 'pays couverts' },
-  { value: 1393, suffix: '', label: 'inspections' },
-  { value: 98.7, suffix: '%', label: 'conformité' },
+/* ═══════════════════════════════════════════════════════════════
+   INTRO — Cinematic 32-second opening sequence
+   Phase 0: Boot (0–2.5s)
+   Phase 1: Globe reveal (2.5–8s)
+   Phase 2: KPI counters (8–14s)
+   Phase 3: Dashboard 3D reveal (14.5–22.5s) ← NEW
+   Phase 4: Brand moment (23–28s)
+   Phase 5: Transition (28–32s)
+   ═══════════════════════════════════════════════════════════════ */
+
+const SECTORS = [
+  'NUCLÉAIRE · ISO 19443',
+  'AÉRONAUTIQUE · AS/EN 9100',
+  'DÉFENSE · OTAN',
+  'OIL & GAS · API Q1',
+  'PHARMACIE · GMP',
+  'CONSTRUCTION · ISO 9001',
 ]
 
-/* ─── Canvas particle system ─── */
-function initParticleCanvas(canvas) {
-  const ctx = canvas.getContext('2d')
-  let W, H, dots, particles, rafId
-  let dotsVisible = false
-  let particlesVisible = false
-  let warpMode = false
+const METRICS = [
+  { label: 'INSPECTIONS ACTIVES', value: 1187 },
+  { label: 'NC EN COURS', value: 416 },
+  { label: 'AUDITS CE MOIS', value: 89 },
+  { label: 'TAUX CONFORMITÉ', value: 98.7, suffix: '%' },
+]
 
-  function resize() {
-    W = canvas.width = window.innerWidth
-    H = canvas.height = window.innerHeight
-    // Rebuild dot grid
-    dots = []
-    for (let x = 20; x < W; x += 40) {
-      for (let y = 20; y < H; y += 40) {
-        const dx = x - W / 2, dy = y - H / 2
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        dots.push({ x, y, opacity: 0, dist })
-      }
-    }
-    dots.sort((a, b) => a.dist - b.dist)
-    // Rebuild particles
-    particles = Array.from({ length: 30 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: Math.random() * 2 + 0.5,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      opacity: Math.random() * 0.25 + 0.05,
-    }))
-  }
-
-  resize()
-  window.addEventListener('resize', resize)
-
-  // Wave: light up dots from center outward
-  function triggerDotWave() {
-    dotsVisible = true
-    dots.forEach((d, i) => {
-      gsap.to(d, { opacity: 0.1, duration: 0.4, delay: i * 0.0008, ease: 'power2.out' })
-    })
-  }
-
-  function showParticles() { particlesVisible = true }
-
-  function triggerWarp() {
-    warpMode = true
-    // Accelerate particles toward center
-    particles.forEach(p => {
-      const dx = W / 2 - p.x, dy = H / 2 - p.y
-      const dist = Math.sqrt(dx * dx + dy * dy) || 1
-      p.vx = (dx / dist) * 8
-      p.vy = (dy / dist) * 8
-      p.r = Math.min(p.r * 3, 6)
-    })
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H)
-
-    // Draw dot grid
-    if (dotsVisible) {
-      dots.forEach(d => {
-        if (d.opacity <= 0) return
-        ctx.fillStyle = `rgba(46,163,242,${d.opacity})`
-        ctx.fillRect(d.x - 1, d.y - 1, 2, 2)
-      })
-    }
-
-    // Draw floating particles
-    if (particlesVisible) {
-      particles.forEach(p => {
-        p.x += p.vx
-        p.y += p.vy
-        if (!warpMode) {
-          if (p.x < 0 || p.x > W) p.vx *= -1
-          if (p.y < 0 || p.y > H) p.vy *= -1
-        }
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(46,163,242,${p.opacity})`
-        ctx.fill()
-      })
-
-      // Draw faint connection lines between nearby particles
-      if (!warpMode) {
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x
-            const dy = particles[i].y - particles[j].y
-            const dist = dx * dx + dy * dy
-            if (dist < 22000) {
-              ctx.strokeStyle = `rgba(46,163,242,${0.04 * (1 - dist / 22000)})`
-              ctx.lineWidth = 0.5
-              ctx.beginPath()
-              ctx.moveTo(particles[i].x, particles[i].y)
-              ctx.lineTo(particles[j].x, particles[j].y)
-              ctx.stroke()
-            }
-          }
-        }
-      }
-    }
-
-    rafId = requestAnimationFrame(draw)
-  }
-
-  rafId = requestAnimationFrame(draw)
-
-  return {
-    triggerDotWave,
-    showParticles,
-    triggerWarp,
-    destroy() {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', resize)
-    },
-  }
-}
+const KPIS = [
+  { num: '500+',  label: 'COMPTES ACTIFS' },
+  { num: '6',     label: 'PAYS' },
+  { num: '1 393', label: 'INSPECTIONS' },
+  { num: '98.7%', label: 'CONFORMITÉ' },
+]
 
 export default function Intro({ onComplete }) {
   const overlayRef = useRef(null)
-  const canvasRef = useRef(null)
-  const particleCtrl = useRef(null)
+  const tlRef = useRef(null)
+  const metricTimers = useRef([])
+  const dashKpiTimers = useRef([])
+  const [globePhase, setGlobePhase] = useState(-1)
 
+  /* ─── Skip handler ─── */
+  const handleSkip = useCallback(() => {
+    if (tlRef.current) tlRef.current.kill()
+    metricTimers.current.forEach(clearInterval)
+    metricTimers.current = []
+    dashKpiTimers.current.forEach(clearInterval)
+    dashKpiTimers.current = []
+
+    const overlay = overlayRef.current
+    if (!overlay) { onComplete(); return }
+    const tl = gsap.timeline({ onComplete: () => onComplete() })
+    tl.to('.intro-red-sweep', { scaleX: 1, duration: 0.5, ease: 'power3.inOut' })
+    tl.to(overlay, { yPercent: -100, duration: 0.7, ease: 'power4.inOut' }, 0.35)
+  }, [onComplete])
+
+  /* ─── Master timeline ─── */
   useEffect(() => {
     const overlay = overlayRef.current
     if (!overlay) return
 
-    // Init canvas particles
-    if (canvasRef.current) {
-      particleCtrl.current = initParticleCanvas(canvasRef.current)
-    }
-
-    // Splitting.js
-    Splitting({ target: overlay.querySelector('#intro-title'), by: 'chars' })
-    Splitting({ target: overlay.querySelector('#line1'), by: 'words' })
-    Splitting({ target: overlay.querySelector('#line2'), by: 'words' })
-
-    // Background slideshow — all hidden initially
-    const slides = overlay.querySelectorAll('.intro-bg-slide')
-    gsap.set(slides, { opacity: 0 })
-
-    // Sector tags initial states
-    const sectorTags = overlay.querySelectorAll('.sector-tag')
-    sectorTags.forEach((tag, i) => {
-      gsap.set(tag, {
-        x: i % 2 === 0 ? gsap.utils.random(-80, -40) : gsap.utils.random(40, 80),
-        y: gsap.utils.random(-10, 10),
-        opacity: 0,
-        scale: 0.8,
-      })
-    })
-
-    // KPI initial states
-    gsap.set('.intro-kpi-item', { opacity: 0, y: 20 })
-    gsap.set('.intro-kpi-underline', { scaleX: 0 })
-
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      tlRef.current = tl
 
-      /* ═══════════════════════════════════════════
-         Phase 0 — Boot Sequence (0–2s)
-         ═══════════════════════════════════════════ */
-      tl.set('#intro-scanline', { opacity: 1, top: '-2px' })
-      tl.to('#intro-scanline', { top: '100%', duration: 3.5, ease: 'power1.inOut', opacity: 0.9 }, 0)
-      tl.to('#intro-scanline', { opacity: 0, duration: 0.5 }, 3.5)
-      tl.to('#intro-progress-fill', { width: '100%', duration: 20, ease: 'none' }, 0)
-      // Trigger dot grid wave at 0.3s
-      tl.call(() => particleCtrl.current?.triggerDotWave(), null, 0.3)
+      // ═══════════════════════════════════════════
+      // Progress bar — 32s fill
+      // ═══════════════════════════════════════════
+      tl.to('.intro-progress-fill', { scaleX: 1, duration: 32, ease: 'none' }, 0)
 
-      /* ─── Background slideshow (Ken Burns crossfade) ─── */
-      // Slide 0: Soudure industrielle (0–5s)
-      tl.set('[data-slide="0"]', { scale: 1 })
-      tl.to('[data-slide="0"]', { opacity: 0.25, duration: 1.5, ease: 'power2.out' }, 1.0)
-      tl.to('[data-slide="0"]', { scale: 1.06, duration: 4, ease: 'none' }, 1.0)
-      tl.to('[data-slide="0"]', { opacity: 0, duration: 1, ease: 'power2.in' }, 4.5)
+      // ═══════════════════════════════════════════
+      // PHASE 0 — BOOT (0–2.5s)
+      // ═══════════════════════════════════════════
 
-      // Slide 1: Chantier construction (5–9s)
-      tl.set('[data-slide="1"]', { scale: 1.04 })
-      tl.to('[data-slide="1"]', { opacity: 0.25, duration: 1, ease: 'power2.out' }, 5.0)
-      tl.to('[data-slide="1"]', { scale: 1, duration: 4, ease: 'none' }, 5.0)
-      tl.to('[data-slide="1"]', { opacity: 0, duration: 1, ease: 'power2.in' }, 8.5)
+      tl.set('.intro-scanline', { opacity: 1, top: '-2px' })
+      tl.to('.intro-scanline', { top: '100%', duration: 2.5, ease: 'power1.inOut' }, 0)
+      tl.to('.intro-scanline', { opacity: 0, duration: 0.3 }, 2.2)
 
-      // Slide 2: Aéronautique (9–13s)
-      tl.set('[data-slide="2"]', { scale: 1 })
-      tl.to('[data-slide="2"]', { opacity: 0.25, duration: 1, ease: 'power2.out' }, 9.0)
-      tl.to('[data-slide="2"]', { scale: 1.06, duration: 4, ease: 'none' }, 9.0)
-      tl.to('[data-slide="2"]', { opacity: 0, duration: 1, ease: 'power2.in' }, 12.5)
+      tl.to('.intro-grid', { opacity: 1, duration: 1.5 }, 0.8)
 
-      // Slide 3: Usine/tech (13–17s)
-      tl.set('[data-slide="3"]', { scale: 1.04 })
-      tl.to('[data-slide="3"]', { opacity: 0.22, duration: 1, ease: 'power2.out' }, 13.0)
-      tl.to('[data-slide="3"]', { scale: 1, duration: 4, ease: 'none' }, 13.0)
-      tl.to('[data-slide="3"]', { opacity: 0, duration: 1, ease: 'power2.in' }, 16.5)
+      const bootEl = overlay.querySelector('.intro-boot-text')
+      if (bootEl) {
+        const text = 'INSPECTO DQI'
+        bootEl.textContent = ''
+        text.split('').forEach((char, i) => {
+          tl.call(() => { bootEl.textContent += char }, null, 0.3 + i * 0.08)
+        })
+      }
 
-      // Slide 4: Digital/tech (17–20s)
-      tl.set('[data-slide="4"]', { scale: 1 })
-      tl.to('[data-slide="4"]', { opacity: 0.2, duration: 0.8, ease: 'power2.out' }, 17.0)
-      tl.to('[data-slide="4"]', { scale: 1.05, duration: 3, ease: 'none' }, 17.0)
+      const versionEl = overlay.querySelector('.intro-version')
+      if (versionEl) {
+        const vtext = 'v4.2.1 — INITIALISATION...'
+        versionEl.textContent = ''
+        vtext.split('').forEach((char, i) => {
+          tl.call(() => { versionEl.textContent += char }, null, 1.0 + i * 0.04)
+        })
+      }
 
-      /* ═══════════════════════════════════════════
-         Phase 1 — Logo Reveal (2–4s)
-         ═══════════════════════════════════════════ */
-      tl.to('#logo-dot', { scale: 1, opacity: 1, duration: 1.0, ease: 'back.out(2)' }, 0.8)
-      tl.to('#logo-dot', { scale: 1.2, boxShadow: '0 0 0 20px rgba(46,163,242,0)', duration: 0.5, ease: 'power2.out', yoyo: true, repeat: 1 }, 2.2)
-      tl.to('#intro-logo-label', { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out' }, 2.3)
+      // ═══════════════════════════════════════════
+      // PHASE 1 — GLOBE REVEAL (2.5–8s)
+      // ═══════════════════════════════════════════
 
-      // Title reveal with clip-path wipe
-      // First: make all chars visible but hide title with clip-path
-      tl.set('#intro-title', { clipPath: 'inset(0 100% 0 0)', opacity: 1 }, 0)
-      tl.set('#intro-title .char', { y: 0, opacity: 1 }, 0)
-      // Then: wipe reveal from left to right
-      tl.to('#intro-title', { clipPath: 'inset(0 0% 0 0)', duration: 1.4, ease: 'power2.inOut' }, 2.5)
+      tl.call(() => setGlobePhase(0), null, 2.5)
+      tl.call(() => setGlobePhase(1), null, 4.0)
 
-      /* ═══════════════════════════════════════════
-         Phase 2 — Video + Particles (3–5s)
-         ═══════════════════════════════════════════ */
-      tl.call(() => particleCtrl.current?.showParticles(), null, 3.5)
-
-      /* ═══════════════════════════════════════════
-         Phase 3 — Tagline + Sectors (5–9s)
-         ═══════════════════════════════════════════ */
-      tl.to('#intro-tagline', { opacity: 1, y: 0, duration: 1.1 }, 5.0)
-      tl.to('.sector-tag', {
-        x: 0, y: 0, opacity: 1, scale: 1,
-        duration: 0.7,
-        stagger: { each: 0.12, ease: 'power2.out' },
-        ease: 'back.out(1.3)',
-      }, 6.0)
-      // Pulse glow on tags
-      tl.to('.sector-tag', {
-        borderColor: 'rgba(46,163,242,0.75)',
-        boxShadow: '0 0 16px rgba(46,163,242,0.25)',
-        duration: 0.5,
-        stagger: { each: 0.08, yoyo: true, repeat: 1 },
-      }, 7.8)
-
-      /* ═══════════════════════════════════════════
-         Phase 4 — KPI Counters (9–14s) ⭐ NEW
-         ═══════════════════════════════════════════ */
-      // Fade out sectors + title/tagline
-      tl.to('.sector-tag', { opacity: 0, y: -16, scale: 0.88, duration: 0.5, stagger: { each: 0.05, from: 'random' } }, 8.8)
-      tl.to(['#intro-title', '#intro-tagline', '#intro-logo-group'], { opacity: 0, duration: 0.6 }, 9.0)
-
-      // KPI items appear
-      tl.to('.intro-kpi-item', {
-        opacity: 1, y: 0, duration: 0.6,
-        stagger: 0.15, ease: 'power3.out',
-      }, 9.5)
-      tl.to('.intro-kpi-underline', {
-        scaleX: 1, duration: 0.5,
+      tl.to('.intro-sector-item', {
+        opacity: 1, x: 0, duration: 0.6,
         stagger: 0.15, ease: 'power2.out',
-      }, 10.0)
+      }, 3.0)
 
-      // Animate counter numbers
-      INTRO_KPIS.forEach((kpi, i) => {
-        const el = overlay.querySelector(`#intro-kpi-num-${i}`)
-        if (el) {
-          const obj = { val: 0 }
-          tl.to(obj, {
-            val: kpi.value,
-            duration: 2.2,
-            ease: 'power2.out',
-            snap: { val: kpi.value % 1 === 0 ? 1 : 0.1 },
-            onUpdate: () => {
-              if (kpi.value % 1 === 0) {
-                el.textContent = Math.round(obj.val).toLocaleString('fr-FR') + kpi.suffix
-              } else {
-                el.textContent = obj.val.toFixed(1) + kpi.suffix
-              }
-            },
-          }, 9.8 + i * 0.15)
+      tl.to('.intro-metric-item', {
+        opacity: 1, x: 0, duration: 0.5,
+        stagger: 0.12, ease: 'power2.out',
+      }, 3.5)
+
+      tl.call(() => {
+        const metricEls = overlay.querySelectorAll('.intro-metric-value')
+        METRICS.forEach((m, i) => {
+          const el = metricEls[i]
+          if (!el) return
+          const timer = setInterval(() => {
+            const jitter = m.suffix ? (Math.random() * 0.4 - 0.2) : Math.floor(Math.random() * 3 - 1)
+            const val = m.suffix
+              ? (m.value + jitter).toFixed(1) + m.suffix
+              : (m.value + jitter).toLocaleString('fr-FR')
+            el.textContent = val
+          }, 800)
+          metricTimers.current.push(timer)
+        })
+      }, null, 4.0)
+
+      // ═══════════════════════════════════════════
+      // PHASE 2 — KPI COUNTERS (8–14s)
+      // ═══════════════════════════════════════════
+
+      tl.call(() => setGlobePhase(2), null, 8.0)
+
+      tl.to('.intro-sector-list', { opacity: 0, duration: 0.6 }, 7.8)
+      tl.to('.intro-live-metrics', { opacity: 0, duration: 0.6 }, 7.8)
+
+      tl.to('.intro-hud-corner', { opacity: 1, duration: 0.4, stagger: 0.08 }, 8.2)
+      tl.to('.intro-soundwave', { opacity: 1, duration: 0.4 }, 8.5)
+
+      KPIS.forEach((kpi, i) => {
+        const startAt = 8.5 + i * 1.5
+        tl.fromTo(`.intro-kpi-big[data-idx="${i}"]`, {
+          opacity: 0, scale: 1.4,
+        }, {
+          opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out',
+        }, startAt)
+        tl.fromTo(`.intro-kpi-big-label[data-idx="${i}"]`, {
+          opacity: 0, y: 8,
+        }, {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out',
+        }, startAt + 0.3)
+        if (i < KPIS.length - 1) {
+          tl.to(`.intro-kpi-big[data-idx="${i}"]`, { opacity: 0, y: -20, scale: 0.9, duration: 0.4 }, startAt + 1.1)
+          tl.to(`.intro-kpi-big-label[data-idx="${i}"]`, { opacity: 0, y: -10, duration: 0.3 }, startAt + 1.1)
         }
       })
 
-      /* ═══════════════════════════════════════════
-         Phase 5 — Accroche Finale (14–17.5s)
-         ═══════════════════════════════════════════ */
-      tl.to('.intro-kpi-item', { opacity: 0, y: -12, duration: 0.5, stagger: 0.06 }, 13.5)
-      tl.to('#line1 .word', {
-        opacity: 1, y: 0, filter: 'blur(0px)',
-        duration: 0.6, stagger: 0.08, ease: 'power3.out',
-      }, 14.2)
-      tl.to('#line2 .word', {
-        opacity: 1, y: 0, filter: 'blur(0px)',
-        duration: 0.6, stagger: 0.08, ease: 'power3.out',
-      }, 15.8)
+      // ═══════════════════════════════════════════
+      // PHASE 3 — DASHBOARD 3D REVEAL (14.5–22.5s)
+      // ═══════════════════════════════════════════
 
-      /* ═══════════════════════════════════════════
-         Phase 6 — Sweep Final (17.5–20s)
-         ═══════════════════════════════════════════ */
-      // Warp particles toward center
-      tl.call(() => particleCtrl.current?.triggerWarp(), null, 18.0)
-      // Flash + fade
-      tl.to('#intro-flash', { opacity: 0.6, duration: 0.15, ease: 'power2.in' }, 18.5)
-      tl.to('#intro-flash', { opacity: 0, duration: 0.3, ease: 'power2.out' }, 18.65)
-      tl.to(['#line1', '#line2', '#intro-video-overlay'], { opacity: 0, duration: 0.3 }, 18.8)
-      tl.to('#intro-overlay', {
-        yPercent: -100,
-        duration: 0.9,
-        ease: 'power4.inOut',
-        onComplete: () => onComplete(),
-      }, 19.2)
+      // Fade out KPI + HUD + soundwave
+      tl.to('.intro-kpi-big[data-idx="3"]', { opacity: 0, duration: 0.4 }, 14.0)
+      tl.to('.intro-kpi-big-label[data-idx="3"]', { opacity: 0, duration: 0.3 }, 14.0)
+      tl.to('.intro-soundwave', { opacity: 0, duration: 0.3 }, 14.0)
+      tl.to('.intro-hud-corner', { opacity: 0, duration: 0.3 }, 14.0)
+
+      // Globe migrates to corner
+      tl.call(() => setGlobePhase(3), null, 14.2)
+
+      // Stop metric flicker
+      tl.call(() => {
+        metricTimers.current.forEach(clearInterval)
+        metricTimers.current = []
+      }, null, 14.0)
+
+      // Dashboard appears with perspective tilt
+      tl.fromTo('.fd-perspective', {
+        opacity: 0, y: 60,
+      }, {
+        opacity: 1, y: 0, duration: 1.2, ease: 'power2.out',
+      }, 14.5)
+
+      tl.fromTo('.fd-container', {
+        rotateX: 25, rotateY: -8,
+      }, {
+        rotateX: 0, rotateY: 0, duration: 1.5, ease: 'power3.out',
+      }, 14.5)
+
+      // Internal elements stagger
+      tl.fromTo('.fd-topbar', { opacity: 0 }, { opacity: 1, duration: 0.4 }, 14.8)
+
+      tl.fromTo('.fd-kpi-card', {
+        opacity: 0, y: 20,
+      }, {
+        opacity: 1, y: 0, duration: 0.5,
+        stagger: 0.1, ease: 'power2.out',
+      }, 15.1)
+
+      // Gantt bars draw
+      tl.to('.fd-gantt-bar', {
+        width: 'var(--bar-width)', duration: 1.2,
+        stagger: 0.15, ease: 'power2.out',
+      }, 15.7)
+
+      // Bottom row
+      tl.fromTo('.fd-bottom', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 16.5)
+
+      // Donut segments animate
+      tl.fromTo('.fd-donut-seg', {
+        strokeDashoffset: 238.76,
+      }, {
+        strokeDashoffset: 0, duration: 1.2,
+        stagger: 0.2, ease: 'power2.out',
+      }, 16.8)
+
+      // KPI flicker on dashboard
+      tl.call(() => {
+        const kpiEls = overlay.querySelectorAll('.fd-kpi-value')
+        const originals = KPI_CARDS_DATA.map(c => c.value)
+        const timer = setInterval(() => {
+          kpiEls.forEach((el, i) => {
+            const base = parseInt(originals[i].replace(/\s/g, ''), 10)
+            if (!isNaN(base)) {
+              const jitter = Math.floor(Math.random() * 3 - 1)
+              el.textContent = (base + jitter).toLocaleString('fr-FR')
+            }
+          })
+        }, 1200)
+        dashKpiTimers.current.push(timer)
+      }, null, 17.0)
+
+      // Dashboard exit — tilt back + blur + scale down
+      tl.to('.fd-container', {
+        rotateX: 8, scale: 0.85, filter: 'blur(8px)',
+        duration: 1.5, ease: 'power2.inOut',
+      }, 21.0)
+      tl.to('.fd-perspective', { opacity: 0, duration: 1.2 }, 21.3)
+
+      // Stop dashboard KPI flicker
+      tl.call(() => {
+        dashKpiTimers.current.forEach(clearInterval)
+        dashKpiTimers.current = []
+      }, null, 22.0)
+
+      // ═══════════════════════════════════════════
+      // PHASE 4 — BRAND MOMENT (23–28s)
+      // ═══════════════════════════════════════════
+
+      tl.to('.intro-boot-text', { opacity: 0, duration: 0.3 }, 22.5)
+      tl.to('.intro-version', { opacity: 0, duration: 0.3 }, 22.5)
+
+      // INSPECTO title — clip-path wipe per letter
+      const titleLetters = overlay.querySelectorAll('.intro-brand-letter')
+      titleLetters.forEach((el, i) => {
+        tl.to(el, {
+          clipPath: 'inset(0 0% 0 0)', duration: 0.12,
+          ease: 'power2.out',
+        }, 23.0 + i * 0.07)
+      })
+
+      // Red underline draws
+      tl.to('.intro-brand-line', {
+        scaleX: 1, duration: 0.5, ease: 'power2.inOut',
+      }, 24.0)
+
+      // Tagline words blur in
+      tl.to('.intro-tagline-word', {
+        opacity: 1, filter: 'blur(0px)', duration: 0.45,
+        stagger: 0.09, ease: 'power2.out',
+      }, 24.8)
+
+      // ═══════════════════════════════════════════
+      // PHASE 5 — TRANSITION (28–32s)
+      // ═══════════════════════════════════════════
+
+      tl.to('.intro-brand-letter', { opacity: 0, y: -8, duration: 0.35, stagger: 0.03 }, 28.0)
+      tl.to('.intro-brand-line', { opacity: 0, duration: 0.3 }, 28.2)
+      tl.to('.intro-tagline-word', { opacity: 0, y: -8, duration: 0.3, stagger: 0.04 }, 28.3)
+
+      tl.to('.intro-grid', { opacity: 0, duration: 0.5 }, 28.8)
+
+      // Red bar sweep + slide out
+      tl.to('.intro-red-sweep', { scaleX: 1, duration: 0.6, ease: 'power3.inOut' }, 29.5)
+      tl.to(overlay, { yPercent: -100, duration: 0.8, ease: 'power4.inOut' }, 30.0)
+
+      // Done
+      tl.call(() => onComplete(), null, 31.0)
+
     }, overlay)
 
     return () => {
       ctx.revert()
-      particleCtrl.current?.destroy()
+      metricTimers.current.forEach(clearInterval)
+      metricTimers.current = []
+      dashKpiTimers.current.forEach(clearInterval)
+      dashKpiTimers.current = []
     }
   }, [onComplete])
 
+  /* ─── Tagline split into words ─── */
+  const tagline = 'Inspection, contrôles et audits digitalisés'
+  const tagWords = tagline.split(' ')
+
+  /* ─── INSPECTO letters ─── */
+  const brandLetters = 'INSPECTO'.split('')
+
   return (
     <div id="intro-overlay" ref={overlayRef}>
-      {/* Background layers */}
-      {/* Background slideshow — one image per phase */}
-      <img className="intro-bg-slide" data-slide="0"
-        src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80"
-        alt="" aria-hidden="true" />
-      <img className="intro-bg-slide" data-slide="1"
-        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80"
-        alt="" aria-hidden="true" />
-      <img className="intro-bg-slide" data-slide="2"
-        src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1920&q=80"
-        alt="" aria-hidden="true" />
-      <img className="intro-bg-slide" data-slide="3"
-        src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=80"
-        alt="" aria-hidden="true" />
-      <img className="intro-bg-slide" data-slide="4"
-        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80"
-        alt="" aria-hidden="true" />
-      <div id="intro-video-overlay"></div>
-      <canvas id="intro-particles" ref={canvasRef}></canvas>
-      <div id="intro-scanline"></div>
-      <div id="intro-flash"></div>
 
-      {/* Logo group */}
-      <div id="intro-logo-group">
-        <div id="logo-dot"></div>
-        <span id="intro-logo-label">DQI</span>
-      </div>
+      {/* Background grid */}
+      <div className="intro-grid" />
 
-      {/* Title */}
-      <h1 id="intro-title">INSPECTO</h1>
-      <p id="intro-tagline">Inspection, contrôles et audits digitalisés</p>
+      {/* Red scanline */}
+      <div className="intro-scanline" />
 
-      {/* Sector tags */}
-      <div id="intro-sectors">
-        <span className="sector-tag">Nucléaire · ISO 19443</span>
-        <span className="sector-tag">Aéronautique · AS/EN 9100</span>
-        <span className="sector-tag">Défense</span>
-        <span className="sector-tag">Oil &amp; Gas</span>
-        <span className="sector-tag">Pharmacie</span>
-        <span className="sector-tag">Construction</span>
-        <span className="sector-tag">Énergie</span>
-        <span className="sector-tag">Mécanique</span>
-      </div>
+      {/* Red sweep bar for exit */}
+      <div className="intro-red-sweep" />
 
-      {/* KPI Counters ⭐ NEW */}
-      <div className="intro-kpi-row">
-        {INTRO_KPIS.map((kpi, i) => (
-          <div className="intro-kpi-item" key={i}>
-            <div className="intro-kpi-number" id={`intro-kpi-num-${i}`}>0{kpi.suffix}</div>
-            <div className="intro-kpi-underline"></div>
-            <div className="intro-kpi-label">{kpi.label}</div>
+      {/* Boot text */}
+      <span className="intro-boot-text" />
+      <span className="intro-version" />
+
+      {/* Globe */}
+      <EuropeWireframe3D phase={globePhase} />
+
+      {/* Sector list — left */}
+      <div className="intro-sector-list">
+        {SECTORS.map((s, i) => (
+          <div className="intro-sector-item" key={i} style={{ opacity: 0, transform: 'translateX(-40px)' }}>
+            {s}
           </div>
         ))}
       </div>
 
-      {/* Accroches */}
-      <p className="intro-accroche" id="line1">Dans l'industrie, chaque inspection compte.</p>
-      <p className="intro-accroche" id="line2">INSPECTO DQI digitalise tout — de l'audit au rapport.</p>
+      {/* Live metrics — right */}
+      <div className="intro-live-metrics">
+        {METRICS.map((m, i) => (
+          <div className="intro-metric-item" key={i} style={{ opacity: 0, transform: 'translateX(40px)' }}>
+            <span className="intro-metric-label">{m.label}</span>
+            <span className="intro-metric-value">
+              {m.suffix ? m.value.toFixed(1) + m.suffix : m.value.toLocaleString('fr-FR')}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* HUD corners */}
+      <div className="intro-hud-corner tl" style={{ opacity: 0 }} />
+      <div className="intro-hud-corner tr" style={{ opacity: 0 }} />
+      <div className="intro-hud-corner bl" style={{ opacity: 0 }} />
+      <div className="intro-hud-corner br" style={{ opacity: 0 }} />
+
+      {/* Sound wave bars */}
+      <div className="intro-soundwave" style={{ opacity: 0 }}>
+        <span /><span /><span /><span /><span />
+      </div>
+
+      {/* Big KPI counter — stacked center */}
+      <div className="intro-kpi-center">
+        {KPIS.map((kpi, i) => (
+          <div className="intro-kpi-stack" key={i}>
+            <div className="intro-kpi-big" data-idx={i} style={{ opacity: 0 }}>{kpi.num}</div>
+            <div className="intro-kpi-big-label" data-idx={i} style={{ opacity: 0 }}>{kpi.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Fake dashboard — Phase 3 */}
+      <FakeDashboard />
+
+      {/* Brand moment */}
+      <div className="intro-brand-center">
+        <h1 className="intro-brand-title">
+          {brandLetters.map((ch, i) => (
+            <span className="intro-brand-letter" key={i} style={{ clipPath: 'inset(0 100% 0 0)' }}>{ch}</span>
+          ))}
+        </h1>
+        <div className="intro-brand-line" />
+        <p className="intro-tagline">
+          {tagWords.map((w, i) => (
+            <span className="intro-tagline-word" key={i}>{w}&nbsp;</span>
+          ))}
+        </p>
+      </div>
+
+      {/* Skip button */}
+      <button className="intro-skip" onClick={handleSkip}>
+        Passer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
 
       {/* Progress bar */}
-      <div id="intro-progress"><div id="intro-progress-fill"></div></div>
+      <div className="intro-progress"><div className="intro-progress-fill" /></div>
     </div>
   )
 }
+
+/* Reference data for KPI flicker (must match FakeDashboard) */
+const KPI_CARDS_DATA = [
+  { value: '61' },
+  { value: '1 187' },
+  { value: '416' },
+  { value: '194' },
+]

@@ -5,6 +5,8 @@ import gsap from 'gsap'
 import { getInspections, FAKE_INSPECTION_COUNTERS } from '../../data/fakeInspections'
 import ImageEditor from '../ImageEditor/ImageEditor'
 import { showToast } from '../Toast'
+import { exportCSV } from '../../utils/exportUtils'
+import FilterPanel from '../shared/FilterPanel'
 
 // Legacy inspection data for detail view compatibility
 const legacyInspections = [
@@ -25,6 +27,7 @@ export default function Inspections() {
   const [detailInsp, setDetailInsp] = useState(null)
   const [detailTab, setDetailTab] = useState('info')
   const [editingImage, setEditingImage] = useState(null)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [whys, setWhys] = useState([{ text: 'Porosit\u00e9s sur soudure TIG.' }])
   const [capaActions, setCapaActions] = useState([
     { num: 1, title: 'Isoler les 3 pi\u00e8ces non-conformes du lot 42', assignee: 'S. Dupont', deadline: '18 mars 2026', priority: 'alert', priorityText: 'Critique' },
@@ -520,9 +523,9 @@ export default function Inspections() {
 
       {/* Toolbar */}
       <div className="table-toolbar">
-        <button className="btn-outline" onClick={() => showToast('Filters opened', 'info')}>{t('common.filters')}</button>
+        <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
         <div style={{ marginLeft: "auto", display: "flex", gap: "8px" }}>
-          <button className="btn-outline">{t('common.export')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(getInspections(t), `inspecto-inspections-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export')}</button>
           <button className="btn-primary" data-demo-target="btn-new-inspection" onClick={() => setView('plan')}>{t('inspections.newInspection')}</button>
           <button className="btn-primary" data-demo-target="btn-fill-form" onClick={() => {
             const inspections = getInspections(t)
@@ -578,6 +581,22 @@ export default function Inspections() {
           </tbody>
         </table>
       </div>
+
+      <FilterPanel
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        filterConfig={[
+          { type: 'select', label: 'Statut', key: 'status', options: [
+            { value: '', label: 'Tous' },
+            { value: 'OVERDUE', label: 'En retard' },
+            { value: 'CLOSED', label: 'Clôturé' },
+            { value: 'OPEN', label: 'En cours' },
+          ]},
+          { type: 'dateRange', label: 'Période', fromKey: 'from', toKey: 'to' },
+        ]}
+      />
 
     </div>
   )

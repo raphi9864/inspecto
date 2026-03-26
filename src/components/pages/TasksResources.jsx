@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
+import { exportCSV, exportXLSX } from '../../utils/exportUtils'
+import FilterPanel from '../shared/FilterPanel'
 
 const INITIAL = [
   { id: 1, name: 'Serrage vis flasques moteur', assignee: 'S. Dupont', start: '2026-03-31', end: '2026-04-01', status: 'In Progress', priority: 'High', progress: 60 },
@@ -36,6 +38,7 @@ export default function TasksResources() {
   const [showModal, setShowModal] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState({ name: '', assignee: ASSIGNEES[0], start: '', end: '', status: 'Open', priority: 'Medium' })
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,8 +67,9 @@ export default function TasksResources() {
     <div ref={containerRef}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button className="btn-outline" onClick={() => showToast('Excel exported', 'info')}>{t('tasks.exportExcel')}</button>
-          <button className="btn-outline" onClick={() => showToast('CSV exported', 'info')}>{t('tasks.exportCSV')}</button>
+          <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
+          <button className="btn-outline" onClick={() => { exportXLSX(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.xlsx`); showToast('Excel exported', 'success') }}>{t('tasks.exportExcel')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(tasks, `inspecto-tasks-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('tasks.exportCSV')}</button>
           <button className="btn-outline" onClick={() => showToast('Import completed', 'info')}>{t('tasks.import')}</button>
         </div>
         <button className="btn-primary" onClick={openNew}>{t('tasks.newTask')}</button>
@@ -133,6 +137,23 @@ export default function TasksResources() {
           </div>
         </div>
       )}
+
+      <FilterPanel
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        filterConfig={[
+          { type: 'select', label: 'Statut', key: 'status', options: [
+            { value: '', label: 'Tous' },
+            { value: 'open', label: 'Ouvert' },
+            { value: 'inProgress', label: 'En cours' },
+            { value: 'overdue', label: 'En retard' },
+            { value: 'closed', label: 'Clôturé' },
+          ]},
+          { type: 'dateRange', label: 'Période', fromKey: 'from', toKey: 'to' },
+        ]}
+      />
     </div>
   )
 }

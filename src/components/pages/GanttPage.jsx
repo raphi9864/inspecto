@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { useProject } from '../../context/ProjectContext'
 import { getProjectData } from '../../data/fakeDashboard'
 import { showToast } from '../Toast'
+import { exportPNG, exportXLSX } from '../../utils/exportUtils'
 
 function getResourceView(t) {
   return [
@@ -58,11 +59,11 @@ export default function GanttPage() {
           <button className={`btn-outline${viewMode === 'resources' ? ' active-toggle' : ''}`} onClick={() => setViewMode('resources')}>{t('gantt.resources')}</button>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button className="btn-outline" title="Export PNG" onClick={() => showToast('PNG exported', 'info')}>
+          <button className="btn-outline" title="Export PNG" onClick={() => { exportPNG(containerRef, `inspecto-gantt-${new Date().toISOString().slice(0, 10)}.png`); showToast('PNG exported', 'success') }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             {t('gantt.png')}
           </button>
-          <button className="btn-outline" title="Export Excel" onClick={() => showToast('Excel exported', 'info')}>
+          <button className="btn-outline" title="Export Excel" onClick={() => { const exportData = rows.map(r => ({ label: r.label, start: r.start, duration: r.duration, progress: r.progress != null ? r.progress : '' })); exportXLSX(exportData, `inspecto-gantt-${new Date().toISOString().slice(0, 10)}.xlsx`); showToast('Excel exported', 'success') }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
             {t('gantt.excel')}
           </button>

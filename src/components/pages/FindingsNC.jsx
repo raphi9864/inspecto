@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
 import ImageEditor from '../ImageEditor/ImageEditor'
+import { exportCSV } from '../../utils/exportUtils'
+import FilterPanel from '../shared/FilterPanel'
 
 const INITIAL = [
   { id: 'NC-2026-0043', date: '18-03-2026', area: 'Welding - Station S3', status: 'OPEN', criticality: 'Major', desc: 'Porosity defect on TIG weld - motor flange lot 42' },
@@ -55,6 +57,7 @@ export default function FindingsNC() {
   const [showAdditional, setShowAdditional] = useState(false)
   const [photos, setPhotos] = useState([])
   const [editingImage, setEditingImage] = useState(null)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [form, setForm] = useState({
     inspection: INSPECTIONS[0], refNo: '', desc: '', area: AREAS[0],
     event: EVENTS[0], other: '', lessonLearnt: false, showReportDate: false,
@@ -333,9 +336,9 @@ export default function FindingsNC() {
       </div>
 
       <div className="table-toolbar">
-        <button className="btn-outline" onClick={() => showToast('Filters opened', 'info')}>{t('common.filters')}</button>
+        <button className="btn-outline" onClick={() => setIsFilterOpen(true)}>{t('common.filters')}</button>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
-          <button className="btn-outline" onClick={() => showToast('Exported', 'info')}>{t('common.export')}</button>
+          <button className="btn-outline" onClick={() => { exportCSV(findings, `inspecto-findings-${new Date().toISOString().slice(0, 10)}.csv`); showToast('CSV exported', 'success') }}>{t('common.export')}</button>
           <button className="btn-primary" data-demo-target="btn-new-nc" onClick={openNew}>{t('findings.newNC')}</button>
         </div>
       </div>
@@ -377,6 +380,27 @@ export default function FindingsNC() {
           </div>
         </div>
       )}
+
+      <FilterPanel
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        onApply={(f) => { setIsFilterOpen(false); showToast('Filtres appliqués', 'info') }}
+        onReset={() => { setIsFilterOpen(false); showToast('Filtres réinitialisés', 'info') }}
+        filterConfig={[
+          { type: 'select', label: 'Criticité', key: 'criticality', options: [
+            { value: '', label: 'Toutes' },
+            { value: 'critical', label: 'Critique' },
+            { value: 'major', label: 'Majeur' },
+            { value: 'minor', label: 'Mineur' },
+          ]},
+          { type: 'select', label: 'Statut', key: 'status', options: [
+            { value: '', label: 'Tous' },
+            { value: 'open', label: 'Ouvert' },
+            { value: 'pending', label: 'En attente' },
+            { value: 'closed', label: 'Clôturé' },
+          ]},
+        ]}
+      />
     </div>
   )
 }

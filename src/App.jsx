@@ -30,6 +30,8 @@ const GlobalStatistics = lazy(() => import('./components/pages/GlobalStatistics'
 const AdvancedStatistics = lazy(() => import('./components/pages/AdvancedStatistics'))
 const GlobalGantt = lazy(() => import('./components/pages/GlobalGantt'))
 const StubPage = lazy(() => import('./components/pages/StubPage'))
+const ExpiringFiles = lazy(() => import('./components/pages/ExpiringFiles'))
+const MessagePage = lazy(() => import('./components/pages/MessagePage'))
 
 /* ─── Shared loading spinner ─── */
 function PageLoader() {
@@ -83,10 +85,10 @@ export default function App() {
           <Route path="qcp" element={<QualityControlPlan />} />
           <Route path="cfsi" element={<CFSIPage />} />
           <Route path="documentation" element={<Documentation />} />
-          <Route path="expiring" element={<StubPage title="Expiring Files" />} />
+          <Route path="expiring" element={<ExpiringFiles />} />
           <Route path="team" element={<Team />} />
           <Route path="templates" element={<FormTemplates />} />
-          <Route path="message" element={<StubPage title="Message" />} />
+          <Route path="message" element={<MessagePage />} />
           <Route path="settings" element={<Settings />} />
         </Route>
 

@@ -21,6 +21,18 @@ const FOLDERS = [
   { name: '8- Commande client', date: '17-04-2025 10:35:26' },
 ]
 
+const FOLDER_FILES = {
+  0: [ // Manufacturing Record Book (MRB)
+    { name: 'MRB-2026-001.pdf', size: '2.4 MB', author: 'R. Attal', date: '12/01/2026', type: 'PDF' },
+    { name: 'MRB-2026-002.pdf', size: '1.8 MB', author: 'S. Dupont', date: '03/02/2026', type: 'PDF' },
+    { name: 'Index MRB.xlsx', size: '340 KB', author: 'R. Attal', date: '15/01/2026', type: 'Excel' },
+  ],
+  6: [ // 0- Page de garde
+    { name: 'Page_de_garde_v3.docx', size: '890 KB', author: 'A. Leroy', date: '20/01/2026', type: 'Word' },
+    { name: 'Template_rapport.docx', size: '1.2 MB', author: 'R. Attal', date: '08/02/2026', type: 'Word' },
+  ],
+}
+
 export default function Documentation() {
   const { t } = useTranslation()
   const containerRef = useRef(null)
@@ -112,6 +124,36 @@ export default function Documentation() {
             </svg>
             <p>{t('common.selectFolder')}</p>
           </div>
+        ) : FOLDER_FILES[selectedFolder] ? (
+          <table className="data-table">
+            <tbody>
+              {FOLDER_FILES[selectedFolder].map((file) => {
+                const tagColor = file.type === 'PDF' ? 'red' : file.type === 'Excel' ? 'green' : 'blue'
+                const tagLabel = file.type === 'PDF' ? 'PDF' : file.type === 'Excel' ? 'XLS' : 'DOC'
+                return (
+                  <tr key={file.name}>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <div className={`lib-file-icon lib-${file.type.toLowerCase()}`}>{tagLabel}</div>
+                        <div>
+                          <div style={{ fontWeight: 500 }}>{file.name}</div>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>{file.size} — {file.author}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span className={`trace-tag trace-tag-${tagColor}`} style={{ fontSize: '0.85rem' }}>{file.type}</span></td>
+                    <td style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{file.date}</td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button className="proj-icon-btn" title={t('common.download')} onClick={() => showToast('File downloaded', 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+                        <button className="proj-icon-btn" title={t('common.delete')} onClick={() => showToast('File deleted', 'info')}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
         ) : (
           <div className="doc-placeholder">
             <p style={{ color: 'var(--text-tertiary)' }}>{t('common.noFiles')}</p>
