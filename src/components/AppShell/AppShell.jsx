@@ -4,6 +4,7 @@ import Topbar from './Topbar'
 import MainMenu from './MainMenu'
 import AnimatedOutlet from './AnimatedOutlet'
 import ToastContainer from '../Toast'
+import FakeChatbot from '../Demo/FakeChatbot'
 import '../../css/pages.css'
 
 export default function AppShell() {
@@ -24,6 +25,7 @@ export default function AppShell() {
       </div>
       <MainMenu open={mainMenuOpen} onClose={() => setMainMenuOpen(false)} />
       <ToastContainer />
+      <FakeChatbot />
     </div>
   )
 }

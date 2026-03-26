@@ -27,7 +27,7 @@ export function DemoProvider({ children }) {
   const script = useMemo(() => getScript(i18n.language), [i18n.language])
 
   /* State */
-  const [status, setStatus] = useState('idle') // idle | running | complete
+  const [status, setStatus] = useState('idle') // idle | running | paused | complete
   const [currentStep, setCurrentStep] = useState(null)
   const [currentPhase, setCurrentPhase] = useState(0)
   const [phaseTitle, setPhaseTitle] = useState('')
@@ -40,6 +40,8 @@ export function DemoProvider({ children }) {
   const typedRef = useRef(null)
   const timeoutsRef = useRef(new Set())
   const runningRef = useRef(false)
+  const pausedRef = useRef(false)
+  const skipStepRef = useRef(false)
 
   /* ─── Speech (Typed.js + ElevenLabs TTS in parallel) ─── */
   const speakTo = useCallback((textEl, text, speed = 20, stepId = null) => {
@@ -204,6 +206,38 @@ export function DemoProvider({ children }) {
     runningRef.current = false
   }, [executeStep, spotlight, script])
 
+  /* ─── Pause the demo ─── */
+  const pauseDemo = useCallback(() => {
+    if (status !== 'running') return
+    pausedRef.current = true
+    setStatus('paused')
+    stopCurrentAudio()
+    if (typedRef.current) {
+      typedRef.current.stop()
+    }
+  }, [status])
+
+  /* ─── Resume the demo ─── */
+  const resumeDemo = useCallback(() => {
+    if (status !== 'paused') return
+    pausedRef.current = false
+    setStatus('running')
+  }, [status])
+
+  /* ─── Skip current step, advance to next ─── */
+  const nextStep = useCallback(() => {
+    skipStepRef.current = true
+    stopCurrentAudio()
+    if (typedRef.current) {
+      typedRef.current.destroy()
+      typedRef.current = null
+    }
+    if (pausedRef.current) {
+      pausedRef.current = false
+      setStatus('running')
+    }
+  }, [])
+
   /* ─── Skip / abort the demo ─── */
   const skipDemo = useCallback(() => {
     if (abortRef.current) abortRef.current.abort()
@@ -218,6 +252,7 @@ export function DemoProvider({ children }) {
 
     setSpotlightTarget(null)
     setStatus('complete')
+    pausedRef.current = false
     runningRef.current = false
     sessionStorage.setItem('demo-seen', '1')
     navigate('/app')
@@ -234,6 +269,9 @@ export function DemoProvider({ children }) {
     startDemo,
     runEngine,
     skipDemo,
+    pauseDemo,
+    resumeDemo,
+    nextStep,
   }
 
   return (

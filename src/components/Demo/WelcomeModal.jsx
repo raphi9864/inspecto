@@ -14,7 +14,7 @@ const LANGUAGES = [
 export default function WelcomeModal({ onClose }) {
   const { t, i18n } = useTranslation()
   const { voiceGender, setVoiceGender } = useVoiceSettings()
-  const [selectedLang, setSelectedLang] = useState(i18n.language || 'fr')
+  const [selectedLang, setSelectedLang] = useState('en')
   const [selectedGender, setSelectedGender] = useState(voiceGender || 'male')
   const [previewPlaying, setPreviewPlaying] = useState(null) // 'male' | 'female' | null
   const overlayRef = useRef(null)

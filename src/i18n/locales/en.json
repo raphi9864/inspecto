@@ -77,7 +77,7 @@
 
   "presenter": {
     "greeting": "Hello! I'm your INSPECTO DQI guide. With over 500 active accounts in 6 countries, our platform supports the most demanding industries. Click a category to explore the modules.",
-    "footer_cta": "Book a free demo →",
+    "footer_cta": "Book a free demo →", "startDemo": "Start Demo", "bookMeeting": "Book a Meeting",
     "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Back to category view",
     "categories": {
@@ -101,11 +101,11 @@
     "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Quality control plan",
     "cfsi": "CFSI", "library": "Library", "documentation": "Documentation",
     "expiringFiles": "Expiring files", "message": "Message", "traceability": "Traceability",
-    "team": "Team", "settings": "Settings"
+    "team": "Team", "settings": "Settings", "help": "Help & Support"
   },
 
   "topbar": {
-    "demo": "Demo", "demoTooltip": "Launch guided demo", "brand": "INSPECTO", "language": "Language", "openMenu": "Open menu",
+    "demo": "Demo", "demoTooltip": "Launch guided demo", "brand": "INSPECTO", "language": "Language", "openMenu": "Open menu", "bookMeeting": "Book a Meeting",
     "pages": {
       "/home": "Home", "/app": "Home", "/app/dashboard": "Dashboard", "/app/projets": "Projects",
       "/app/activites": "Activity management", "/app/taches": "Tasks & Resources", "/app/gantt": "Gantt chart",
@@ -125,7 +125,30 @@
     }
   },
 
-  "demo": { "skip": "Skip demo ×", "phase": "Phase", "voice": "Voice", "male": "Male", "female": "Female" },
+  "demo": {
+    "skip": "Skip demo ×", "phase": "Phase", "voice": "Voice", "male": "Male", "female": "Female",
+    "pause": "Pause", "resume": "Resume", "next": "Next", "quit": "Quit", "quitConfirm": "Quit demo?", "yes": "Yes", "no": "No",
+    "conclusion": "That's the full Inspecto experience. Ready to get started?",
+    "bookDemo": "Book a Demo", "restart": "Restart"
+  },
+
+  "chatbot": {
+    "title": "Inspecto Assistant",
+    "subtitle": "AI Quality Assistant",
+    "placeholder": "Ask me anything about Inspecto!",
+    "inputPlaceholder": "Type a message...",
+    "defaultReply": "Our team would be happy to help you. Book a meeting to learn more!",
+    "responses": [
+      "Absolutely! Inspecto covers this feature natively. Want to see it in action?",
+      "Great question! Our quality control module handles that seamlessly. Book a demo to explore it live.",
+      "Yes, this is included in the platform. Over 500 companies already use it daily.",
+      "That's one of our most popular features! Would you like to schedule a walkthrough?",
+      "Inspecto supports that out of the box. Shall I connect you with our team for more details?",
+      "Perfect use case! Our clients in oil & gas, nuclear, and construction love this module.",
+      "We have detailed documentation available. Would you like to book a call with our experts?",
+      "Inspecto makes that incredibly easy. Want to see the demo?"
+    ]
+  },
 
   "tourGuide": { "title": "INSPECTO DQI Guide", "subtitle": "AI Quality Assistant" },
 

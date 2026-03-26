@@ -80,7 +80,7 @@
 
   "presenter": {
     "greeting": "Bonjour\u00a0! Je suis votre guide INSPECTO DQI. Avec plus de 500 comptes actifs dans 6 pays, notre plateforme accompagne les industries les plus exigeantes. Cliquez sur une catégorie pour explorer les modules.",
-    "footer_cta": "Planifier une démo gratuite →",
+    "footer_cta": "Planifier une démo gratuite →", "startDemo": "Lancer la démo", "bookMeeting": "Prendre un RDV",
     "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Retour à la vue par catégories",
     "categories": {
@@ -104,11 +104,11 @@
     "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Plan de contrôle qualité",
     "cfsi": "CFSI", "library": "Bibliothèque", "documentation": "Documentation",
     "expiringFiles": "Fichiers expirants", "message": "Message", "traceability": "Traçabilité",
-    "team": "Équipe", "settings": "Paramètres"
+    "team": "Équipe", "settings": "Paramètres", "help": "Aide & Support"
   },
 
   "topbar": {
-    "demo": "Démo", "demoTooltip": "Lancer la démo guidée", "brand": "INSPECTO", "language": "Langue", "openMenu": "Ouvrir le menu",
+    "demo": "Démo", "demoTooltip": "Lancer la démo guidée", "brand": "INSPECTO", "language": "Langue", "openMenu": "Ouvrir le menu", "bookMeeting": "Prendre un RDV",
     "pages": {
       "/home": "Accueil", "/app": "Accueil", "/app/dashboard": "Dashboard", "/app/projets": "Projets",
       "/app/activites": "Gestion des activités", "/app/taches": "Tâches & Ressources", "/app/gantt": "Diagramme de Gantt",
@@ -128,7 +128,30 @@
     }
   },
 
-  "demo": { "skip": "Passer la démo ×", "phase": "Phase", "voice": "Voix", "male": "Homme", "female": "Femme" },
+  "demo": {
+    "skip": "Passer la démo ×", "phase": "Phase", "voice": "Voix", "male": "Homme", "female": "Femme",
+    "pause": "Pause", "resume": "Reprendre", "next": "Suivant", "quit": "Quitter", "quitConfirm": "Quitter la démo ?", "yes": "Oui", "no": "Non",
+    "conclusion": "Voilà l'expérience complète Inspecto. Prêt à commencer ?",
+    "bookDemo": "Réserver une démo", "restart": "Recommencer"
+  },
+
+  "chatbot": {
+    "title": "Assistant Inspecto",
+    "subtitle": "Assistant qualité IA",
+    "placeholder": "Posez-moi une question sur Inspecto !",
+    "inputPlaceholder": "Tapez un message...",
+    "defaultReply": "Notre équipe sera ravie de vous aider. Planifiez un rendez-vous pour en savoir plus !",
+    "responses": [
+      "Absolument ! Inspecto couvre cette fonctionnalité nativement. Vous voulez voir une démo ?",
+      "Excellente question ! Notre module qualité gère cela parfaitement. Réservez une démo pour l'explorer en direct.",
+      "Oui, c'est inclus dans la plateforme. Plus de 500 entreprises l'utilisent quotidiennement.",
+      "C'est l'une de nos fonctionnalités les plus populaires ! Souhaitez-vous planifier une présentation ?",
+      "Inspecto le prend en charge nativement. Puis-je vous mettre en contact avec notre équipe ?",
+      "Cas d'usage parfait ! Nos clients dans le nucléaire, le pétrole et la construction adorent ce module.",
+      "Nous avons une documentation détaillée disponible. Souhaitez-vous un appel avec nos experts ?",
+      "Inspecto rend cela incroyablement simple. Voulez-vous voir la démo ?"
+    ]
+  },
 
   "tourGuide": { "title": "Guide INSPECTO DQI", "subtitle": "Assistant qualité IA" },
 

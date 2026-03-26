@@ -28,7 +28,7 @@
   "navbar": { "brand": "INSPECTO", "demoBtn": "Prenota una demo" },
   "presenter": {
     "greeting": "Ciao! Sono la tua guida INSPECTO DQI. Con oltre 500 account attivi in 6 paesi, la nostra piattaforma supporta le industrie più esigenti. Clicca su una categoria per esplorare i moduli.",
-    "footer_cta": "Prenota una demo gratuita →", "footer_copy": "© 2026 Inspecto Group —",
+    "footer_cta": "Prenota una demo gratuita →", "startDemo": "Avvia la demo", "bookMeeting": "Prenota un incontro", "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Torna alla vista categorie",
     "categories": {
       "project-management": { "title": "Gestione Progetti", "description": "Pianifica, organizza e monitora tutti i tuoi progetti industriali in tempo reale." },
@@ -50,10 +50,10 @@
     "findingsNC": "Findings / NC", "actions": "Azioni", "qualityControlPlan": "Piano di controllo qualità",
     "cfsi": "CFSI", "library": "Biblioteca", "documentation": "Documentazione",
     "expiringFiles": "File in scadenza", "message": "Messaggi", "traceability": "Tracciabilità",
-    "team": "Team", "settings": "Impostazioni"
+    "team": "Team", "settings": "Impostazioni", "help": "Aiuto & Supporto"
   },
   "topbar": {
-    "demo": "Demo", "demoTooltip": "Avvia la demo guidata", "brand": "INSPECTO", "language": "Lingua", "openMenu": "Apri menu",
+    "demo": "Demo", "demoTooltip": "Avvia la demo guidata", "brand": "INSPECTO", "language": "Lingua", "openMenu": "Apri menu", "bookMeeting": "Prenota un incontro",
     "pages": {
       "/home": "Home", "/app": "Home", "/app/dashboard": "Dashboard", "/app/projets": "Progetti",
       "/app/activites": "Gestione attività", "/app/taches": "Compiti & Risorse", "/app/gantt": "Diagramma di Gantt",
@@ -72,7 +72,12 @@
       "/app/documentation": "Progetto: Documentazione", "/app/expiring": "Progetto: File in scadenza"
     }
   },
-  "demo": { "skip": "Salta la demo ×", "phase": "Fase", "voice": "Voce", "male": "Uomo", "female": "Donna" },
+  "demo": {
+    "skip": "Salta la demo ×", "phase": "Fase", "voice": "Voce", "male": "Uomo", "female": "Donna",
+    "pause": "Pausa", "resume": "Riprendi", "next": "Avanti", "quit": "Esci", "quitConfirm": "Uscire dalla demo?", "yes": "Sì", "no": "No",
+    "conclusion": "Ecco l'esperienza completa di Inspecto. Pronti per iniziare?",
+    "bookDemo": "Prenota una demo", "restart": "Ricomincia"
+  },
   "tourGuide": { "title": "Guida INSPECTO DQI", "subtitle": "Assistente qualità IA" },
   "intro": { "activeAccounts": "account attivi", "countries": "paesi coperti", "inspections": "ispezioni", "compliance": "conformità" },
   "home": { "projects": "Progetti", "incomingTasks": "Attività in arrivo", "activity": "Attività", "projectLabel": "Progetto", "company": "Azienda", "progress": "Progresso", "startDate": "Data inizio", "endDate": "Data fine", "activityTimeline": "Timeline attività" },

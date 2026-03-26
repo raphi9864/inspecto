@@ -12,7 +12,7 @@ const INITIAL = [
   { id: 4, name: 'Pré Production (en France) / Before production (in France)', start: '2024-09-08', end: '2024-09-20' },
 ]
 
-const fmt = (d) => { const dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-') + ' 00:00:00' }
+const fmt = (d) => { const dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) }
 
 export default function Activities() {
   const { t } = useTranslation()
@@ -67,7 +67,7 @@ export default function Activities() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             {t('activities.title')}
           </div>
-          <span style={{ fontSize: '0.9rem', color: 'var(--status-success)', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '12px', padding: '2px 10px', fontWeight: 600 }}>
+          <span className="result-pill">
             {activities.length} / {activities.length} {t('activities.results')}
           </span>
         </div>
@@ -81,9 +81,9 @@ export default function Activities() {
                   <td>{fmt(a.start)}</td>
                   <td>{fmt(a.end)}</td>
                   <td>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button className="btn-icon" title={t('common.edit')} onClick={(e) => { e.stopPropagation(); openEdit(a) }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-                      <button className="btn-icon" title={t('common.delete')} onClick={(e) => { e.stopPropagation(); handleDelete(a.id) }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                      <button className="btn-icon" title={t('common.edit')} onClick={(e) => { e.stopPropagation(); openEdit(a) }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                      <button className="btn-icon" title={t('common.delete')} onClick={(e) => { e.stopPropagation(); handleDelete(a.id) }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                     </div>
                   </td>
                 </tr>

@@ -78,7 +78,7 @@ export default function TasksResources() {
       <div className="panel" style={{ opacity: 1, transform: 'none' }}>
         <div className="panel-header">
           <div className="panel-title">{t('sidebar.tasksResources')}</div>
-          <span style={{ fontSize: '0.85rem', color: 'var(--status-success)', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '12px', padding: '2px 10px', fontWeight: 600 }}>{tasks.length} task(s)</span>
+          <span className="result-pill">{tasks.length} task(s)</span>
         </div>
         <div className="panel-body" style={{ padding: 0, overflowX: 'auto' }}>
           <table className="data-table">
@@ -103,9 +103,9 @@ export default function TasksResources() {
                       </div>
                     </td>
                     <td>
-                      <div style={{ display: 'flex', gap: '6px' }}>
-                        <button className="btn-icon" title={t('common.edit')} onClick={() => openEdit(task)}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-                        <button className="btn-icon" title={t('common.delete')} onClick={() => handleDelete(task.id)}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                      <div style={{ display: 'flex', gap: '12px' }}>
+                        <button className="btn-icon" title={t('common.edit')} onClick={() => openEdit(task)}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                        <button className="btn-icon" title={t('common.delete')} onClick={() => handleDelete(task.id)}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                       </div>
                     </td>
                   </tr>

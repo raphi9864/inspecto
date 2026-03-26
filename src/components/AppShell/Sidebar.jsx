@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProject } from '../../context/ProjectContext'
-import LanguageSwitcher from '../LanguageSwitcher'
 
 /* ─── SVG Icons (16x16, outlined, stroke="currentColor") ─── */
 const HomeIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -23,6 +22,7 @@ const TeamIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor
 const SettingsIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
 const ChevronIcon = ({ collapsed }) => <svg className={`sidebar-section-chevron${collapsed ? ' collapsed' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
 const ChevronDownIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+const HelpIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
 
 function useSidebarSections() {
   const { t } = useTranslation()
@@ -79,8 +79,7 @@ function ProjectDropdown() {
 
   return (
     <div className="sidebar-project-dropdown">
-      <label className="sidebar-project-label">{t('sidebar.project')}</label>
-      <button className="sidebar-project-btn" onClick={() => setOpen(!open)}>
+      <button className="sidebar-project-btn" onClick={() => setOpen(!open)} data-demo-target="project-dropdown">
         <span className="sidebar-project-btn-text">{activeProject?.label || t('sidebar.allProjects')}</span>
         <ChevronDownIcon />
       </button>
@@ -108,6 +107,7 @@ function ProjectDropdown() {
 }
 
 export default function Sidebar({ open = true }) {
+  const { t } = useTranslation()
   const sections = useSidebarSections()
   const [expanded, setExpanded] = useState({})
 
@@ -124,13 +124,16 @@ export default function Sidebar({ open = true }) {
         {sections.map((section, si) => (
           <div key={si} className="sidebar-section">
             {section.label && (
-              <div
-                className="sidebar-section-label"
-                onClick={() => section.collapsible && toggleSection(section.label)}
-              >
-                <span>{section.label}</span>
-                {section.collapsible && <ChevronIcon collapsed={!expanded[section.label]} />}
-              </div>
+              <>
+                <div className="sidebar-section-divider" />
+                <div
+                  className="sidebar-section-label"
+                  onClick={() => section.collapsible && toggleSection(section.label)}
+                >
+                  <span>{section.label}</span>
+                  {section.collapsible && <ChevronIcon collapsed={!expanded[section.label]} />}
+                </div>
+              </>
             )}
             {(!section.collapsible || !section.label || expanded[section.label]) &&
               section.items.map((item) => (
@@ -148,7 +151,12 @@ export default function Sidebar({ open = true }) {
           </div>
         ))}
       </nav>
-      <LanguageSwitcher variant="sidebar" />
+      <div className="sidebar-footer">
+        <a href="https://inspectogroup.com/contact/" target="_blank" rel="noopener noreferrer" className="sidebar-footer-link">
+          <HelpIcon />
+          <span>{t('sidebar.help')}</span>
+        </a>
+      </div>
     </aside>
   )
 }

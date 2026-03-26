@@ -6,6 +6,8 @@ import Typed from 'typed.js'
 import Avatar from './Avatar'
 import SpeechBubble from './SpeechBubble'
 import CategoryCard from './CategoryCard'
+import { useDemoContext } from '../../context/DemoContext'
+import WelcomeModal from '../Demo/WelcomeModal'
 
 /* ─── SVG Icons for subcategories (16×16 outlined) ─── */
 const ActivityIcon = () => (
@@ -213,6 +215,8 @@ export default function Presenter({ introDoneOverride }) {
   const navigate = useNavigate()
   const outletContext = useOutletContext()
   const introDone = introDoneOverride ?? outletContext?.introDone ?? true
+  const demo = useDemoContext()
+  const [showWelcome, setShowWelcome] = useState(false)
 
   /* ─── Bug fix #1 & #2: track ALL Typed instances in refs ─── */
   const initialTypedRef = useRef(null)
@@ -529,6 +533,41 @@ export default function Presenter({ introDoneOverride }) {
           position={CATEGORIES[3].position}
         />
       </div>
+
+      {/* CTA buttons (E2) */}
+      {!expandedCategory && (
+        <div className="presenter-cta-row">
+          <button
+            className="presenter-cta presenter-cta--demo"
+            onClick={() => {
+              if (demo?.status === 'idle' || demo?.status === 'complete') {
+                sessionStorage.removeItem('demo-seen')
+                const welcomed = localStorage.getItem('inspecto_welcome_done')
+                if (welcomed) { demo.startDemo() }
+                else { setShowWelcome(true) }
+              }
+            }}
+            disabled={demo?.status === 'running'}
+            data-demo-target="presenter-demo-btn"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            {t('presenter.startDemo')}
+          </button>
+          <a
+            href="https://inspectogroup.com/contact/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="presenter-cta presenter-cta--meeting"
+            data-demo-target="presenter-meeting-btn"
+          >
+            {t('presenter.bookMeeting')}
+          </a>
+        </div>
+      )}
+
+      {showWelcome && (
+        <WelcomeModal onClose={() => { setShowWelcome(false); demo.startDemo() }} />
+      )}
     </section>
   )
 }
