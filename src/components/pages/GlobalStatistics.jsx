@@ -99,7 +99,7 @@ export default function GlobalStatistics() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', marginBottom: 4 }}>
                   <span>{p}</span><span style={{ fontWeight: 600 }}>{[42, 67, 15, 28][i]}%</span>
                 </div>
-                <div style={{ height: 6, background: '#e2e8f0', borderRadius: 3 }}>
+                <div style={{ height: 6, background: 'var(--border-primary)', borderRadius: 3 }}>
                   <div style={{ height: '100%', width: `${[42, 67, 15, 28][i]}%`, background: 'var(--blue)', borderRadius: 3 }}></div>
                 </div>
               </div>

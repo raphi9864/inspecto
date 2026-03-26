@@ -56,7 +56,7 @@ export default function Settings() {
               </div>
               <div style={{ gridColumn: 'span 2' }}>
                 <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>{t('settings.companyLogo')}</label>
-                <div style={{ border: '2px dashed #e2e8f0', borderRadius: '8px', padding: '32px', textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.85rem' }}>
+                <div style={{ border: '2px dashed var(--border-primary)', borderRadius: '8px', padding: '32px', textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.85rem' }}>
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" strokeWidth="1.5" style={{ display: 'block', margin: '0 auto 8px' }}><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
                   {t('common.dropLogo')} <strong>{t('common.clickUpload')}</strong>
                 </div>

@@ -79,16 +79,16 @@ export default function QualityControlPlan() {
             <thead>
               <tr>
                 <th colSpan="6" style={{ background: 'var(--bg-secondary)' }}></th>
-                <th colSpan="4" style={{ background: '#f0f4ff', textAlign: 'center', borderLeft: '2px solid #e2e8f0' }}>{t('qcp.contractor')}</th>
-                <th colSpan="7" style={{ background: 'var(--bg-tertiary)', textAlign: 'center', borderLeft: '2px solid #e2e8f0' }}>{t('qcp.clientThirdParties')}</th>
-                <th colSpan="3" style={{ background: '#f0f4ff', textAlign: 'center', borderLeft: '2px solid #e2e8f0' }}>{t('qcp.record')}</th>
+                <th colSpan="4" style={{ background: 'var(--bg-accent)', textAlign: 'center', borderLeft: '2px solid var(--border-primary)' }}>{t('qcp.contractor')}</th>
+                <th colSpan="7" style={{ background: 'var(--bg-tertiary)', textAlign: 'center', borderLeft: '2px solid var(--border-primary)' }}>{t('qcp.clientThirdParties')}</th>
+                <th colSpan="3" style={{ background: 'var(--bg-accent)', textAlign: 'center', borderLeft: '2px solid var(--border-primary)' }}>{t('qcp.record')}</th>
                 <th></th>
               </tr>
               <tr>
                 <th>{t('qcp.revision')}</th><th>{t('qcp.step')}</th><th>{t('qcp.task')}</th><th>{t('qcp.itns')}</th><th>{t('qcp.docInfo')}</th><th>{t('qcp.docRev')}</th>
-                <th style={{ borderLeft: '2px solid #e2e8f0' }}>{t('qcp.operator')}</th><th>{t('qcp.qc')}</th><th>{t('qcp.tc')}</th><th>{t('qcp.notif')}</th>
-                <th style={{ borderLeft: '2px solid #e2e8f0' }}>Client</th><th>{t('qcp.notif')}</th><th>Party B</th><th>{t('qcp.notif')}</th><th>Party C</th><th>{t('qcp.notif')}</th><th>Party D</th>
-                <th style={{ borderLeft: '2px solid #e2e8f0' }}>{t('qcp.recReq')}</th><th>{t('qcp.recNum')}</th><th>{t('qcp.ncr')}</th>
+                <th style={{ borderLeft: '2px solid var(--border-primary)' }}>{t('qcp.operator')}</th><th>{t('qcp.qc')}</th><th>{t('qcp.tc')}</th><th>{t('qcp.notif')}</th>
+                <th style={{ borderLeft: '2px solid var(--border-primary)' }}>Client</th><th>{t('qcp.notif')}</th><th>Party B</th><th>{t('qcp.notif')}</th><th>Party C</th><th>{t('qcp.notif')}</th><th>Party D</th>
+                <th style={{ borderLeft: '2px solid var(--border-primary)' }}>{t('qcp.recReq')}</th><th>{t('qcp.recNum')}</th><th>{t('qcp.ncr')}</th>
                 <th>{t('common.actions')}</th>
               </tr>
             </thead>
@@ -101,18 +101,18 @@ export default function QualityControlPlan() {
                   <td style={{ color: row.itns === 'YES' ? 'var(--blue)' : 'var(--text-secondary)', fontWeight: 600 }}>{row.itns}</td>
                   <td>{row.docInfo}</td>
                   <td>{row.docRev}</td>
-                  <td style={{ borderLeft: '2px solid #e2e8f0' }}><SignBadge val={row.operator} /></td>
+                  <td style={{ borderLeft: '2px solid var(--border-primary)' }}><SignBadge val={row.operator} /></td>
                   <td><SignBadge val={row.qc} /></td>
                   <td><SignBadge val={row.tc} /></td>
                   <td>{row.notif1}</td>
-                  <td style={{ borderLeft: '2px solid #e2e8f0' }}><SignBadge val={row.client} /></td>
+                  <td style={{ borderLeft: '2px solid var(--border-primary)' }}><SignBadge val={row.client} /></td>
                   <td>{row.notif2}</td>
                   <td>{row.partyB}</td>
                   <td>{row.notif3}</td>
                   <td>{row.partyC}</td>
                   <td>{row.notif4}</td>
                   <td>{row.partyD}</td>
-                  <td style={{ borderLeft: '2px solid #e2e8f0' }}>{row.recReq}</td>
+                  <td style={{ borderLeft: '2px solid var(--border-primary)' }}>{row.recReq}</td>
                   <td>{row.recNum}</td>
                   <td>{row.ncr}</td>
                   <td>

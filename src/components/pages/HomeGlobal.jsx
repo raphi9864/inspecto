@@ -102,7 +102,7 @@ export default function HomeGlobal() {
             <div key={i} style={{ padding: '14px 0', borderTop: i ? '1px solid #f0f0f0' : 'none', cursor: 'pointer' }} onClick={() => navigate('/app')}>
               <div style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: 2 }}>{p.name}</div>
               <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: 8 }}>{p.company}</div>
-              <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, marginBottom: 4 }}>
+              <div style={{ height: 4, background: 'var(--border-primary)', borderRadius: 2, marginBottom: 4 }}>
                 <div style={{ height: '100%', width: `${p.progress}%`, background: 'var(--blue)', borderRadius: 2 }}></div>
               </div>
               <div style={{ fontSize: '0.88rem', color: 'var(--text-tertiary)', marginBottom: 8 }}>{p.progress}%</div>

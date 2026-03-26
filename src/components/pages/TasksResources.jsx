@@ -96,7 +96,7 @@ export default function TasksResources() {
                     <td><span style={{ background: ps.bg, color: ps.color, padding: '3px 10px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 600 }}>{task.priority}</span></td>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <div style={{ flex: 1, height: 6, background: '#e2e8f0', borderRadius: 3, minWidth: 50 }}>
+                        <div style={{ flex: 1, height: 6, background: 'var(--border-primary)', borderRadius: 3, minWidth: 50 }}>
                           <div style={{ width: `${task.progress}%`, height: '100%', background: task.progress === 100 ? 'var(--status-success)' : 'var(--blue)', borderRadius: 3 }}></div>
                         </div>
                         <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', minWidth: 28 }}>{task.progress}%</span>
