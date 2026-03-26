@@ -489,10 +489,12 @@ export default function Presenter({ introDoneOverride }) {
         />
       </div>
 
-      {/* Center: Avatar + Speech bubble */}
+      {/* Center: Avatar + Speech bubble (hidden during demo to avoid duplication) */}
       <div className="presenter-center" ref={centerRef}>
         <Avatar soundWaveRef={soundWaveRef} />
-        <SpeechBubble textRef={textRef} />
+        {demo?.status !== 'running' && demo?.status !== 'paused' && (
+          <SpeechBubble textRef={textRef} />
+        )}
       </div>
 
       {/* Top-right card */}
