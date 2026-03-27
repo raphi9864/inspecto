@@ -249,19 +249,19 @@ body:has(.app-shell) {
 
 .sidebar-section-label {
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--brand-blue, #002F5F);
-  opacity: 0.7;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
   padding: 0.7rem 1rem 0.3rem;
+  margin-top: 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
   user-select: none;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, color 0.15s;
 }
 
 [data-theme="light"] .sidebar-section-label { color: var(--brand-blue); opacity: 0.6; }
@@ -305,8 +305,8 @@ body:has(.app-shell) {
 }
 
 .sidebar-item svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   opacity: 0.65;
 }
@@ -335,6 +335,30 @@ body:has(.app-shell) {
 }
 .sidebar-footer-link:hover { background: var(--bg-hover); color: var(--text-secondary); }
 .sidebar-footer-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* --- Mobile sidebar overlay --- */
+.sidebar-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+.sidebar-mobile-overlay .app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  max-width: 80vw;
+  z-index: 101;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+  animation: sidebar-slide-in 0.25s ease-out;
+}
+@keyframes sidebar-slide-in {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
 
 /* --- App main --- */
 .app-main {
@@ -381,11 +405,59 @@ body:has(.app-shell) {
 }
 .topbar-hamburger:hover { color: var(--text-primary); }
 
+/* Mobile hamburger — hidden on desktop, visible <=768px */
+.topbar-mobile-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--text-secondary);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.topbar-mobile-hamburger:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* Logo in topbar */
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+  position: relative;
+  flex-shrink: 0;
+}
+.topbar-logo-text {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+.topbar-logo-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.topbar-breadcrumb-sep {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
 .topbar-page-title {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3748,32 +3820,69 @@ body:has(.app-shell) {
 }
 
 @media (max-width: 768px) {
+  /* Sidebar: hide the static sidebar, show mobile overlay when open */
   .app-sidebar { display: none; }
-  .app-content { padding: 1rem; }
+  .sidebar-mobile-overlay { display: block; }
+  .sidebar-mobile-overlay .app-sidebar { display: flex; }
+
+  /* Shell */
+  .app-shell { overflow-x: hidden; }
+  .app-main { overflow-x: hidden; width: 100%; }
+  .app-content { padding: 12px; overflow-x: hidden; }
+
+  /* Panels */
+  .panel { border-radius: 6px; }
+  .panel-body { padding: 0.75rem; }
+
+  /* Grids: single column on mobile */
   .kpi-bar { grid-template-columns: 1fr; }
   .home-kpi-grid { grid-template-columns: 1fr; }
+  .home-kpi-row { grid-template-columns: 1fr; }
   .wizard-form-grid { grid-template-columns: 1fr; }
   .wizard-field-full { grid-column: 1; }
   .proj-grid { grid-template-columns: 1fr; }
+  .proj-kpi-row { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .dashboard-layout { grid-template-columns: 1fr; }
+
+  /* Toolbars wrap on mobile */
   .proj-toolbar { flex-direction: column; gap: 0.75rem; }
   .proj-filters { flex-wrap: wrap; }
   .insp-toolbar { flex-direction: column; gap: 0.75rem; }
   .insp-filters { flex-wrap: wrap; }
   .insp-kpi-bar { flex-wrap: wrap; }
-  .proj-kpi-row { grid-template-columns: 1fr; }
+  .status-counters { flex-wrap: wrap; }
+
+  /* Search */
   .topbar-search { max-width: none; }
+
+  /* Misc layout */
   .wizard-sig-row { flex-direction: column; }
   .mini-gantt { display: block; }
   .mini-gantt-label { width: 100%; margin-bottom: 0.25rem; }
   .mini-gantt-bar-wrap { margin-bottom: 0.5rem; }
 
+  /* Tables: horizontal scroll */
+  .data-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
   /* Topbar compact */
-  .app-topbar { padding: 0 12px; gap: 8px; }
+  .app-topbar { height: 48px; padding: 0 12px; gap: 8px; }
   .topbar-center { display: none; }
-  .topbar-cta--meeting span { display: none; }
-  .topbar-cta--meeting { padding: 0 10px; }
+  .topbar-cta--meeting { display: none; }
   .topbar-right { gap: 4px; }
   .topbar-separator { display: none; }
+  .topbar-breadcrumb-sep { display: none; }
+  .topbar-logo { display: none; }
+
+  /* Mobile hamburger: visible; desktop hamburger: hidden */
+  .topbar-mobile-hamburger { display: flex; }
+  .topbar-hamburger { display: none; }
+  .topbar-page-title { font-size: 0.84rem; }
+
+  /* Template sidebar: collapse to top row on mobile */
+  .template-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-primary); padding: 10px 0; display: flex; flex-wrap: wrap; gap: 0; }
+  .template-sidebar-title { padding: 0 12px 8px; width: 100%; }
+  .template-sidebar-item { padding: 8px 12px; }
 }
 
 @media (max-width: 480px) {
@@ -3954,10 +4063,12 @@ body:has(.app-shell) {
 @media (max-width: 1100px) {
   .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .home-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-kpi-row { grid-template-columns: repeat(2, 1fr); }
   .stats-charts-row { grid-template-columns: 1fr; }
   .dashboard-layout { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
   .kpi-bar { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* --- Light theme: sidebar, forms, modals --- */

@@ -59,7 +59,7 @@ function LanguageDropdown() {
   )
 }
 
-export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
+export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenMainMenu }) {
   const { t } = useTranslation()
   const location = useLocation()
   const { activeProject } = useProject()
@@ -88,21 +88,33 @@ export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
   const launchDemo = () => {
     if (demo?.status === 'idle' || demo?.status === 'complete') {
       sessionStorage.removeItem('demo-seen')
-      const welcomed = localStorage.getItem('inspecto_welcome_done')
-      if (welcomed) { demo.startDemo() }
-      else { setShowWelcome(true) }
+      setShowWelcome(true)
     }
   }
 
   return (
     <header className="app-topbar">
-      {/* ── Left zone: hamburger + page title ── */}
+      {/* ── Left zone: hamburger + logo + breadcrumb ── */}
       <div className="topbar-left">
+        {/* Mobile-only: toggle sidebar drawer */}
+        {onToggleMobileSidebar && (
+          <button className="topbar-mobile-hamburger" onClick={onToggleMobileSidebar} aria-label={t('topbar.openMenu')}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        )}
+        {/* Desktop: existing hamburger opens MainMenu overlay */}
         <button className="topbar-hamburger" onClick={onOpenMainMenu || onToggleSidebar} aria-label={t('topbar.openMenu')}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
+        <Link to="/app" className="topbar-logo" aria-label="Inspecto">
+          <span className="topbar-logo-dot" />
+          <span className="topbar-logo-text">inspecto</span>
+        </Link>
+        <span className="topbar-breadcrumb-sep">/</span>
         <h1 className="topbar-page-title">{title}</h1>
       </div>
 
@@ -179,7 +191,7 @@ export default function Topbar({ onToggleSidebar, onOpenMainMenu }) {
       </div>
 
       {showWelcome && (
-        <WelcomeModal onClose={() => { setShowWelcome(false); demo.startDemo() }} />
+        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
       )}
     </header>
   )

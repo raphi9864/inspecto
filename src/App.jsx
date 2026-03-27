@@ -24,6 +24,7 @@ const ActionsPage = lazy(() => import('./components/pages/ActionsPage'))
 const Settings = lazy(() => import('./components/pages/Settings'))
 const QualityControlPlan = lazy(() => import('./components/pages/QualityControlPlan'))
 const CFSIPage = lazy(() => import('./components/pages/CFSIPage'))
+const RFF = lazy(() => import('./components/pages/RFF'))
 const CustomizeTemplates = lazy(() => import('./components/pages/CustomizeTemplates'))
 const CustomizeFieldtypes = lazy(() => import('./components/pages/CustomizeFieldtypes'))
 const GlobalStatistics = lazy(() => import('./components/pages/GlobalStatistics'))
@@ -84,6 +85,7 @@ export default function App() {
           <Route path="actions" element={<ActionsPage />} />
           <Route path="qcp" element={<QualityControlPlan />} />
           <Route path="cfsi" element={<CFSIPage />} />
+          <Route path="rff" element={<RFF />} />
           <Route path="documentation" element={<Documentation />} />
           <Route path="expiring" element={<ExpiringFiles />} />
           <Route path="team" element={<Team />} />

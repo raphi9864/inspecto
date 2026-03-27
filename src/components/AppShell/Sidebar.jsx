@@ -14,6 +14,7 @@ const FindingIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentCo
 const ActionIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
 const QCPIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
 const CFSIIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+const RFFIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg>
 const DocIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
 const ExpiringIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
 const MessageIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -51,6 +52,7 @@ function useSidebarSections() {
         { Icon: ActionIcon, label: t('sidebar.actions'), path: '/app/actions' },
         { Icon: QCPIcon, label: t('sidebar.qualityControlPlan'), path: '/app/qcp' },
         { Icon: CFSIIcon, label: t('sidebar.cfsi'), path: '/app/cfsi' },
+        { Icon: RFFIcon, label: t('sidebar.rff'), path: '/app/rff', demoTarget: 'sidebar-rff' },
       ],
     },
     {
@@ -106,7 +108,7 @@ function ProjectDropdown() {
   )
 }
 
-export default function Sidebar({ open = true }) {
+export default function Sidebar({ open = true, mobileOpen = false, onMobileClose }) {
   const { t } = useTranslation()
   const sections = useSidebarSections()
   const [expanded, setExpanded] = useState({})
@@ -115,10 +117,11 @@ export default function Sidebar({ open = true }) {
     setExpanded(prev => ({ ...prev, [label]: !prev[label] }))
   }
 
-  if (!open) return null
+  /* Desktop: respect the open prop. Mobile: controlled via mobileOpen. */
+  if (!open && !mobileOpen) return null
 
-  return (
-    <aside className="app-sidebar">
+  const sidebarContent = (
+    <aside className={`app-sidebar${mobileOpen ? ' mobile-visible' : ''}`}>
       <ProjectDropdown />
       <nav className="sidebar-nav">
         {sections.map((section, si) => (
@@ -142,6 +145,8 @@ export default function Sidebar({ open = true }) {
                   to={item.path}
                   end={item.end}
                   className={({ isActive }) => `sidebar-item${isActive ? ' active' : ''}`}
+                  onClick={onMobileClose}
+                  {...(item.demoTarget ? { 'data-demo-target': item.demoTarget } : {})}
                 >
                   <item.Icon />
                   <span>{item.label}</span>
@@ -159,4 +164,17 @@ export default function Sidebar({ open = true }) {
       </div>
     </aside>
   )
+
+  /* On mobile, wrap the sidebar in an overlay */
+  if (mobileOpen) {
+    return (
+      <div className="sidebar-mobile-overlay" onClick={onMobileClose}>
+        <div onClick={(e) => e.stopPropagation()}>
+          {sidebarContent}
+        </div>
+      </div>
+    )
+  }
+
+  return sidebarContent
 }
