@@ -1,28 +1,22 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDemoContext } from '../context/DemoContext'
-import WelcomeModal from './Demo/WelcomeModal'
 
 export default function Navbar() {
   const { t } = useTranslation()
   const demo = useDemoContext()
-  const [showWelcome, setShowWelcome] = useState(false)
 
   const launchDemo = () => {
     if (demo?.status === 'idle' || demo?.status === 'complete') {
       sessionStorage.removeItem('demo-seen')
-      const welcomed = localStorage.getItem('inspecto_welcome_done')
-      if (welcomed) { demo.startDemo() }
-      else { setShowWelcome(true) }
+      demo.startDemo('fr')
     }
   }
 
   return (
     <nav className="navbar" id="navbar">
-      <Link to="/" className="navbar-logo">
-        <span className="navbar-logo-dot"></span>
-        <span className="navbar-logo-text">{t('navbar.brand')}</span>
+      <Link to="/" className="navbar-logo" aria-label="inspecto">
+        <img src="/logo-inspecto-white.svg" alt="inspecto" className="navbar-logo-img" height="28" />
       </Link>
 
       <div className="navbar-right">
@@ -45,10 +39,6 @@ export default function Navbar() {
           {t('navbar.demoBtn')}
         </a>
       </div>
-
-      {showWelcome && (
-        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
-      )}
     </nav>
   )
 }

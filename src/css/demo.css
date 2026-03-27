@@ -173,6 +173,10 @@
   color: #FFFFFF;
 }
 
+.demo-progress-label--wizard {
+  top: 120px;
+}
+
 /* ─── Floating avatar (dynamically repositioned per step) ─── */
 .demo-avatar-float {
   position: fixed;

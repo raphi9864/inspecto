@@ -27,9 +27,11 @@ export default function DemoAvatar() {
     const isTop = rect.top < window.innerHeight / 2
 
     if (isTop) {
+      // Target is in top half → avatar goes to bottom-left (inside sidebar area, no conflict)
       setAvatarPos({ bottom: 24, left: 24, top: 'auto', right: 'auto' })
     } else {
-      setAvatarPos({ top: 80, left: 24, bottom: 'auto', right: 'auto' })
+      // Target is in bottom half → avatar goes to top, clear of sidebar (left: 260px)
+      setAvatarPos({ top: 80, left: 260, bottom: 'auto', right: 'auto' })
     }
   }, [currentStep, status])
 

@@ -135,6 +135,8 @@ export function DemoProvider({ children }) {
       if (step.type === 'speak') {
         await Promise.race([speechPromise, new Promise(r => ss.addEventListener('abort', r, { once: true }))])
         if (ss.aborted) return
+        await sleep(3000, ss)
+        if (ss.aborted) return
         await sleep(step.delayAfter ?? 600, ss)
         return
       }
@@ -184,6 +186,14 @@ export function DemoProvider({ children }) {
       }
 
       if (ss.aborted) return
+
+      // Wait for speech to finish + minimum reading time
+      if (step.speak || step.text) {
+        await Promise.race([speechPromise, new Promise(r => ss.addEventListener('abort', r, { once: true }))])
+        if (ss.aborted) return
+        await sleep(2500, ss)
+        if (ss.aborted) return
+      }
 
       // Clear spotlight
       spotlight(null)
