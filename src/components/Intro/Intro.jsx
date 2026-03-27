@@ -258,14 +258,11 @@ export default function Intro({ onComplete }) {
       tl.to('.intro-boot-text', { opacity: 0, duration: 0.3 }, 22.5)
       tl.to('.intro-version', { opacity: 0, duration: 0.3 }, 22.5)
 
-      // INSPECTO title — clip-path wipe per letter
-      const titleLetters = overlay.querySelectorAll('.intro-brand-letter')
-      titleLetters.forEach((el, i) => {
-        tl.to(el, {
-          clipPath: 'inset(0 0% 0 0)', duration: 0.12,
-          ease: 'power2.out',
-        }, 23.0 + i * 0.07)
-      })
+      // inspecto logo — clip-path wipe reveal
+      tl.to('.intro-brand-logo', {
+        clipPath: 'inset(0 0% 0 0)', duration: 0.7,
+        ease: 'power2.out',
+      }, 23.0)
 
       // Red underline draws
       tl.to('.intro-brand-line', {
@@ -282,7 +279,7 @@ export default function Intro({ onComplete }) {
       // PHASE 5 — TRANSITION (28–32s)
       // ═══════════════════════════════════════════
 
-      tl.to('.intro-brand-letter', { opacity: 0, y: -8, duration: 0.35, stagger: 0.03 }, 28.0)
+      tl.to('.intro-brand-logo', { opacity: 0, y: -8, duration: 0.35 }, 28.0)
       tl.to('.intro-brand-line', { opacity: 0, duration: 0.3 }, 28.2)
       tl.to('.intro-tagline-word', { opacity: 0, y: -8, duration: 0.3, stagger: 0.04 }, 28.3)
 
@@ -310,8 +307,7 @@ export default function Intro({ onComplete }) {
   const tagline = 'Inspection, contrôles et audits digitalisés'
   const tagWords = tagline.split(' ')
 
-  /* ─── inspecto letters ─── */
-  const brandLetters = 'inspecto'.split('')
+  /* ─── brand logo (image-based) ─── */
 
   return (
     <div id="intro-overlay" ref={overlayRef}>
@@ -379,15 +375,14 @@ export default function Intro({ onComplete }) {
 
       {/* Brand moment */}
       <div className="intro-brand-center">
-        <h1 className="intro-brand-title">
-          {brandLetters.map((ch, i) => (
-            <span className={`intro-brand-letter${i === 0 ? ' intro-brand-i' : ''}`} key={i} style={{ clipPath: 'inset(0 100% 0 0)', position: 'relative' }}>
-              {ch}
-              {i === 0 && <span className="intro-brand-dot" />}
-            </span>
-          ))}
-          <span className="intro-brand-registered">®</span>
-        </h1>
+        <div className="intro-brand-title">
+          <img
+            src="/logo-inspecto-intro.svg"
+            alt="inspecto"
+            className="intro-brand-logo"
+            style={{ clipPath: 'inset(0 100% 0 0)' }}
+          />
+        </div>
         <div className="intro-brand-line" />
         <p className="intro-tagline">
           {tagWords.map((w, i) => (

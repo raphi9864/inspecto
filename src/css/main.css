@@ -587,46 +587,16 @@ p  { font-size: 1rem; color: var(--text-secondary); }
 }
 
 .intro-brand-title {
-  font-family: 'Montserrat', 'Inter', sans-serif;
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: 0.08em;
   margin: 0;
   line-height: 1;
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
 }
 
-.intro-brand-letter {
-  display: inline-block;
-  will-change: clip-path;
-}
-
-.intro-brand-i {
-  display: inline-block;
-  position: relative;
-}
-
-.intro-brand-dot {
-  position: absolute;
-  top: -0.08em;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0.18em;
-  height: 0.18em;
-  border-radius: 50%;
-  background: #CC0000;
-  pointer-events: none;
-}
-
-.intro-brand-registered {
-  font-size: 0.3em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  vertical-align: super;
-  margin-left: 0.1em;
-  line-height: 1;
+.intro-brand-logo {
+  height: clamp(3.5rem, 10vw, 8rem);
+  width: auto;
+  will-change: clip-path, opacity;
 }
 
 .intro-brand-line {

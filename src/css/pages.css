@@ -430,12 +430,16 @@ body:has(.app-shell) {
   position: relative;
   flex-shrink: 0;
 }
-.topbar-logo-svg {
+.topbar-logo-img {
   display: block;
+  height: 28px;
+  width: auto;
 }
-.topbar-logo-fill {
-  fill: var(--text-primary);
-}
+/* Dark theme (default): show white logo, hide dark */
+.topbar-logo-light { display: none; }
+.topbar-logo-dark { display: block; }
+[data-theme="light"] .topbar-logo-light { display: block; }
+[data-theme="light"] .topbar-logo-dark { display: none; }
 .topbar-logo-dot-legacy {
   width: 5px;
   height: 5px;
