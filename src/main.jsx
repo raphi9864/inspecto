@@ -8,8 +8,12 @@ import DemoOverlay from './components/Demo/DemoOverlay'
 import DemoAvatar from './components/Demo/DemoAvatar'
 import DemoSpotlight from './components/Demo/DemoSpotlight'
 import DemoProgressBar from './components/Demo/DemoProgressBar'
+import gsap from 'gsap'
 import './i18n'
 import './css/main.css'
+
+// Suppress GSAP "target not found" warnings (lazy-loaded pages)
+gsap.config({ nullTargetWarn: false })
 import './css/animations.css'
 import './css/demo.css'
 

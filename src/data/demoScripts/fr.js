@@ -153,11 +153,15 @@ export default [
   { id:'4-6', phase:4, type:'highlight', selector:'img[alt="Inspection"]',
     speak:"Photo terrain importée. On peut encercler les défauts et annoter.", delayAfter:1500 },
 
-  // Étape 3 : Cause (5-Why)
+  // Étape 3 : Cause (5-Why + 8D + Ishikawa)
   { id:'4-7', phase:4, type:'click', selector:'[data-demo-target="nc-wizard-next"]',
-    speak:"Étape 3/5 \u2014 Analyse des causes. Méthode 5 Pourquoi.", highlightBefore:true, delayAfter:1000 },
+    speak:"Étape 3/5 \u2014 Analyse des causes. 3 méthodes disponibles : 5 Pourquoi, 8D et Ishikawa.", highlightBefore:true, delayAfter:1000 },
   { id:'4-8', phase:4, type:'highlight', selector:'.btn-primary', matchText:'ADD',
     speak:"Chaque \u00ab Pourquoi \u00bb est documenté et déclenche une action corrective.", delayAfter:1200 },
+  { id:'4-7b', phase:4, type:'click', selector:'[data-demo-target="analysis-8d"]',
+    speak:"Méthode 8D : 8 disciplines structurées. La cause racine est identifiée en D4.", highlightBefore:true, delayAfter:1000 },
+  { id:'4-7c', phase:4, type:'click', selector:'[data-demo-target="analysis-ishikawa"]',
+    speak:"Diagramme Ishikawa : 6 branches cause-effet. Matière, Méthode, Milieu, Matériel, Main d\u2019\u0153uvre, Management.", highlightBefore:true, delayAfter:1200 },
 
   // Étape 4 : Résolution
   { id:'4-9', phase:4, type:'click', selector:'[data-demo-target="nc-wizard-next"]',
@@ -186,6 +190,17 @@ export default [
     speak:"CFSI\u00a0: Conformité Fournisseurs et Sous-traitants.", delayAfter:1200 },
   { id:'4-17', phase:4, type:'highlight', selector:'.panel',
     speak:"Informations générales, notices pratiques, photos de contrôle, zone de signature et clôture.", delayAfter:1800 },
+
+  // ── RFF : Rapport de Fin de Fabrication ──
+  { id:'4-18', phase:4, type:'navigate', route:'/app/rff', transition:'prezi',
+    waitForSelector:'.panel',
+    speak:"Rapport de Fin de Fabrication \u2014 généré automatiquement depuis les données qualité.", delayAfter:1200 },
+  { id:'4-19', phase:4, type:'highlight', selector:'[data-demo-target="rff-inspections"]',
+    speak:"Inspections, NC et actions correctives consolidées dans un seul document.", delayAfter:1500 },
+  { id:'4-20', phase:4, type:'highlight', selector:'[data-demo-target="rff-signatures"]',
+    speak:"3 zones de signature : Responsable Qualité, Client, Tiers.", delayAfter:1200 },
+  { id:'4-21', phase:4, type:'click', selector:'[data-demo-target="btn-generate-pdf"]',
+    speak:"Génération PDF en un clic !", highlightBefore:true, delayAfter:1000 },
 
   /* ═══════════════════════════════════════════════════════════
      PHASE 5 — Actions : création complète + coûts
@@ -216,6 +231,25 @@ export default [
     speak:"Bibliothèque documentaire.", delayAfter:1000 },
   { id:'6-1', phase:6, type:'highlight', selector:'.doc-folder-list',
     speak:"Dossiers organisés par projet. Sélection multiple pour générer un rapport.", delayAfter:1500 },
+  { id:'6-1b', phase:6, type:'click', selector:'[data-demo-target="btn-new-folder"]',
+    speak:"Je crée un nouveau dossier.", highlightBefore:true, delayAfter:800 },
+  { id:'6-1c', phase:6, type:'type', selector:'[data-demo-target="folder-name"]',
+    value:'Dossier Audit ISO 2025', clearFirst:true,
+    speak:"Je nomme le dossier\u2026", delayAfter:600 },
+  { id:'6-1d', phase:6, type:'click', selector:'[data-demo-target="btn-save-folder"]',
+    speak:"Dossier créé\u00a0!", highlightBefore:true, delayAfter:800 },
+  { id:'6-1e', phase:6, type:'click', selector:'[data-demo-target="btn-upload-doc"]',
+    speak:"J'ajoute un document.", highlightBefore:true, delayAfter:800 },
+  { id:'6-1f', phase:6, type:'highlight', selector:'[data-demo-target="doc-upload-area"]',
+    speak:"Glisser-déposer ou import fichier. Formats\u00a0: PDF, Word, Excel.", delayAfter:1500 },
+  { id:'6-1g', phase:6, type:'highlight', selector:'[data-demo-target="doc-list"]',
+    speak:"Document ajouté à la bibliothèque avec métadonnées.", delayAfter:1200 },
+  { id:'6-1h', phase:6, type:'highlight', selector:'[data-demo-target="doc-checkbox"]',
+    speak:"Je sélectionne plusieurs documents\u2026", delayAfter:1000 },
+  { id:'6-1i', phase:6, type:'highlight', selector:'[data-demo-target="doc-checkbox"]',
+    speak:"Sélection multiple activée.", delayAfter:1000 },
+  { id:'6-1j', phase:6, type:'click', selector:'[data-demo-target="btn-generate-report"]',
+    speak:"Je génère le rapport documentaire. Assemblage automatique en un clic\u00a0!", highlightBefore:true, delayAfter:1500 },
 
   // ── Traçabilité ──
   { id:'6-2', phase:6, type:'navigate', route:'/app/traceabilite', transition:'prezi',

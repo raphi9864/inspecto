@@ -24,7 +24,22 @@ export function useDemoContext() {
 export function DemoProvider({ children }) {
   const navigate = useNavigate()
   const { i18n } = useTranslation()
-  const script = useMemo(() => getScript(i18n.language), [i18n.language])
+
+  /* Demo-specific language (does NOT affect the UI / i18n) */
+  const [demoLang, setDemoLang] = useState(() => localStorage.getItem('inspecto_demo_lang') || i18n.language || 'fr')
+  const demoLangRef = useRef(demoLang)
+
+  const script = useMemo(() => getScript(demoLang), [demoLang])
+  const phases = useMemo(() => {
+    const seen = new Set()
+    return script.reduce((acc, step, idx) => {
+      if (step.phaseTitle && !seen.has(step.phase)) {
+        seen.add(step.phase)
+        acc.push({ phase: step.phase, phaseTitle: step.phaseTitle, firstStepIndex: idx })
+      }
+      return acc
+    }, [])
+  }, [script])
 
   /* State */
   const [status, setStatus] = useState('idle') // idle | running | paused | complete
@@ -34,6 +49,7 @@ export function DemoProvider({ children }) {
   const [speechText, setSpeechText] = useState('')
   const [spotlightTarget, setSpotlightTarget] = useState(null) // DOMRect | null
   const [totalPhases] = useState(6)
+  const [muteVoice, setMuteVoice] = useState(false)
 
   /* Refs for cleanup */
   const abortRef = useRef(null)        // main demo abort
@@ -44,6 +60,11 @@ export function DemoProvider({ children }) {
   const runningRef = useRef(false)
   const pausedRef = useRef(false)
   const skippingRef = useRef(false)
+  const stepIndexRef = useRef(0)
+  const jumpingRef = useRef(false)
+  const muteVoiceRef = useRef(false)
+  const chapterAudioRef = useRef(null)
+  const pauseResolveRef = useRef(null)
 
   /* ─── Speech (Typed.js + ElevenLabs TTS in parallel) ─── */
   const speakTo = useCallback((textEl, text, speed = 20, stepId = null) => {
@@ -64,8 +85,8 @@ export function DemoProvider({ children }) {
       })
     })
 
-    // TTS audio (reads voice settings from localStorage)
-    const lang = localStorage.getItem('inspecto_lang') || 'fr'
+    // TTS audio — use demo-specific language (not the UI language)
+    const lang = demoLangRef.current || 'fr'
     const gender = localStorage.getItem('inspecto_voice_gender') || 'male'
     const audioPromise = speakStep(stepId, text, lang, gender)
 
@@ -107,6 +128,29 @@ export function DemoProvider({ children }) {
         setPhaseTitle(step.phaseTitle)
       }
       setCurrentStep(step)
+
+      // Voice on phase titles: try static audio, fallback to Web Speech API
+      if (step.phaseTitle && !muteVoiceRef.current) {
+        if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
+        window.speechSynthesis.cancel()
+        const lang = demoLangRef.current || 'fr'
+        const audio = new Audio(`/audio/chapter-${lang}-${step.phase}.mp3`)
+        chapterAudioRef.current = audio
+        audio.play().then(() => {
+          audio.onended = () => { chapterAudioRef.current = null }
+        }).catch(() => {
+          // Fallback: Web Speech API
+          chapterAudioRef.current = null
+          const langMap = { fr: 'fr-FR', en: 'en-GB', it: 'it-IT', es: 'es-ES', de: 'de-DE' }
+          const utterance = new SpeechSynthesisUtterance(step.speak || step.text || step.phaseTitle)
+          utterance.lang = langMap[lang] || 'fr-FR'
+          utterance.rate = 0.95
+          utterance.pitch = 1.0
+          utterance.volume = 1.0
+          window.speechSynthesis.speak(utterance)
+        })
+        audio.onerror = () => { chapterAudioRef.current = null }
+      }
 
       // Pre-delay
       if (step.delay) await sleep(step.delay, ss)
@@ -189,8 +233,13 @@ export function DemoProvider({ children }) {
   }, [navigate, speakTo, spotlight])
 
   /* ─── Request demo start (mounts avatar, then avatar calls runEngine) ─── */
-  const startDemo = useCallback(() => {
+  const startDemo = useCallback((lang) => {
     if (runningRef.current) return
+    if (lang) {
+      setDemoLang(lang)
+      demoLangRef.current = lang
+      localStorage.setItem('inspecto_demo_lang', lang)
+    }
     setStatus('running')
     setCurrentPhase(1)
   }, [])
@@ -204,14 +253,28 @@ export function DemoProvider({ children }) {
     abortRef.current = controller
     const signal = controller.signal
 
-    for (const step of script) {
+    stepIndexRef.current = 0
+    while (stepIndexRef.current < script.length) {
       if (signal.aborted) break
+      const step = script[stepIndexRef.current]
       try {
         await executeStep(step, signal, textElRef?.current)
       } catch (err) {
         console.warn('[DemoEngine] Step error:', step.id, err)
       }
       if (step.endDemo) break
+
+      // Wait if paused (step completed due to pause aborting it)
+      if (pausedRef.current && !signal.aborted) {
+        await new Promise(resolve => { pauseResolveRef.current = resolve })
+        pauseResolveRef.current = null
+        if (signal.aborted) break
+      }
+
+      if (!jumpingRef.current) {
+        stepIndexRef.current++
+      }
+      jumpingRef.current = false
     }
 
     if (!signal.aborted) {
@@ -228,10 +291,12 @@ export function DemoProvider({ children }) {
     if (status !== 'running') return
     pausedRef.current = true
     setStatus('paused')
+    window.speechSynthesis.cancel()
     stopCurrentAudio()
-    if (typedRef.current) {
-      typedRef.current.stop()
-    }
+    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
+    if (typedRef.current) typedRef.current.stop()
+    // Abort current step so it resolves immediately (engine will wait at pause check)
+    if (stepAbortRef.current) stepAbortRef.current.abort()
   }, [status])
 
   /* ─── Resume the demo ─── */
@@ -239,14 +304,25 @@ export function DemoProvider({ children }) {
     if (status !== 'paused') return
     pausedRef.current = false
     setStatus('running')
+    if (pauseResolveRef.current) { pauseResolveRef.current(); pauseResolveRef.current = null }
   }, [status])
 
   /* ─── Skip current step, advance to next ─── */
   const nextStep = useCallback(() => {
+    // If paused, just resume+advance (don't abort, step already aborted)
+    if (pausedRef.current) {
+      pausedRef.current = false
+      setStatus('running')
+      if (pauseResolveRef.current) { pauseResolveRef.current(); pauseResolveRef.current = null }
+      return
+    }
+
     if (skippingRef.current) return
     skippingRef.current = true
 
-    // Stop audio + typed
+    // Stop chapter audio + speech + TTS audio + typed
+    window.speechSynthesis.cancel()
+    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
     stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
@@ -273,10 +349,57 @@ export function DemoProvider({ children }) {
     setTimeout(() => { skippingRef.current = false }, 50)
   }, [])
 
+  /* ─── Jump to a specific module/phase ─── */
+  const jumpToModule = useCallback((phaseNumber) => {
+    const targetIndex = script.findIndex(s => s.phase === phaseNumber && s.phaseTitle)
+    if (targetIndex === -1) return
+
+    window.speechSynthesis.cancel()
+    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
+    stopCurrentAudio()
+    if (typedRef.current) {
+      typedRef.current.destroy()
+      typedRef.current = null
+    }
+    if (typedResolveRef.current) {
+      typedResolveRef.current()
+      typedResolveRef.current = null
+    }
+
+    jumpingRef.current = true
+    stepIndexRef.current = targetIndex
+    setSpotlightTarget(null)
+
+    if (stepAbortRef.current) {
+      stepAbortRef.current.abort()
+    }
+
+    if (pausedRef.current) {
+      pausedRef.current = false
+      setStatus('running')
+    }
+    if (pauseResolveRef.current) { pauseResolveRef.current(); pauseResolveRef.current = null }
+  }, [script])
+
+  /* ─── Toggle voice mute ─── */
+  const toggleMuteVoice = useCallback(() => {
+    setMuteVoice(prev => {
+      const next = !prev
+      muteVoiceRef.current = next
+      if (next) {
+        window.speechSynthesis.cancel()
+        if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
+      }
+      return next
+    })
+  }, [])
+
   /* ─── Skip / abort the demo ─── */
   const skipDemo = useCallback(() => {
     if (stepAbortRef.current) stepAbortRef.current.abort()
     if (abortRef.current) abortRef.current.abort()
+    window.speechSynthesis.cancel()
+    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
     stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
@@ -295,6 +418,7 @@ export function DemoProvider({ children }) {
     pausedRef.current = false
     skippingRef.current = false
     runningRef.current = false
+    if (pauseResolveRef.current) { pauseResolveRef.current(); pauseResolveRef.current = null }
     sessionStorage.setItem('demo-seen', '1')
     navigate('/app')
   }, [navigate])
@@ -305,14 +429,18 @@ export function DemoProvider({ children }) {
     currentPhase,
     phaseTitle,
     totalPhases,
+    phases,
     speechText,
     spotlightTarget,
+    muteVoice,
     startDemo,
     runEngine,
     skipDemo,
     pauseDemo,
     resumeDemo,
     nextStep,
+    jumpToModule,
+    toggleMuteVoice,
     dismissDemo: useCallback(() => setStatus('idle'), []),
   }
 

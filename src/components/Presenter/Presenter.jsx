@@ -544,9 +544,7 @@ export default function Presenter({ introDoneOverride }) {
             onClick={() => {
               if (demo?.status === 'idle' || demo?.status === 'complete') {
                 sessionStorage.removeItem('demo-seen')
-                const welcomed = localStorage.getItem('inspecto_welcome_done')
-                if (welcomed) { demo.startDemo() }
-                else { setShowWelcome(true) }
+                setShowWelcome(true)
               }
             }}
             disabled={demo?.status === 'running'}
@@ -568,7 +566,7 @@ export default function Presenter({ introDoneOverride }) {
       )}
 
       {showWelcome && (
-        <WelcomeModal onClose={() => { setShowWelcome(false); demo.startDemo() }} />
+        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
       )}
     </section>
   )

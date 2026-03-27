@@ -47,7 +47,7 @@ export default function Navbar() {
       </div>
 
       {showWelcome && (
-        <WelcomeModal onClose={() => { setShowWelcome(false); demo.startDemo() }} />
+        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
       )}
     </nav>
   )

@@ -153,11 +153,15 @@ export default [
   { id:'4-6', phase:4, type:'highlight', selector:'img[alt="Inspection"]',
     speak:"Foto de campo importada. Se pueden encerrar los defectos y anotar.", delayAfter:1500 },
 
-  // Paso 3: Causa (5-Why)
+  // Paso 3: Causa (5-Why + 8D + Ishikawa)
   { id:'4-7', phase:4, type:'click', selector:'[data-demo-target="nc-wizard-next"]',
-    speak:"Paso 3/5 \u2014 An\u00e1lisis de causas. M\u00e9todo 5 Por qu\u00e9.", highlightBefore:true, delayAfter:1000 },
+    speak:"Paso 3/5 \u2014 An\u00e1lisis de causas. 3 m\u00e9todos disponibles: 5 Por qu\u00e9, 8D e Ishikawa.", highlightBefore:true, delayAfter:1000 },
   { id:'4-8', phase:4, type:'highlight', selector:'.btn-primary', matchText:'ADD',
     speak:"Cada \u00abPor qu\u00e9\u00bb queda documentado y dispara una acci\u00f3n correctiva.", delayAfter:1200 },
+  { id:'4-7b', phase:4, type:'click', selector:'[data-demo-target="analysis-8d"]',
+    speak:"M\u00e9todo 8D: 8 disciplinas estructuradas. Causa ra\u00edz identificada en D4.", highlightBefore:true, delayAfter:1000 },
+  { id:'4-7c', phase:4, type:'click', selector:'[data-demo-target="analysis-ishikawa"]',
+    speak:"Diagrama Ishikawa: 6 ramas causa-efecto. Material, M\u00e9todo, Medio ambiente, Maquinaria, Mano de obra, Management.", highlightBefore:true, delayAfter:1200 },
 
   // Paso 4: Resoluci\u00f3n
   { id:'4-9', phase:4, type:'click', selector:'[data-demo-target="nc-wizard-next"]',
@@ -186,6 +190,17 @@ export default [
     speak:"CFSI: Conformidad de Proveedores y Subcontratistas.", delayAfter:1200 },
   { id:'4-17', phase:4, type:'highlight', selector:'.panel',
     speak:"Informaci\u00f3n general, avisos pr\u00e1cticos, fotos de control, zona de firma y cierre.", delayAfter:1800 },
+
+  // ── RFF: Informe de Fin de Fabricaci\u00f3n ──
+  { id:'4-18', phase:4, type:'navigate', route:'/app/rff', transition:'prezi',
+    waitForSelector:'.panel',
+    speak:"Informe de Fin de Fabricaci\u00f3n \u2014 generado autom\u00e1ticamente desde los datos de calidad.", delayAfter:1200 },
+  { id:'4-19', phase:4, type:'highlight', selector:'[data-demo-target="rff-inspections"]',
+    speak:"Inspecciones, NC y acciones correctivas consolidadas en un solo documento.", delayAfter:1500 },
+  { id:'4-20', phase:4, type:'highlight', selector:'[data-demo-target="rff-signatures"]',
+    speak:"3 zonas de firma: Responsable de Calidad, Cliente, Terceros.", delayAfter:1200 },
+  { id:'4-21', phase:4, type:'click', selector:'[data-demo-target="btn-generate-pdf"]',
+    speak:"\u00a1Generaci\u00f3n PDF con un clic!", highlightBefore:true, delayAfter:1000 },
 
   /* ═══════════════════════════════════════════════════════════
      PHASE 5 — Acciones: creaci\u00f3n completa + costes
@@ -216,6 +231,25 @@ export default [
     speak:"Biblioteca documental.", delayAfter:1000 },
   { id:'6-1', phase:6, type:'highlight', selector:'.doc-folder-list',
     speak:"Carpetas organizadas por proyecto. Selecci\u00f3n m\u00faltiple para generar un informe.", delayAfter:1500 },
+  { id:'6-1b', phase:6, type:'click', selector:'[data-demo-target="btn-new-folder"]',
+    speak:"Creo una nueva carpeta.", highlightBefore:true, delayAfter:800 },
+  { id:'6-1c', phase:6, type:'type', selector:'[data-demo-target="folder-name"]',
+    value:'Dossier Audit ISO 2025', clearFirst:true,
+    speak:"Nombro la carpeta\u2026", delayAfter:600 },
+  { id:'6-1d', phase:6, type:'click', selector:'[data-demo-target="btn-save-folder"]',
+    speak:"\u00a1Carpeta creada!", highlightBefore:true, delayAfter:800 },
+  { id:'6-1e', phase:6, type:'click', selector:'[data-demo-target="btn-upload-doc"]',
+    speak:"A\u00f1ado un documento.", highlightBefore:true, delayAfter:800 },
+  { id:'6-1f', phase:6, type:'highlight', selector:'[data-demo-target="doc-upload-area"]',
+    speak:"Arrastrar y soltar o importar archivo. Formatos: PDF, Word, Excel.", delayAfter:1500 },
+  { id:'6-1g', phase:6, type:'highlight', selector:'[data-demo-target="doc-list"]',
+    speak:"Documento a\u00f1adido a la biblioteca con metadatos.", delayAfter:1200 },
+  { id:'6-1h', phase:6, type:'highlight', selector:'[data-demo-target="doc-checkbox"]',
+    speak:"Selecciono varios documentos\u2026", delayAfter:1000 },
+  { id:'6-1i', phase:6, type:'highlight', selector:'[data-demo-target="doc-checkbox"]',
+    speak:"Selecci\u00f3n m\u00faltiple activada.", delayAfter:1000 },
+  { id:'6-1j', phase:6, type:'click', selector:'[data-demo-target="btn-generate-report"]',
+    speak:"Genero el informe documental. \u00a1Ensamblaje autom\u00e1tico con un solo clic!", highlightBefore:true, delayAfter:1500 },
 
   // ── Trazabilidad ──
   { id:'6-2', phase:6, type:'navigate', route:'/app/traceabilite', transition:'prezi',

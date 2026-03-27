@@ -14,7 +14,7 @@ const LANGUAGES = [
 export default function WelcomeModal({ onClose }) {
   const { t, i18n } = useTranslation()
   const { voiceGender, setVoiceGender } = useVoiceSettings()
-  const [selectedLang, setSelectedLang] = useState('en')
+  const [selectedLang, setSelectedLang] = useState(() => i18n.language || 'fr')
   const [selectedGender, setSelectedGender] = useState(voiceGender || 'male')
   const [previewPlaying, setPreviewPlaying] = useState(null) // 'male' | 'female' | null
   const overlayRef = useRef(null)
@@ -29,9 +29,7 @@ export default function WelcomeModal({ onClose }) {
 
   const changeLang = useCallback((code) => {
     setSelectedLang(code)
-    i18n.changeLanguage(code)
-    localStorage.setItem('inspecto_lang', code)
-  }, [i18n])
+  }, [])
 
   const playPreview = useCallback((gender) => {
     // Stop current
@@ -51,15 +49,15 @@ export default function WelcomeModal({ onClose }) {
     // Save preferences
     setVoiceGender(selectedGender)
     localStorage.setItem('inspecto_welcome_done', '1')
-    localStorage.setItem('inspecto_lang', selectedLang)
-    i18n.changeLanguage(selectedLang)
+    localStorage.setItem('inspecto_demo_lang', selectedLang)
     // Stop any preview
     if (audioRef.current) { audioRef.current.pause(); audioRef.current = null }
-    // Animate out
+    // Animate out — pass selected demo language to caller
+    const close = () => onClose(selectedLang)
     if (cardRef.current) {
-      gsap.to(cardRef.current, { scale: 0.95, opacity: 0, duration: 0.25, onComplete: onClose })
-    } else { onClose() }
-  }, [selectedGender, selectedLang, setVoiceGender, i18n, onClose])
+      gsap.to(cardRef.current, { scale: 0.95, opacity: 0, duration: 0.25, onComplete: close })
+    } else { close() }
+  }, [selectedGender, selectedLang, setVoiceGender, onClose])
 
   // Cleanup audio on unmount
   useEffect(() => {
