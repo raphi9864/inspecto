@@ -11,8 +11,12 @@ export default function CFSIPage() {
   const [wizardStep, setWizardStep] = useState(0)
   const [editingImage, setEditingImage] = useState(null)
   const [form, setForm] = useState({
-    finding: FINDINGS[0], refNo: '', desc: '', reportDate: new Date().toLocaleString('en-GB').replace(',', ''),
+    finding: 'NC-2025-0042', refNo: 'CFSI-2025-018',
+    desc: 'Certificat de conformit\u00e9 non sign\u00e9',
+    reportDate: '26/03/2026',
     status: 'Ongoing',
+    supplier: 'ABO France',
+    linkedInspection: 'INSP-2025-118',
   })
 
   const STEPS = [t('findings.wizardSteps.0'), t('findings.wizardSteps.1'), t('findings.wizardSteps.2'), t('findings.wizardSteps.3')]
@@ -20,7 +24,7 @@ export default function CFSIPage() {
   const submitCFSI = () => {
     showToast(t('cfsi.closedSuccess'), 'success')
     setWizardStep(0)
-    setForm({ finding: FINDINGS[0], refNo: '', desc: '', reportDate: new Date().toLocaleString('en-GB').replace(',', ''), status: 'Ongoing' })
+    setForm({ finding: FINDINGS[0], refNo: '', desc: '', reportDate: new Date().toLocaleString('en-GB').replace(',', ''), status: 'Ongoing', supplier: '', linkedInspection: '' })
   }
 
   return (
@@ -61,6 +65,8 @@ export default function CFSIPage() {
           </div>
           <div className="modal-field"><label>{t('findings.formLabels.reportDate')}</label><input className="wizard-input" value={form.reportDate} readOnly style={{ background: 'var(--bg-tertiary)' }} /></div>
           <div className="modal-field"><label>{t('findings.formLabels.status')}</label><select className="wizard-input" value={form.status} onChange={e => setForm({ ...form, status: e.target.value })}><option>Ongoing</option><option>Closed</option><option>Pending</option></select></div>
+          <div className="modal-field"><label>{t('common.company')}</label><input className="wizard-input" value={form.supplier} onChange={e => setForm({ ...form, supplier: e.target.value })} placeholder={t('common.company')} /></div>
+          <div className="modal-field"><label>{t('findings.inspection')}</label><input className="wizard-input" value={form.linkedInspection} onChange={e => setForm({ ...form, linkedInspection: e.target.value })} placeholder={t('findings.inspection')} /></div>
           <div style={{ display: 'flex', gap: 24, margin: '16px 0' }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.9rem', color: 'var(--text-secondary)' }}><input type="checkbox" /> {t('findings.sendNotification')}</label>
             <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.9rem', color: 'var(--text-secondary)' }}><input type="checkbox" /> {t('findings.sendNotification')}</label>
