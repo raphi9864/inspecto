@@ -9,7 +9,6 @@ import {
   executeHighlight, executeDrawSignature,
   executeNavigate, sleep, findTarget,
 } from '../lib/demo-actions'
-import { speakStep, stopCurrentAudio } from '../lib/audioUtils'
 
 const DemoContext = createContext(null)
 
@@ -49,7 +48,6 @@ export function DemoProvider({ children }) {
   const [speechText, setSpeechText] = useState('')
   const [spotlightTarget, setSpotlightTarget] = useState(null) // DOMRect | null
   const [totalPhases] = useState(6)
-  const [muteVoice, setMuteVoice] = useState(false)
 
   /* Refs for cleanup */
   const abortRef = useRef(null)        // main demo abort
@@ -62,14 +60,11 @@ export function DemoProvider({ children }) {
   const skippingRef = useRef(false)
   const stepIndexRef = useRef(0)
   const jumpingRef = useRef(false)
-  const muteVoiceRef = useRef(false)
-  const chapterAudioRef = useRef(null)
   const pauseResolveRef = useRef(null)
 
-  /* ─── Speech (Typed.js + ElevenLabs TTS in parallel) ─── */
-  const speakTo = useCallback((textEl, text, speed = 20, stepId = null) => {
-    // Typed.js visual typing
-    const typingPromise = new Promise((resolve) => {
+  /* ─── Speech (Typed.js only — no audio) ─── */
+  const speakTo = useCallback((textEl, text, speed = 20) => {
+    return new Promise((resolve) => {
       if (typedRef.current) {
         typedRef.current.destroy()
         typedRef.current = null
@@ -84,14 +79,6 @@ export function DemoProvider({ children }) {
         onComplete: () => { typedResolveRef.current = null; resolve() },
       })
     })
-
-    // TTS audio — use demo-specific language (not the UI language)
-    const lang = demoLangRef.current || 'fr'
-    const gender = localStorage.getItem('inspecto_voice_gender') || 'male'
-    const audioPromise = speakStep(stepId, text, lang, gender)
-
-    // Wait for both to complete
-    return Promise.all([typingPromise, audioPromise])
   }, [])
 
   /* ─── Spotlight an element ─── */
@@ -128,29 +115,6 @@ export function DemoProvider({ children }) {
         setPhaseTitle(step.phaseTitle)
       }
       setCurrentStep(step)
-
-      // Voice on phase titles: try static audio, fallback to Web Speech API
-      if (step.phaseTitle && !muteVoiceRef.current) {
-        if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
-        window.speechSynthesis.cancel()
-        const lang = demoLangRef.current || 'fr'
-        const audio = new Audio(`/audio/chapter-${lang}-${step.phase}.mp3`)
-        chapterAudioRef.current = audio
-        audio.play().then(() => {
-          audio.onended = () => { chapterAudioRef.current = null }
-        }).catch(() => {
-          // Fallback: Web Speech API
-          chapterAudioRef.current = null
-          const langMap = { fr: 'fr-FR', en: 'en-GB', it: 'it-IT', es: 'es-ES', de: 'de-DE' }
-          const utterance = new SpeechSynthesisUtterance(step.speak || step.text || step.phaseTitle)
-          utterance.lang = langMap[lang] || 'fr-FR'
-          utterance.rate = 0.95
-          utterance.pitch = 1.0
-          utterance.volume = 1.0
-          window.speechSynthesis.speak(utterance)
-        })
-        audio.onerror = () => { chapterAudioRef.current = null }
-      }
 
       // Pre-delay
       if (step.delay) await sleep(step.delay, ss)
@@ -291,11 +255,7 @@ export function DemoProvider({ children }) {
     if (status !== 'running') return
     pausedRef.current = true
     setStatus('paused')
-    window.speechSynthesis.cancel()
-    stopCurrentAudio()
-    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
     if (typedRef.current) typedRef.current.stop()
-    // Abort current step so it resolves immediately (engine will wait at pause check)
     if (stepAbortRef.current) stepAbortRef.current.abort()
   }, [status])
 
@@ -320,10 +280,7 @@ export function DemoProvider({ children }) {
     if (skippingRef.current) return
     skippingRef.current = true
 
-    // Stop chapter audio + speech + TTS audio + typed
-    window.speechSynthesis.cancel()
-    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
-    stopCurrentAudio()
+    // Stop typed text
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null
@@ -354,9 +311,6 @@ export function DemoProvider({ children }) {
     const targetIndex = script.findIndex(s => s.phase === phaseNumber && s.phaseTitle)
     if (targetIndex === -1) return
 
-    window.speechSynthesis.cancel()
-    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
-    stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null
@@ -381,26 +335,10 @@ export function DemoProvider({ children }) {
     if (pauseResolveRef.current) { pauseResolveRef.current(); pauseResolveRef.current = null }
   }, [script])
 
-  /* ─── Toggle voice mute ─── */
-  const toggleMuteVoice = useCallback(() => {
-    setMuteVoice(prev => {
-      const next = !prev
-      muteVoiceRef.current = next
-      if (next) {
-        window.speechSynthesis.cancel()
-        if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
-      }
-      return next
-    })
-  }, [])
-
   /* ─── Skip / abort the demo ─── */
   const skipDemo = useCallback(() => {
     if (stepAbortRef.current) stepAbortRef.current.abort()
     if (abortRef.current) abortRef.current.abort()
-    window.speechSynthesis.cancel()
-    if (chapterAudioRef.current) { try { chapterAudioRef.current.pause() } catch {} chapterAudioRef.current = null }
-    stopCurrentAudio()
     if (typedRef.current) {
       typedRef.current.destroy()
       typedRef.current = null
@@ -432,7 +370,6 @@ export function DemoProvider({ children }) {
     phases,
     speechText,
     spotlightTarget,
-    muteVoice,
     startDemo,
     runEngine,
     skipDemo,
@@ -440,7 +377,6 @@ export function DemoProvider({ children }) {
     resumeDemo,
     nextStep,
     jumpToModule,
-    toggleMuteVoice,
     dismissDemo: useCallback(() => setStatus('idle'), []),
   }
 

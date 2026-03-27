@@ -175,24 +175,15 @@
   color: var(--text-primary, #f0f4f8);
 }
 
-/* ─── Floating avatar (bottom-left) ─── */
+/* ─── Floating avatar (dynamically repositioned per step) ─── */
 .demo-avatar-float {
   position: fixed;
-  bottom: 72px;
-  left: 24px;
   z-index: 10003;
   display: flex;
   align-items: flex-end;
   gap: 18px;
   max-width: 600px;
   pointer-events: none;
-}
-
-/* Offset when sidebar is visible */
-@media (min-width: 769px) {
-  .app-shell .demo-avatar-float {
-    left: 260px;
-  }
 }
 
 .demo-avatar-circle {
@@ -208,27 +199,6 @@
   filter: drop-shadow(0 8px 28px rgba(46, 163, 242, 0.3))
           drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
   border-radius: 50%;
-}
-
-/* ─── Sound wave (mini, under avatar) ─── */
-.demo-sound-wave {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 16px;
-}
-
-.demo-sound-wave span {
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--blue, #2ea3f2), rgba(46, 163, 242, 0.3));
-  border-radius: 2px;
-  transform-origin: bottom center;
-  transform: scaleY(0.3);
 }
 
 /* ─── Speech bubble (solid, high contrast) ─── */

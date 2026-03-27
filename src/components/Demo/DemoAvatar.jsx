@@ -1,17 +1,47 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDemoContext } from '../../context/DemoContext'
-import useVoiceSettings from '../../hooks/useVoiceSettings'
 import gsap from 'gsap'
 
 export default function DemoAvatar() {
   const { t } = useTranslation()
-  const { status, runEngine, startDemo, dismissDemo } = useDemoContext()
-  const { voiceGender, setVoiceGender } = useVoiceSettings()
+  const { status, runEngine, startDemo, dismissDemo, currentStep } = useDemoContext()
   const engineStarted = useRef(false)
   const containerRef = useRef(null)
   const textRef = useRef(null)
-  const soundWaveRef = useRef(null)
+
+  /* ─── Dynamic repositioning based on target element quadrant ─── */
+  const defaultPos = { bottom: 24, left: 24, top: 'auto', right: 'auto' }
+  const [avatarPos, setAvatarPos] = useState(defaultPos)
+
+  useEffect(() => {
+    if (status !== 'running' && status !== 'paused') return
+    if (!currentStep?.selector) {
+      setAvatarPos(defaultPos)
+      return
+    }
+    const el = document.querySelector(currentStep.selector)
+    if (!el) { setAvatarPos(defaultPos); return }
+
+    const rect = el.getBoundingClientRect()
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    const midX = window.innerWidth / 2
+    const midY = window.innerHeight / 2
+
+    const isTop = cy < midY
+    const isLeft = cx < midX
+
+    if (isTop && isLeft) {
+      setAvatarPos({ bottom: 24, right: 24, top: 'auto', left: 'auto' })
+    } else if (isTop && !isLeft) {
+      setAvatarPos({ bottom: 24, left: 24, top: 'auto', right: 'auto' })
+    } else if (!isTop && isLeft) {
+      setAvatarPos({ top: 80, right: 24, bottom: 'auto', left: 'auto' })
+    } else {
+      setAvatarPos({ top: 80, left: 24, bottom: 'auto', right: 'auto' })
+    }
+  }, [currentStep, status])
 
   /* Run the engine once avatar is mounted and textRef is ready */
   useEffect(() => {
@@ -30,20 +60,6 @@ export default function DemoAvatar() {
     if (status === 'idle' || status === 'complete') {
       engineStarted.current = false
     }
-  }, [status])
-
-  /* Sound wave animation */
-  useEffect(() => {
-    if (status !== 'running' || !soundWaveRef.current) return
-    const spans = soundWaveRef.current.querySelectorAll('span')
-    const anim = gsap.to(spans, {
-      scaleY: () => gsap.utils.random(0.25, 1),
-      duration: 0.4,
-      stagger: { each: 0.08, repeat: -1, yoyo: true },
-      ease: 'power1.inOut',
-      transformOrigin: 'bottom center',
-    })
-    return () => anim.kill()
   }, [status])
 
   /* Entrance animation */
@@ -105,8 +121,17 @@ export default function DemoAvatar() {
   }
 
   /* ─── Running / paused: avatar + speech ─── */
+  const posStyle = {
+    opacity: 0,
+    top: avatarPos.top === 'auto' ? 'auto' : avatarPos.top,
+    bottom: avatarPos.bottom === 'auto' ? 'auto' : avatarPos.bottom,
+    left: avatarPos.left === 'auto' ? 'auto' : avatarPos.left,
+    right: avatarPos.right === 'auto' ? 'auto' : avatarPos.right,
+    transition: 'top 0.4s cubic-bezier(0.4,0,0.2,1), bottom 0.4s cubic-bezier(0.4,0,0.2,1), left 0.4s cubic-bezier(0.4,0,0.2,1), right 0.4s cubic-bezier(0.4,0,0.2,1)',
+  }
+
   return (
-    <div className="demo-avatar-float" ref={containerRef} style={{ opacity: 0 }}>
+    <div className="demo-avatar-float" ref={containerRef} style={posStyle}>
       <div className="demo-avatar-circle">
         <svg className="demo-avatar-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <circle cx="100" cy="100" r="96" fill="#EBF4FF" stroke="#2ea3f2" strokeWidth="2"/>
@@ -121,11 +146,6 @@ export default function DemoAvatar() {
           <circle cx="114" cy="136" r="2.5" fill="#CC0000"/>
           <rect x="119" y="134" width="14" height="3" rx="1" fill="#2ea3f2"/>
         </svg>
-        {status === 'running' && (
-          <div className="demo-sound-wave" ref={soundWaveRef}>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-        )}
       </div>
 
       <div className="demo-speech-bubble demo-speech-solid">

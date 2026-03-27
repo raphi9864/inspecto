@@ -23,12 +23,12 @@ export default function Statistics() {
       const tooltipBg = cs.getPropertyValue('--bg-tertiary').trim() || 'rgba(17,24,39,0.95)'
       const tooltipBorder = cs.getPropertyValue('--border-primary').trim() || 'rgba(255,255,255,0.08)'
       const tooltipText = cs.getPropertyValue('--text-primary').trim() || '#f0f4f8'
-      // Resolve brand colors from CSS variables — canvas cannot use var() strings
-      const brandBlue = cs.getPropertyValue('--blue').trim() || '#1a6fc4'
-      const statusError = cs.getPropertyValue('--status-error').trim() || '#e53e3e'
-      const statusSuccess = cs.getPropertyValue('--status-success').trim() || '#38a169'
-      const statusWarning = cs.getPropertyValue('--status-warning').trim() || '#dd6b20'
-      const severityMinor = cs.getPropertyValue('--severity-minor').trim() || '#f59e0b'
+      // Direct hex colors for Chart.js canvas — canvas cannot resolve CSS var()
+      const brandBlue = '#2ea3f2'
+      const statusError = '#CC0000'
+      const statusSuccess = '#38a169'
+      const statusWarning = '#dd6b20'
+      const severityMinor = '#f1c40f'
 
       Chart.defaults.color = textColor
       const commonFont = { family: 'Montserrat', size: 11, color: textColor }
@@ -42,8 +42,8 @@ export default function Statistics() {
           data: {
             labels: ['Jan 23','Avr 23','Jul 23','Oct 23','Jan 24','Avr 24','Jul 24','Oct 24','Jan 25','Avr 25','Jul 25','Oct 25','Jan 26','Mar 26'],
             datasets: [
-              { label: 'Inspections', data: [12,18,24,31,42,55,68,82,98,110,124,138,149,156], borderColor: statusError, backgroundColor: 'rgba(229,62,62,0.08)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError },
-              { label: 'Non-conformités', data: [2,3,4,6,8,11,14,19,23,27,30,34,38,42], borderColor: statusSuccess, backgroundColor: 'rgba(56,161,105,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusSuccess },
+              { label: 'Inspections', data: [12,18,24,31,42,55,68,82,98,110,124,138,149,156], borderColor: statusError, backgroundColor: 'rgba(204,0,0,0.08)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError },
+              { label: 'Non-conformités', data: [2,3,4,6,8,11,14,19,23,27,30,34,38,42], borderColor: statusSuccess, backgroundColor: 'rgba(56,161,105,0.08)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusSuccess },
             ]
           },
           options: { responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: commonFont } }, tooltip: { ...tooltipStyle, mode: 'index', intersect: false } }, scales: { y: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, x: { ticks: { font: commonFont, maxRotation: 45 }, grid: { display: false } } } }
@@ -85,7 +85,7 @@ export default function Statistics() {
       if (ncTrendCtx) {
         charts.push(new Chart(ncTrendCtx, {
           type: 'line',
-          data: { labels: ['Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'NC par mois', data: [28,24,31,35,29,27,34,22,18,31,28,33], borderColor: statusError, backgroundColor: 'rgba(229,62,62,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError }] },
+          data: { labels: ['Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'NC par mois', data: [28,24,31,35,29,27,34,22,18,31,28,33], borderColor: statusError, backgroundColor: 'rgba(204,0,0,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError }] },
           options: { responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: tooltipStyle }, scales: { y: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, x: { ticks: { font: commonFont }, grid: { display: false } } } }
         }))
       }
