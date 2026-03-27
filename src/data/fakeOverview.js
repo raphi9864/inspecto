@@ -80,8 +80,8 @@ export function getOverviewKPI(t) {
 
 export function getOverviewProjects() {
   return [
-    { id: 1, name: 'ALLIA - MAINTENANCE DES EQUIPEMENTS ATELIERS - 2025-09-03', company: 'INSPECTO', progress: 0, remainingTasks: 4, findings: 1 },
-    { id: 2, name: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO', progress: 16, remainingTasks: 15, findings: 0 },
+    { id: 1, name: 'ALLIA — Maintenance des \u00e9quipements ateliers', company: 'INSPECTO', progress: 0, remainingTasks: 4, findings: 1 },
+    { id: 2, name: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO', progress: 16, remainingTasks: 15, findings: 0 },
     { id: 3, name: 'Jupiter Bach', company: 'INSPECTO', progress: 0, remainingTasks: 5, findings: 3 },
     { id: 4, name: 'BRAKE manufacturing Alstom', company: 'INSPECTO', progress: 0, remainingTasks: 0, findings: 0 },
   ]
@@ -89,9 +89,9 @@ export function getOverviewProjects() {
 
 export function getIncomingTasks(t) {
   return [
-    { id: 1, title: t('data.taskTitles.steelPlates'), dates: 'From 05-09-2026 to 02-10-2026', activity: t('data.activityNames.procurement'), project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-    { id: 2, title: t('data.taskTitles.weldingSpecification'), dates: 'From 06-09-2026 to 30-10-2026', activity: t('data.activityNames.engineering'), project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-    { id: 3, title: t('data.taskTitles.dishedHeads'), dates: 'From 19-09-2026 to 07-11-2026', activity: t('data.activityNames.procurement'), project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-    { id: 4, title: t('data.taskTitles.inspectionControlPlan'), dates: 'From 02-10-2026 to 17-11-2026', activity: t('data.activityNames.engineering'), project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
+    { id: 1, title: t('data.taskTitles.steelPlates'), dates: 'From 05-09-2026 to 02-10-2026', activity: t('data.activityNames.procurement'), project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+    { id: 2, title: t('data.taskTitles.weldingSpecification'), dates: 'From 06-09-2026 to 30-10-2026', activity: t('data.activityNames.engineering'), project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+    { id: 3, title: t('data.taskTitles.dishedHeads'), dates: 'From 19-09-2026 to 07-11-2026', activity: t('data.activityNames.procurement'), project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+    { id: 4, title: t('data.taskTitles.inspectionControlPlan'), dates: 'From 02-10-2026 to 17-11-2026', activity: t('data.activityNames.engineering'), project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
   ]
 }

@@ -20,18 +20,18 @@ const KPI_CARDS = [
 ]
 
 const PROJECTS = [
-  { name: 'ALLIA - MAINTENANCE DES EQUIPEMENTS ATELIERS - 2025-09-03 09:01:20', company: 'INSPECTO', progress: 0, tasks: 4, findings: 1 },
-  { name: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO', progress: 16, tasks: 15, findings: 0 },
+  { name: 'ALLIA — Maintenance des \u00e9quipements ateliers', company: 'INSPECTO', progress: 0, tasks: 4, findings: 1 },
+  { name: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO', progress: 16, tasks: 15, findings: 0 },
   { name: 'Jupiter Bach', company: 'INSPECTO', progress: 0, tasks: 5, findings: 3 },
   { name: 'BRAKE manufacturing Alstom', company: 'INSPECTO', progress: 0, tasks: 8, findings: 2 },
   { name: 'Fabrication moteur HT', company: 'INSPECTO', progress: 42, tasks: 12, findings: 7 },
 ]
 
 const TASKS = [
-  { name: 'Toles', from: '05-09-2026', to: '02-10-2026', activity: 'ACHAT', project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-  { name: 'Cahier de soudage', from: '06-09-2026', to: '30-10-2026', activity: 'INGENIERIE', project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-  { name: 'Fonds bombes', from: '19-09-2026', to: '07-11-2026', activity: 'ACHAT', project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
-  { name: 'Plan d\'inspection et de controle', from: '02-10-2026', to: '17-11-2026', activity: 'INGENIERIE', project: 'Transformateur de vapeur - 2026-01-26 13:50:57', company: 'INSPECTO' },
+  { name: 'Toles', from: '05-09-2026', to: '02-10-2026', activity: 'ACHAT', project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+  { name: 'Cahier de soudage', from: '06-09-2026', to: '30-10-2026', activity: 'INGENIERIE', project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+  { name: 'Fonds bombes', from: '19-09-2026', to: '07-11-2026', activity: 'ACHAT', project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
+  { name: 'Plan d\'inspection et de controle', from: '02-10-2026', to: '17-11-2026', activity: 'INGENIERIE', project: 'Transformateur de vapeur — Site Lyon', company: 'INSPECTO' },
 ]
 
 const donutOpts = {
