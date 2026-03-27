@@ -3,18 +3,11 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { showToast } from '../Toast'
-const projectNames = [
-  'Fabrication moteur HT',
-  'Jupiter Bach',
-  'Pilatus PC21 — Projet Raphy',
-  'Transformateur de vapeur',
-]
-
-const projectDates = [
-  'From 08-09-2024 to 08-09-2025',
-  'From 10-11-2025 to 10-11-2026',
-  'From 01-03-2026 to 01-03-2027',
-  'From 01-07-2026 to 01-07-2027',
+const projects = [
+  { name: 'Fabrication moteur HT',       dates: 'From 08-09-2024 to 08-09-2025', department: 'Production',   status: 'active' },
+  { name: 'Jupiter Bach',                dates: 'From 10-11-2025 to 10-11-2026', department: 'Maintenance',  status: 'active' },
+  { name: 'Pilatus PC21 — Projet Raphy', dates: 'From 01-03-2026 to 01-03-2027', department: 'Production',   status: 'archived' },
+  { name: 'Transformateur de vapeur',    dates: 'From 01-07-2026 to 01-07-2027', department: 'HSE',          status: 'active' },
 ]
 
 export default function Projects() {
@@ -23,6 +16,8 @@ export default function Projects() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [dashboardIdx, setDashboardIdx] = useState(null)
   const [activeSection, setActiveSection] = useState('dashboard')
+  const [filterDept, setFilterDept] = useState('')
+  const [filterStatus, setFilterStatus] = useState('not_archived')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -72,7 +67,7 @@ export default function Projects() {
   }
 
   if (dashboardIdx !== null) {
-    const name = projectNames[dashboardIdx] || 'Projet'
+    const name = projects[dashboardIdx]?.name || 'Projet'
     return (
       <div ref={containerRef}>
         <div>
@@ -112,8 +107,8 @@ export default function Projects() {
                     </div>
                     <div className="panel-body">
                       <div className="proj-dash-info">
-                        <div className="proj-dash-info-row"><span className="proj-dash-label">{t('home.startDate')}</span><span>08-09-2024</span></div>
-                        <div className="proj-dash-info-row"><span className="proj-dash-label">{t('home.endDate')}</span><span>08-09-2025</span></div>
+                        <div className="proj-dash-info-row"><span className="proj-dash-label">{t('home.startDate')}&nbsp;:&nbsp;</span><span>08-09-2024</span></div>
+                        <div className="proj-dash-info-row"><span className="proj-dash-label">{t('home.endDate')}&nbsp;:&nbsp;</span><span>08-09-2025</span></div>
                       </div>
                       <div className="mini-gantt">
                         {[
@@ -360,21 +355,28 @@ export default function Projects() {
             <button className="proj-view-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
             <button className="proj-view-btn active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
           </div>
-          <div className="proj-filter-select"><label>Pick department</label><select><option>{t('common.all')}</option><option>Production</option><option>Maintenance</option><option>HSE</option></select></div>
-          <div className="proj-filter-select"><label>{t('common.status')}</label><select><option>Not archived</option><option>{t('common.all')}</option><option>Archived</option></select></div>
+          <div className="proj-filter-select"><label>Pick department</label><select value={filterDept} onChange={(e) => setFilterDept(e.target.value)}><option value="">{t('common.all')}</option><option value="Production">Production</option><option value="Maintenance">Maintenance</option><option value="HSE">HSE</option></select></div>
+          <div className="proj-filter-select"><label>{t('common.status')}</label><select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}><option value="not_archived">Not archived</option><option value="">{t('common.all')}</option><option value="archived">Archived</option></select></div>
         </div>
         <button className="panel-btn primary">{t('common.newProject')}</button>
       </div>
 
       <div className="proj-grid" id="proj-grid">
-        {projectNames.map((name, i) => (
+        {projects.map((proj, i) => ({ proj, i }))
+          .filter(({ proj }) => !filterDept || proj.department === filterDept)
+          .filter(({ proj }) => {
+            if (filterStatus === 'not_archived') return proj.status !== 'archived'
+            if (filterStatus === 'archived') return proj.status === 'archived'
+            return true // '' means all
+          })
+          .map(({ proj, i }) => (
           <div className="proj-card" data-proj={String(i)} key={i} onClick={() => openProject(i)}>
             <div className="proj-card-header">
-              <div className="proj-card-title">{name}</div>
+              <div className="proj-card-title">{proj.name}</div>
               <span className="proj-role-badge">INSPECTOR</span>
             </div>
             <div className="proj-card-company">INSPECTO</div>
-            <div className="proj-card-dates">{projectDates[i]}</div>
+            <div className="proj-card-dates">{proj.dates}</div>
             <div className="proj-card-actions">
               <button className="proj-action-btn primary" onClick={(e) => { e.stopPropagation(); openProject(i) }}>{t('common.explore')}</button>
               <button className="proj-icon-btn" title="QR Code" onClick={(e) => { e.stopPropagation(); showToast('QR Code generated', 'info') }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
