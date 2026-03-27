@@ -310,8 +310,8 @@ export default function Intro({ onComplete }) {
   const tagline = 'Inspection, contrôles et audits digitalisés'
   const tagWords = tagline.split(' ')
 
-  /* ─── INSPECTO letters ─── */
-  const brandLetters = 'INSPECTO'.split('')
+  /* ─── inspecto letters ─── */
+  const brandLetters = 'inspecto'.split('')
 
   return (
     <div id="intro-overlay" ref={overlayRef}>
@@ -381,8 +381,12 @@ export default function Intro({ onComplete }) {
       <div className="intro-brand-center">
         <h1 className="intro-brand-title">
           {brandLetters.map((ch, i) => (
-            <span className="intro-brand-letter" key={i} style={{ clipPath: 'inset(0 100% 0 0)' }}>{ch}</span>
+            <span className={`intro-brand-letter${i === 0 ? ' intro-brand-i' : ''}`} key={i} style={{ clipPath: 'inset(0 100% 0 0)', position: 'relative' }}>
+              {ch}
+              {i === 0 && <span className="intro-brand-dot" />}
+            </span>
           ))}
+          <span className="intro-brand-registered">®</span>
         </h1>
         <div className="intro-brand-line" />
         <p className="intro-tagline">

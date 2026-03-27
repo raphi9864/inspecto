@@ -430,14 +430,13 @@ body:has(.app-shell) {
   position: relative;
   flex-shrink: 0;
 }
-.topbar-logo-text {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: 0.04em;
+.topbar-logo-svg {
+  display: block;
 }
-.topbar-logo-dot {
+.topbar-logo-fill {
+  fill: var(--text-primary);
+}
+.topbar-logo-dot-legacy {
   width: 5px;
   height: 5px;
   border-radius: 50%;

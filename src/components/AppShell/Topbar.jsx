@@ -111,8 +111,11 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
           </svg>
         </button>
         <Link to="/app" className="topbar-logo" aria-label="Inspecto">
-          <span className="topbar-logo-dot" />
-          <span className="topbar-logo-text">inspecto</span>
+          <svg className="topbar-logo-svg" viewBox="0 0 172 40" height="28" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="31" fontFamily="Montserrat,Inter,sans-serif" fontWeight="700" fontSize="32" className="topbar-logo-fill">inspecto</text>
+            <circle cx="7.5" cy="6" r="4" fill="#CC0000"/>
+            <text x="152" y="14" fontSize="11" fontWeight="600" className="topbar-logo-fill">®</text>
+          </svg>
         </Link>
         <span className="topbar-breadcrumb-sep">/</span>
         <h1 className="topbar-page-title">{title}</h1>
