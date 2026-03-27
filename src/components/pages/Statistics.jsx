@@ -23,6 +23,13 @@ export default function Statistics() {
       const tooltipBg = cs.getPropertyValue('--bg-tertiary').trim() || 'rgba(17,24,39,0.95)'
       const tooltipBorder = cs.getPropertyValue('--border-primary').trim() || 'rgba(255,255,255,0.08)'
       const tooltipText = cs.getPropertyValue('--text-primary').trim() || '#f0f4f8'
+      // Resolve brand colors from CSS variables — canvas cannot use var() strings
+      const brandBlue = cs.getPropertyValue('--blue').trim() || '#1a6fc4'
+      const statusError = cs.getPropertyValue('--status-error').trim() || '#e53e3e'
+      const statusSuccess = cs.getPropertyValue('--status-success').trim() || '#38a169'
+      const statusWarning = cs.getPropertyValue('--status-warning').trim() || '#dd6b20'
+      const severityMinor = cs.getPropertyValue('--severity-minor').trim() || '#f59e0b'
+
       Chart.defaults.color = textColor
       const commonFont = { family: 'Montserrat', size: 11, color: textColor }
       const tooltipStyle = { backgroundColor: tooltipBg, borderColor: tooltipBorder, borderWidth: 1, titleColor: tooltipText, bodyColor: tooltipText, titleFont: { family: 'Montserrat' }, bodyFont: { family: 'Montserrat' } }
@@ -35,8 +42,8 @@ export default function Statistics() {
           data: {
             labels: ['Jan 23','Avr 23','Jul 23','Oct 23','Jan 24','Avr 24','Jul 24','Oct 24','Jan 25','Avr 25','Jul 25','Oct 25','Jan 26','Mar 26'],
             datasets: [
-              { label: 'Inspections', data: [12,18,24,31,42,55,68,82,98,110,124,138,149,156], borderColor: 'var(--status-error)', backgroundColor: 'rgba(229,62,62,0.08)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: 'var(--status-error)' },
-              { label: 'Non-conformités', data: [2,3,4,6,8,11,14,19,23,27,30,34,38,42], borderColor: 'var(--status-success)', backgroundColor: 'rgba(56,161,105,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: 'var(--status-success)' },
+              { label: 'Inspections', data: [12,18,24,31,42,55,68,82,98,110,124,138,149,156], borderColor: statusError, backgroundColor: 'rgba(229,62,62,0.08)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError },
+              { label: 'Non-conformités', data: [2,3,4,6,8,11,14,19,23,27,30,34,38,42], borderColor: statusSuccess, backgroundColor: 'rgba(56,161,105,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusSuccess },
             ]
           },
           options: { responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: commonFont } }, tooltip: { ...tooltipStyle, mode: 'index', intersect: false } }, scales: { y: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, x: { ticks: { font: commonFont, maxRotation: 45 }, grid: { display: false } } } }
@@ -48,7 +55,7 @@ export default function Statistics() {
       if (barCtx) {
         charts.push(new Chart(barCtx, {
           type: 'bar',
-          data: { labels: ['Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'Inspections', data: [24,18,12,22,31,27], backgroundColor: 'var(--blue)', borderRadius: 4 }] },
+          data: { labels: ['Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'Inspections', data: [24,18,12,22,31,27], backgroundColor: brandBlue, borderRadius: 4 }] },
           options: { responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: tooltipStyle }, scales: { y: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, x: { ticks: { font: commonFont }, grid: { display: false } } } }
         }))
       }
@@ -58,7 +65,7 @@ export default function Statistics() {
       if (pieCtx) {
         charts.push(new Chart(pieCtx, {
           type: 'doughnut',
-          data: { labels: [t('statistics.legend.closed'),t('statistics.legend.pending'),t('statistics.legend.ongoing')], datasets: [{ data: [1383,7,3], backgroundColor: ['var(--status-error)','var(--blue)','var(--status-success)'], borderWidth: 0, hoverOffset: 4 }] },
+          data: { labels: [t('statistics.legend.closed'),t('statistics.legend.pending'),t('statistics.legend.ongoing')], datasets: [{ data: [1383,7,3], backgroundColor: [statusError, brandBlue, statusSuccess], borderWidth: 0, hoverOffset: 4 }] },
           options: { cutout: '72%', animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyle, callbacks: { label: (c) => ` ${c.label}: ${((c.raw/1393)*100).toFixed(1)}%` } } } }
         }))
       }
@@ -68,7 +75,7 @@ export default function Statistics() {
       if (ncCatCtx) {
         charts.push(new Chart(ncCatCtx, {
           type: 'bar',
-          data: { labels: ['Procédé','Matériau','Humain','Équipement','Environnement'], datasets: [{ label: t('statistics.charts.ncCategories'), data: [142,87,63,44,24], backgroundColor: ['var(--status-error)','var(--status-warning)','var(--severity-minor)','var(--blue)','var(--status-success)'], borderRadius: 4 }] },
+          data: { labels: ['Procédé','Matériau','Humain','Équipement','Environnement'], datasets: [{ label: t('statistics.charts.ncCategories'), data: [142,87,63,44,24], backgroundColor: ['#2ea3f2','#dd6b20','#CC0000','#38a169','#9b59b6'], borderRadius: 4 }] },
           options: { indexAxis: 'y', responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: tooltipStyle }, scales: { x: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, y: { ticks: { font: commonFont }, grid: { display: false } } } }
         }))
       }
@@ -78,7 +85,7 @@ export default function Statistics() {
       if (ncTrendCtx) {
         charts.push(new Chart(ncTrendCtx, {
           type: 'line',
-          data: { labels: ['Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'NC par mois', data: [28,24,31,35,29,27,34,22,18,31,28,33], borderColor: 'var(--status-error)', backgroundColor: 'rgba(229,62,62,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: 'var(--status-error)' }] },
+          data: { labels: ['Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc','Jan','Fév','Mar'], datasets: [{ label: 'NC par mois', data: [28,24,31,35,29,27,34,22,18,31,28,33], borderColor: statusError, backgroundColor: 'rgba(229,62,62,0.07)', fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: statusError }] },
           options: { responsive: true, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: tooltipStyle }, scales: { y: { min: 0, ticks: { font: commonFont }, grid: { color: gridColor } }, x: { ticks: { font: commonFont }, grid: { display: false } } } }
         }))
       }
