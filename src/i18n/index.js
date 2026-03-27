@@ -14,6 +14,11 @@ i18n.use(initReactI18next).init({
   lng: savedLang,
   fallbackLng: 'fr',
   interpolation: { escapeValue: false },
+  debug: false,
+  showSupportNotice: false,
+  saveMissing: false,
+  missingKeyHandler: false,
+  parseMissingKeyHandler: () => undefined,
 })
 
 export default i18n

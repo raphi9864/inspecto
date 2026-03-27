@@ -45,7 +45,7 @@ export async function exportXLSX(data, filename) {
 export async function exportPNG(elementRef, filename) {
   try {
     const html2canvas = (await import('html2canvas')).default
-    const canvas = await html2canvas(elementRef.current, { backgroundColor: '#0a1628' })
+    const canvas = await html2canvas(elementRef.current, { backgroundColor: '#0a1628', logging: false })
     const url = canvas.toDataURL('image/png')
     const a = document.createElement('a')
     a.href = url
