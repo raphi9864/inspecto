@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useProject } from '../../context/ProjectContext'
 import { useDemoContext } from '../../context/DemoContext'
 import { showToast } from '../Toast'
-import WelcomeModal from '../Demo/WelcomeModal'
 
 const FLAG_MAP = { FR: '\u{1F1EB}\u{1F1F7}', EN: '\u{1F1EC}\u{1F1E7}', IT: '\u{1F1EE}\u{1F1F9}', ES: '\u{1F1EA}\u{1F1F8}', DE: '\u{1F1E9}\u{1F1EA}' }
 const LANG_NAMES = { FR: 'Fran\u00e7ais', EN: 'English', IT: 'Italiano', ES: 'Espa\u00f1ol', DE: 'Deutsch' }
@@ -64,7 +63,6 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
   const location = useLocation()
   const { activeProject } = useProject()
   const demo = useDemoContext()
-  const [showWelcome, setShowWelcome] = useState(false)
 
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('inspecto-theme')
@@ -88,7 +86,7 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
   const launchDemo = () => {
     if (demo?.status === 'idle' || demo?.status === 'complete') {
       sessionStorage.removeItem('demo-seen')
-      setShowWelcome(true)
+      demo.startDemo('fr')
     }
   }
 
@@ -190,9 +188,6 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
         <LanguageDropdown />
       </div>
 
-      {showWelcome && (
-        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
-      )}
     </header>
   )
 }

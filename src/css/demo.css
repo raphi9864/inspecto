@@ -132,39 +132,37 @@
   top: 64px;
   left: 0;
   right: 0;
-  z-index: 4;
+  z-index: 50;
   pointer-events: none;
 }
 
 .demo-progress-bar {
   height: 3px;
-  background: linear-gradient(90deg, var(--blue, #2ea3f2), #1a8fd8);
+  background: linear-gradient(90deg, #2ea3f2, #1a8fd8);
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 12px rgba(46, 163, 242, 0.4);
 }
 
 .demo-progress-label {
   position: fixed;
-  top: 72px;
+  top: 68px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(17, 24, 39, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #0D1B2E;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 6px 18px;
+  padding: 6px 16px;
   pointer-events: none;
-  z-index: 4;
+  z-index: 50;
 }
 
 .demo-progress-phase {
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--blue, #2ea3f2);
+  color: #2ea3f2;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -172,7 +170,7 @@
 .demo-progress-title {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-primary, #f0f4f8);
+  color: #FFFFFF;
 }
 
 /* ─── Floating avatar (dynamically repositioned per step) ─── */

@@ -65,8 +65,8 @@ export default function Statistics() {
       if (pieCtx) {
         charts.push(new Chart(pieCtx, {
           type: 'doughnut',
-          data: { labels: [t('statistics.legend.closed'),t('statistics.legend.pending'),t('statistics.legend.ongoing')], datasets: [{ data: [1383,7,3], backgroundColor: [statusError, brandBlue, statusSuccess], borderWidth: 0, hoverOffset: 4 }] },
-          options: { cutout: '72%', animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyle, callbacks: { label: (c) => ` ${c.label}: ${((c.raw/1393)*100).toFixed(1)}%` } } } }
+          data: { labels: [t('statistics.legend.closed'),t('statistics.legend.ongoing'),t('statistics.legend.pending'),t('statistics.statsLabels.overdue')], datasets: [{ data: [936,125,86,11], backgroundColor: [brandBlue, statusSuccess, statusWarning, statusError], borderWidth: 0, hoverOffset: 4 }] },
+          options: { cutout: '72%', animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyle, callbacks: { label: (c) => ` ${c.label}: ${((c.raw/1158)*100).toFixed(1)}%` } } } }
         }))
       }
 
@@ -161,7 +161,7 @@ export default function Statistics() {
                 <div className="panel-body" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                   <canvas id="chart-pie" width="140" height="140"></canvas>
                   <div className="stats-pie-legend">
-                    {[{ color: 'var(--status-error)', label: 'Clôturées', pct: '99,3%' },{ color: 'var(--blue)', label: 'En attente', pct: '0,5%' },{ color: 'var(--status-success)', label: 'En cours', pct: '0,2%' }].map((l) => (
+                    {[{ color: '#2ea3f2', label: 'Clôturées', pct: '80,8%' },{ color: '#38a169', label: 'En cours', pct: '10,8%' },{ color: '#dd6b20', label: 'En attente', pct: '7,4%' },{ color: '#CC0000', label: 'En retard', pct: '1,0%' }].map((l) => (
                       <div className="stats-legend-row" key={l.label}><span className="stats-legend-dot" style={{ background: l.color }}></span><span>{l.label}</span><strong>{l.pct}</strong></div>
                     ))}
                   </div>

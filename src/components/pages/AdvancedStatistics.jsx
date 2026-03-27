@@ -21,7 +21,7 @@ export default function AdvancedStatistics() {
     labels: ['Welding', 'Assembly', 'Machining', 'Electrical', 'Painting', 'Testing'],
     datasets: [
       { label: t('globalStats.ncRate'), data: [65, 40, 55, 30, 20, 45], borderColor: '#dc2626', backgroundColor: 'rgba(220,38,38,0.15)', pointBackgroundColor: '#dc2626' },
-      { label: t('globalStats.inspectionCoverage'), data: [80, 70, 60, 85, 50, 90], borderColor: 'var(--blue)', backgroundColor: 'rgba(37,99,235,0.15)', pointBackgroundColor: 'var(--blue)' },
+      { label: t('globalStats.inspectionCoverage'), data: [80, 70, 60, 85, 50, 90], borderColor: '#2ea3f2', backgroundColor: 'rgba(46,163,242,0.15)', pointBackgroundColor: '#2ea3f2' },
     ],
   }
 
@@ -35,13 +35,13 @@ export default function AdvancedStatistics() {
 
   const costData = {
     labels: ['Rework', 'Scrap', 'Warranty', 'Delays', 'Testing'],
-    datasets: [{ data: [35, 20, 15, 18, 12], backgroundColor: ['#dc2626', '#f59e0b', '#7c3aed', 'var(--blue)', '#22c55e'], borderWidth: 0 }],
+    datasets: [{ data: [35, 20, 15, 18, 12], backgroundColor: ['#CC0000', '#dd6b20', '#9b59b6', '#2ea3f2', '#38a169'], borderWidth: 0 }],
   }
 
   const complianceData = {
     labels: ['ISO 19443', 'ISO 9001', 'EN 10204', 'ASME III', 'RCC-M'],
     datasets: [
-      { label: 'Compliance %', data: [92, 88, 95, 78, 85], backgroundColor: ['var(--blue)', '#22c55e', 'var(--blue)', '#f59e0b', '#22c55e'] },
+      { label: 'Compliance %', data: [92, 88, 95, 78, 85], backgroundColor: ['#2ea3f2', '#38a169', '#1abc9c', '#dd6b20', '#9b59b6'] },
     ],
   }
 

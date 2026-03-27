@@ -24,20 +24,10 @@ export default function DemoAvatar() {
     if (!el) { setAvatarPos(defaultPos); return }
 
     const rect = el.getBoundingClientRect()
-    const cx = rect.left + rect.width / 2
-    const cy = rect.top + rect.height / 2
-    const midX = window.innerWidth / 2
-    const midY = window.innerHeight / 2
+    const isTop = rect.top < window.innerHeight / 2
 
-    const isTop = cy < midY
-    const isLeft = cx < midX
-
-    if (isTop && isLeft) {
-      setAvatarPos({ bottom: 24, right: 24, top: 'auto', left: 'auto' })
-    } else if (isTop && !isLeft) {
+    if (isTop) {
       setAvatarPos({ bottom: 24, left: 24, top: 'auto', right: 'auto' })
-    } else if (!isTop && isLeft) {
-      setAvatarPos({ top: 80, right: 24, bottom: 'auto', left: 'auto' })
     } else {
       setAvatarPos({ top: 80, left: 24, bottom: 'auto', right: 'auto' })
     }
