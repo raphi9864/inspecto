@@ -124,6 +124,7 @@ export default function Documentation() {
     if (!newFolderValue.trim()) return
     const id = 'f' + Date.now()
     setUserFolders(prev => [...prev, { id, name: newFolderValue.trim(), date: formatDate(new Date()) }])
+    setSelectedId(id)
     setNewFolderMode(false)
     setNewFolderValue('')
     showToast(t('documentation.newFolder'), 'success')
@@ -181,9 +182,9 @@ export default function Documentation() {
           <IconHome />
           <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t('documentation.title')}</span>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
-            <button className="btn-icon" style={{ color: selectedId ? 'var(--text-primary)' : 'var(--text-tertiary)' }} onClick={() => selectedId && showToast('Upload', 'info')}><IconUpload /></button>
+            <button className="btn-icon" data-demo-target="btn-upload-doc" style={{ color: selectedId ? 'var(--text-primary)' : 'var(--text-tertiary)' }} onClick={() => selectedId && showToast('Upload', 'info')}><IconUpload /></button>
             <button className="btn-icon" style={{ color: selectedId ? '#d7294a' : 'var(--text-tertiary)' }} onClick={() => selectedId && showToast(t('documentation.actions.delete'), 'info')}><IconTrash /></button>
-            <button className="btn-icon" style={{ color: 'var(--text-primary)' }} onClick={() => { setNewFolderMode(true); setNewFolderValue('') }}><IconFolderPlus /></button>
+            <button className="btn-icon" data-demo-target="btn-new-folder" style={{ color: 'var(--text-primary)' }} onClick={() => { setNewFolderMode(true); setNewFolderValue('') }}><IconFolderPlus /></button>
           </div>
         </div>
         {/* Dossier Creation toggle */}
@@ -192,7 +193,7 @@ export default function Documentation() {
           <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{t('documentation.dossierCreation')}</span>
         </div>
         {/* Folder list */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div className="doc-folder-list" style={{ flex: 1, overflowY: 'auto' }}>
           {/* System folders */}
           {SYSTEM_FOLDERS.map(f => (
             <div key={f.id} className="doc-folder-row" onClick={() => setSelectedId(f.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', cursor: 'pointer', borderLeft: selectedId === f.id ? '3px solid var(--blue)' : '3px solid transparent', background: selectedId === f.id ? 'rgba(46,163,242,0.06)' : 'transparent' }}>
@@ -215,7 +216,10 @@ export default function Documentation() {
           {/* New folder input */}
           {newFolderMode && (
             <div style={{ padding: '8px 16px', display: 'flex', gap: 6 }}>
-              <input autoFocus value={newFolderValue} onChange={e => setNewFolderValue(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') addFolder(); if (e.key === 'Escape') setNewFolderMode(false) }} placeholder={t('documentation.newFolder')} style={{ flex: 1, fontSize: '0.82rem' }} />
+              <input autoFocus data-demo-target="folder-name" value={newFolderValue} onChange={e => setNewFolderValue(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') addFolder(); if (e.key === 'Escape') setNewFolderMode(false) }} placeholder={t('documentation.newFolder')} style={{ flex: 1, fontSize: '0.82rem' }} />
+              <button className="btn-icon" data-demo-target="btn-save-folder" onClick={addFolder} style={{ color: 'var(--blue)' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
             </div>
           )}
         </div>
@@ -231,7 +235,7 @@ export default function Documentation() {
           </div>
         ) : (
           /* Folder selected */
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div data-demo-target="doc-upload-area" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             {/* Search bar */}
             <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--border-primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
               <IconSearch />
@@ -241,7 +245,7 @@ export default function Documentation() {
             <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
               {/* File table */}
               <div style={{ flex: dossierCreation ? '0 0 60%' : 1, overflowY: 'auto' }}>
-                <table className="data-table" style={{ width: '100%' }}>
+                <table className="data-table" data-demo-target="doc-list" style={{ width: '100%' }}>
                   <thead>
                     <tr>
                       {dossierCreation && <th style={{ width: 32 }}><input type="checkbox" checked={filteredFiles.length > 0 && filteredFiles.every(f => reportFiles.includes(f.id))} onChange={() => { const all = filteredFiles.map(f => f.id); const allChecked = all.every(id => reportFiles.includes(id)); setReportFiles(allChecked ? reportFiles.filter(id => !all.includes(id)) : [...new Set([...reportFiles, ...all])]) }} /></th>}
@@ -254,7 +258,7 @@ export default function Documentation() {
                   <tbody>
                     {filteredFiles.map(file => (
                       <tr key={file.id}>
-                        {dossierCreation && <td><input type="checkbox" checked={reportFiles.includes(file.id)} onChange={() => toggleReportFile(file.id)} /></td>}
+                        {dossierCreation && <td><input type="checkbox" data-demo-target="doc-checkbox" checked={reportFiles.includes(file.id)} onChange={() => toggleReportFile(file.id)} /></td>}
                         <td>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                             <span style={{ cursor: 'grab', opacity: 0.4 }}><IconGrip /></span>
@@ -332,7 +336,7 @@ export default function Documentation() {
                     </div>
                   </div>
 
-                  <button className="btn-outline" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} disabled={reportFiles.length === 0 || !rb.title} onClick={() => showToast(t('documentation.reportBuilder.createReport'), 'success')}>
+                  <button className="btn-outline" data-demo-target="btn-generate-report" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} disabled={reportFiles.length === 0 || !rb.title} onClick={() => showToast(t('documentation.reportBuilder.createReport'), 'success')}>
                     <IconPrint /> {t('documentation.reportBuilder.createReport')}
                   </button>
 

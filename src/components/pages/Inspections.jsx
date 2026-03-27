@@ -29,6 +29,8 @@ export default function Inspections() {
   const [detailTab, setDetailTab] = useState('info')
   const [editingImage, setEditingImage] = useState(null)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [localInspections, setLocalInspections] = useState([])
+  const [planForm, setPlanForm] = useState({ title: 'Inspection réacteur R-05 — Site B', project: 'Fabrication moteur HT', date: '2026-03-25', template: 'Inspection qualité ISO 19443' })
   const [whys, setWhys] = useState([{ text: 'Porosit\u00e9s sur soudure TIG.' }])
   const [capaActions, setCapaActions] = useState([
     { num: 1, title: 'Isoler les 3 pi\u00e8ces non-conformes du lot 42', assignee: 'S. Dupont', deadline: '18 mars 2026', priority: 'alert', priorityText: 'Critique' },
@@ -166,14 +168,14 @@ export default function Inspections() {
                 {/* Details and Resources */}
                 <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--blue)', margin: '20px 0 12px', display: 'flex', alignItems: 'center', gap: 6 }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                  Details and Resources
+                  {t('inspections.detailsResources')}
                 </h4>
                 <div style={{ paddingBottom: 20, borderBottom: '1px solid var(--border-primary)' }}>
                   <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer' }}>
                     <div style={{ width: 36, height: 20, borderRadius: 10, background: 'var(--toggle-off)', position: 'relative' }}>
                       <div style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg-secondary)', position: 'absolute', top: 2, left: 2 }}></div>
                     </div>
-                    Enter resources
+                    {t('inspections.enterResources')}
                   </label>
                 </div>
 
@@ -183,7 +185,7 @@ export default function Inspections() {
                   {t('inspections.location')}
                 </h4>
                 <div style={{ paddingBottom: 20, borderBottom: '1px solid var(--border-primary)' }}>
-                  <div style={{ fontSize: '0.9rem', color: 'var(--blue)', fontWeight: 600 }}>Address</div>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--blue)', fontWeight: 600 }}>{t('inspections.address')}</div>
                   <div style={{ fontSize: '0.9rem', color: 'var(--text-primary)', marginTop: 2 }}>-</div>
                 </div>
 
@@ -195,7 +197,7 @@ export default function Inspections() {
                 <div style={{ paddingBottom: 20, borderBottom: '1px solid var(--border-primary)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--status-warning)', fontSize: '0.9rem' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-warning)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    No attachments
+                    {t('inspections.noAttachments')}
                   </div>
                 </div>
 
@@ -226,7 +228,7 @@ export default function Inspections() {
                 <div style={{ overflowX: 'auto' }}>
                 <table className="data-table">
                   <thead>
-                    <tr><th>{t('findings.formLabels.referenceNo')}</th><th>{t('findings.formLabels.reportDate')}</th><th>{t('findings.area')}</th><th>{t('findings.event')}</th><th>{t('findings.other')}</th><th>Pictures</th><th>{t('findings.formLabels.status')}</th><th>Criticality</th><th>{t('findings.lessonLearnt')}</th><th>NC due to</th><th>Nb actions</th><th>Created by</th><th>{t('common.actions')}</th></tr>
+                    <tr><th>{t('findings.formLabels.referenceNo')}</th><th>{t('findings.formLabels.reportDate')}</th><th>{t('findings.area')}</th><th>{t('findings.event')}</th><th>{t('findings.other')}</th><th>{t('inspections.pictures')}</th><th>{t('findings.formLabels.status')}</th><th>{t('findings.criticalityLabel')}</th><th>{t('findings.lessonLearnt')}</th><th>{t('inspections.ncDueTo')}</th><th>{t('inspections.nbActions')}</th><th>{t('inspections.createdBy')}</th><th>{t('common.actions')}</th></tr>
                   </thead>
                   <tbody>
                     <tr style={{ cursor: 'pointer' }} onClick={() => navigate('/app/findings')}>
@@ -480,10 +482,10 @@ export default function Inspections() {
           <div className="panel-header"><div className="panel-title">{t('inspections.newInspection')}</div></div>
           <div className="panel-body">
             <div className="wizard-form-grid">
-              <div className="wizard-field"><label className="wizard-label">Titre *</label><input className="wizard-input" type="text" defaultValue="Inspection réacteur R-05 — Site B" /></div>
-              <div className="wizard-field"><label className="wizard-label">Projet *</label><select className="wizard-input"><option>Fabrication moteur HT</option><option>Jupiter Bach</option></select></div>
-              <div className="wizard-field"><label className="wizard-label">{t('common.date')} *</label><input className="wizard-input" type="date" defaultValue="2026-03-25" /></div>
-              <div className="wizard-field"><label className="wizard-label">Template</label><select className="wizard-input"><option>Inspection qualité ISO 19443</option><option>Audit AS/EN 9100</option><option>Contrôle sécurité</option></select></div>
+              <div className="wizard-field"><label className="wizard-label">Titre *</label><input className="wizard-input" type="text" value={planForm.title} onChange={e => setPlanForm({ ...planForm, title: e.target.value })} /></div>
+              <div className="wizard-field"><label className="wizard-label">Projet *</label><select className="wizard-input" value={planForm.project} onChange={e => setPlanForm({ ...planForm, project: e.target.value })}><option>Fabrication moteur HT</option><option>Jupiter Bach</option></select></div>
+              <div className="wizard-field"><label className="wizard-label">{t('common.date')} *</label><input className="wizard-input" type="date" value={planForm.date} onChange={e => setPlanForm({ ...planForm, date: e.target.value })} /></div>
+              <div className="wizard-field"><label className="wizard-label">Template</label><select className="wizard-input" value={planForm.template} onChange={e => setPlanForm({ ...planForm, template: e.target.value })}><option>Inspection qualité ISO 19443</option><option>Audit AS/EN 9100</option><option>Contrôle sécurité</option></select></div>
               <div className="wizard-field wizard-field-full">
                 <label className="wizard-label">{t('inspections.location')} (carte)</label>
                 <div className="insp-map-placeholder">
@@ -502,7 +504,24 @@ export default function Inspections() {
             </div>
             <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
               <button className="panel-btn ghost" onClick={() => setView('list')}>{t('common.cancel')}</button>
-              <button className="panel-btn primary" onClick={() => setView('list')}>{t('inspections.planInspection')} →</button>
+              <button className="panel-btn primary" onClick={() => {
+                const now = new Date()
+                const dateStr = planForm.date ? planForm.date.split('-').reverse().join('-') : now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')
+                const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                const num = getInspections(t).length + localInspections.length + 1
+                const newInsp = {
+                  id: `INS-2026-${String(num).padStart(3, '0')}`,
+                  name: planForm.title || 'New Inspection',
+                  startDate: `${dateStr} ${timeStr}`,
+                  endDate: `${dateStr} ${new Date(now.getTime() + 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`,
+                  status: t('data.status.pending').toUpperCase(),
+                  responses: 0,
+                }
+                setLocalInspections(prev => [newInsp, ...prev])
+                showToast(t('inspections.newInspection').replace('+', '').trim())
+                setPlanForm({ title: 'Inspection réacteur R-05 — Site B', project: 'Fabrication moteur HT', date: '2026-03-25', template: 'Inspection qualité ISO 19443' })
+                setView('list')
+              }}>{t('inspections.planInspection')} →</button>
             </div>
           </div>
         </div>
@@ -564,12 +583,12 @@ export default function Inspections() {
               <th>{t('home.startDate')} ↓</th>
               <th>{t('home.endDate')}</th>
               <th>{t('common.status')}</th>
-              <th>Invitation Responses</th>
+              <th>{t('inspections.invitationResponses')}</th>
               <th>{t('common.actions')}</th>
             </tr>
           </thead>
           <tbody>
-            {getInspections(t).map(ins => (
+            {[...localInspections, ...getInspections(t)].map(ins => (
               <tr key={ins.id} onClick={() => openDetail(ins)} style={{ cursor: 'pointer' }}>
                 <td><strong>{ins.name}</strong></td>
                 <td>{formatDate(ins.startDate)}</td>
@@ -664,9 +683,9 @@ function FormTab({ insp, detailTab }) {
   return (
     <div className="detail-section">
       <div className="detail-sub-tabs">
-        <button className={`detail-sub-tab${subTab === 'info' ? ' active' : ''}`} onClick={() => setSubTab('info')}>MODULE INFO</button>
-        <button className={`detail-sub-tab${subTab === 'data' ? ' active' : ''}`} onClick={() => setSubTab('data')}>FORM DATA</button>
-        <button className={`detail-sub-tab${subTab === 'signatures' ? ' active' : ''}`} onClick={() => setSubTab('signatures')}>SIGNATURES</button>
+        <button className={`detail-sub-tab${subTab === 'info' ? ' active' : ''}`} onClick={() => setSubTab('info')}>{t('inspections.moduleInfo')}</button>
+        <button className={`detail-sub-tab${subTab === 'data' ? ' active' : ''}`} onClick={() => setSubTab('data')}>{t('inspections.formData')}</button>
+        <button className={`detail-sub-tab${subTab === 'signatures' ? ' active' : ''}`} onClick={() => setSubTab('signatures')}>{t('inspections.signatures')}</button>
       </div>
 
       {subTab === 'info' && (
@@ -675,9 +694,9 @@ function FormTab({ insp, detailTab }) {
           <div className="panel" style={{ opacity: 1, transform: 'none' }}>
             <div className="panel-body">
               <div className="detail-grid">
-                <div className="detail-field"><label>Title of Minutes</label><div className="detail-value">{insp.title}</div></div>
-                <div className="detail-field"><label>Project</label><div className="detail-value">{insp.project}</div></div>
-                <div className="detail-field"><label>Template</label><div className="detail-value">{insp.norm}</div></div>
+                <div className="detail-field"><label>{t('inspections.titleOfMinutes')}</label><div className="detail-value">{insp.title}</div></div>
+                <div className="detail-field"><label>{t('inspections.project')}</label><div className="detail-value">{insp.project}</div></div>
+                <div className="detail-field"><label>{t('inspections.template')}</label><div className="detail-value">{insp.norm}</div></div>
               </div>
             </div>
           </div>
@@ -686,7 +705,7 @@ function FormTab({ insp, detailTab }) {
 
       {subTab === 'data' && (
         <div className="panel" style={{ opacity: 1, transform: 'none' }}>
-          <div className="panel-header"><div className="panel-title">Inspection Form Data</div></div>
+          <div className="panel-header"><div className="panel-title">{t('inspections.inspectionFormData')}</div></div>
           <div className="panel-body">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 0', borderBottom: '1px solid var(--border-primary)' }}>
@@ -720,7 +739,7 @@ function FormTab({ insp, detailTab }) {
               </div>
             </div>
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--border-primary)' }}>
-              <button className="btn-outline">Reset</button>
+              <button className="btn-outline">{t('inspections.reset')}</button>
               <button className="btn-primary" onClick={() => showToast('Form data saved')}>{t('common.save')}</button>
             </div>
           </div>
@@ -729,10 +748,10 @@ function FormTab({ insp, detailTab }) {
 
       {subTab === 'signatures' && (
         <div className="panel" style={{ opacity: 1, transform: 'none' }}>
-          <div className="panel-header"><div className="panel-title">Required Signatures</div></div>
+          <div className="panel-header"><div className="panel-title">{t('inspections.requiredSignatures')}</div></div>
           <div className="panel-body" style={{ padding: 0 }}>
             <table className="data-table">
-              <thead><tr><th>{t('common.name')}</th><th>Role</th><th>{t('common.status')}</th><th>{t('common.date')}</th><th>{t('common.actions')}</th></tr></thead>
+              <thead><tr><th>{t('common.name')}</th><th>{t('inspections.role')}</th><th>{t('common.status')}</th><th>{t('common.date')}</th><th>{t('common.actions')}</th></tr></thead>
               <tbody>
                 {signatures.map(s => (
                   <tr key={s.id}>

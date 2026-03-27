@@ -6,10 +6,10 @@ import { exportCSV } from '../../utils/exportUtils'
 import FilterPanel from '../shared/FilterPanel'
 
 const INITIAL_PLANS = [
-  { id: 1, revision: 3, name: 'ABB France - Quality Control Plan - 130126', desc: 'Auto-generated PcqLiner for project ABB France', created: '13-01-2026 16:12:01' },
-  { id: 2, revision: 2, name: 'ABB France - Quality Control Plan - 2025-04-17 08:34:27 - 2025-05-12 11:06:13 - 2025-08-26 14:33:08', desc: 'Auto-generated PcqLiner for project ABB France', created: '26-08-2025 16:33:08' },
-  { id: 3, revision: 1, name: 'ABB France - Quality Control Plan - 2025-04-17 08:34:27 - 2025-05-12 11:06:13', desc: 'Auto-generated PcqLiner for project ABB France', created: '12-05-2025 13:06:13' },
-  { id: 4, revision: 0, name: 'ABB France - Quality Control Plan - 2025-04-17 08:34:27', desc: 'Auto-generated PcqLiner for project ABB France', created: '17-04-2025 10:35:21' },
+  { id: 1, revision: 3, name: 'ABB France \u2014 Plan Qualit\u00e9 Ligne A', desc: 'Plan de contr\u00f4le qualit\u00e9 pour la ligne de production A', created: '13-01-2026 16:12' },
+  { id: 2, revision: 2, name: 'Jupiter Bach \u2014 Contr\u00f4le Assemblage Batch 42', desc: 'QCP assemblage m\u00e9canique pour le lot 42', created: '26-08-2025 16:33' },
+  { id: 3, revision: 1, name: 'Pilatus PC21 \u2014 QCP Fuselage Section 3', desc: 'Plan de contr\u00f4le fuselage section 3 \u2014 norme AS/EN 9100', created: '12-05-2025 13:06' },
+  { id: 4, revision: 0, name: 'ALLIA \u2014 Plan Qualit\u00e9 Sanitaire', desc: 'QCP conformit\u00e9 sanitaire et tra\u00e7abilit\u00e9 mat\u00e9riaux', created: '17-04-2025 10:35' },
 ]
 
 const DETAIL_TASKS = [

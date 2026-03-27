@@ -99,7 +99,7 @@
     "projectManagement": "Project management", "activities": "Activities", "tasksResources": "Tasks & Resources",
     "ganttChart": "Gantt chart", "quality": "Quality", "inspections": "Inspections",
     "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Quality control plan",
-    "cfsi": "CFSI", "library": "Library", "documentation": "Documentation",
+    "cfsi": "CFSI", "rff": "RFF", "library": "Library", "documentation": "Documentation",
     "expiringFiles": "Expiring files", "message": "Message", "traceability": "Traceability",
     "team": "Team", "settings": "Settings", "help": "Help & Support"
   },
@@ -110,13 +110,14 @@
       "/home": "Home", "/app": "Home", "/app/dashboard": "Dashboard", "/app/projets": "Projects",
       "/app/activites": "Activity management", "/app/taches": "Tasks & Resources", "/app/gantt": "Gantt chart",
       "/app/inspections": "Inspections", "/app/findings": "Findings / NC", "/app/actions": "Actions",
-      "/app/qcp": "Quality Control Plan", "/app/cfsi": "CFSI", "/app/documentation": "Documentation",
+      "/app/qcp": "Quality Control Plan", "/app/cfsi": "CFSI", "/app/rff": "RFF", "/app/documentation": "Documentation",
       "/app/expiring": "Expiring files", "/app/message": "Message", "/app/statistiques": "Statistics",
       "/app/traceabilite": "Traceability", "/app/team": "Team", "/app/templates": "Form: Templates",
       "/app/settings": "Settings", "/templates": "Form: Templates", "/templates/fieldtypes": "Form: FieldType Edition",
       "/statistics": "Statistics", "/advanced-stats": "Advanced Statistics", "/global-gantt": "Gantt chart"
     },
     "pagesWithProject": {
+      "/app": "Project: Home",
       "/app/dashboard": "Project: Dashboard", "/app/projets": "Project: Projects",
       "/app/inspections": "Project: Inspections (Inspections, Controls, Audits, Forms)",
       "/app/findings": "Project: Findings / NC", "/app/actions": "Project: Actions",
@@ -127,6 +128,7 @@
 
   "demo": {
     "skip": "Skip demo ×", "phase": "Phase", "voice": "Voice", "male": "Male", "female": "Female",
+    "mute": "Mute voice", "unmute": "Unmute voice",
     "pause": "Pause", "resume": "Resume", "next": "Next", "quit": "Quit", "quitConfirm": "Quit demo?", "yes": "Yes", "no": "No",
     "conclusion": "That's the full Inspecto experience. Ready to get started?",
     "bookDemo": "Book a Demo", "restart": "Restart"
@@ -190,13 +192,32 @@
     "planningTitle": "ISO 9001 Audit — Paris Site", "teamLabel": "Team: S. Dupont and J. Martin",
     "reference": "Reference", "norm": "Standard", "responsible": "Responsible",
     "location": "Location", "scope": "Scope",
-    "planInspection": "PLAN AN INSPECTION", "backToList": "Back"
+    "planInspection": "PLAN AN INSPECTION", "backToList": "Back",
+    "invitationResponses": "Invitation Responses",
+    "detailsResources": "Details and Resources",
+    "enterResources": "Enter resources",
+    "address": "Address",
+    "noAttachments": "No attachments",
+    "moduleInfo": "MODULE INFO",
+    "formData": "FORM DATA",
+    "signatures": "SIGNATURES",
+    "titleOfMinutes": "Title of Minutes",
+    "project": "Project",
+    "template": "Template",
+    "inspectionFormData": "Inspection Form Data",
+    "requiredSignatures": "Required Signatures",
+    "role": "Role",
+    "reset": "Reset",
+    "pictures": "Pictures",
+    "ncDueTo": "NC due to",
+    "nbActions": "Nb actions",
+    "createdBy": "Created by"
   },
 
   "findings": {
     "status": { "open": "OPEN", "pending": "PENDING", "overdue": "OVERDUE", "closed": "CLOSED" },
     "criticality": { "critical": "Critical", "major": "Major", "minor": "Minor" },
-    "wizardSteps": ["Information", "Pictures", "Resolution", "Signature"],
+    "wizardSteps": ["Information", "Pictures", "Cause", "Resolution", "Signature"],
     "formLabels": { "findingNC": "Finding / NC", "referenceNo": "Reference No.", "description": "Description", "reportDate": "Report date", "status": "Status" },
     "sendNotification": "Send notification",
     "newNC": "+ NEW NC", "inspection": "Inspection", "area": "Area",
@@ -204,7 +225,41 @@
     "whyAnalysis": "Root cause analysis (5 Whys)", "addWhy": "Add a why",
     "resolution": "Resolution", "signAndClose": "Sign and close",
     "saveDraft": "Save draft", "closed_toast": "NC closed successfully",
-    "ncCreated": "NC created"
+    "ncCreated": "NC created",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish",
+    "saveAndNext": "Save and next",
+    "whyLabel": "WHY",
+    "action": "ACTION",
+    "pickPicture": "PICK PICTURE",
+    "uploadPicture": "UPLOAD PICTURE",
+    "additionalInfo": "Additional information",
+    "additionalNotes": "Additional notes...",
+    "signatureNote": "Note: If you sign or close the non-conformity, you will no longer be able to modify it.",
+    "criticalityLabel": "Criticality",
+    "analysis5Why": "5 Whys",
+    "analysis8D": "8D",
+    "analysisIshikawa": "Ishikawa",
+    "8d": {
+      "d1": "Team",
+      "d2": "Problem description",
+      "d3": "Containment actions",
+      "d4": "Root cause",
+      "d5": "Corrective actions",
+      "d6": "Verification",
+      "d7": "Prevention",
+      "d8": "Closure and congratulations"
+    },
+    "ishikawa": {
+      "effect": "Effect",
+      "matiere": "Material",
+      "methode": "Method",
+      "milieu": "Environment",
+      "materiel": "Equipment",
+      "maindoeuvre": "Manpower",
+      "management": "Management"
+    }
   },
 
   "gantt": { "activities": "Activities", "resources": "Resources", "png": "PNG", "excel": "Excel", "zoom": "Zoom:" },
@@ -220,7 +275,14 @@
     "costRate": "Hourly rate", "costHours": "Hours", "costTotal": "Total",
     "toastCreated": "Action created", "toastUpdated": "Action updated",
     "toastDeleted": "Action deleted", "deleteConfirm": "Delete this action?",
-    "modalTitleNew": "New action", "modalTitleEdit": "Edit action"
+    "modalTitleNew": "New action", "modalTitleEdit": "Edit action",
+    "externalEmails": "External Emails",
+    "noCost": "No cost added",
+    "noAttachments": "No attachments",
+    "notStarted": "Not started",
+    "inProgress": "In progress",
+    "completed": "Completed",
+    "toastSaved": "Action saved"
   },
 
   "qcp": {
@@ -552,5 +614,22 @@
     "upload": "Upload opened",
     "messageSent": "Message sent",
     "reportGenerating": "Generating report..."
+  },
+
+  "rff": {
+    "title": "Manufacturing Completion Report",
+    "ref": "Reference",
+    "date": "Generation date",
+    "project": "Project",
+    "identification": "Identification",
+    "inspections": "Inspection Summary",
+    "nonconformites": "Non-Conformities",
+    "conformite": "Final Compliance",
+    "signatures": "Signatures",
+    "generatePdf": "Generate PDF",
+    "download": "Download",
+    "allNcClosed": "All NCs are closed",
+    "docsSigned": "Documents signed",
+    "conformityStatement": "Conformity declaration"
   }
 }

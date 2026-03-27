@@ -19,14 +19,16 @@ const PRIORITIES = ['Critical', 'High', 'Medium', 'Low']
 const STATUSES = ['Open', 'In Progress', 'Overdue', 'Closed']
 const NCS = ['NC-2026-0043', 'NC-2026-0042', 'NC-2026-0041', 'NC-2026-0040', 'NC-2026-0039', 'NC-2026-0038']
 
-const statusBadge = (s) => {
+const statusBadge = (s, t) => {
   const map = { 'Open': { bg: 'rgba(26,111,196,0.1)', color: 'var(--blue)' }, 'In Progress': { bg: 'rgba(245,158,11,0.1)', color: 'var(--status-warning)' }, 'Overdue': { bg: 'rgba(239,68,68,0.1)', color: 'var(--status-overdue)' }, 'Closed': { bg: 'rgba(34,197,94,0.1)', color: 'var(--status-success)' } }
+  const labels = t ? { 'Open': t('actionsPage.counters.open'), 'In Progress': t('actionsPage.counters.ongoing'), 'Overdue': t('actionsPage.counters.overdue'), 'Closed': t('actionsPage.counters.closed') } : {}
   const st = map[s] || map.Open
-  return <span style={{ background: st.bg, color: st.color, padding: '3px 10px', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 600 }}>{s}</span>
+  return <span style={{ background: st.bg, color: st.color, padding: '3px 10px', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 600 }}>{labels[s] || s}</span>
 }
-const priorityBadge = (p) => {
+const priorityBadge = (p, t) => {
   const map = { Critical: 'var(--status-overdue)', High: 'var(--status-warning)', Medium: 'var(--blue)', Low: 'var(--text-tertiary)' }
-  return <span style={{ color: map[p] || 'var(--text-tertiary)', fontWeight: 600, fontSize: '0.88rem' }}>{p}</span>
+  const labels = t ? { Critical: t('findings.criticality.critical'), Major: t('findings.criticality.major'), Minor: t('findings.criticality.minor') } : {}
+  return <span style={{ color: map[p] || 'var(--text-tertiary)', fontWeight: 600, fontSize: '0.88rem' }}>{labels[p] || p}</span>
 }
 
 const PlayIcon = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="8 5 19 12 8 19"/></svg>
@@ -111,7 +113,7 @@ export default function ActionsPage() {
             </h4>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '12px', marginBottom: 20 }}>
               <div className="modal-field"><label>{t('actionsPage.assignee')}</label><select value={form.assignee} onChange={e => setForm({ ...form, assignee: e.target.value })}>{ASSIGNEES.map(a => <option key={a}>{a}</option>)}</select></div>
-              <div className="modal-field"><label>External Emails</label><input placeholder="email@company.com" /></div>
+              <div className="modal-field"><label>{t('actionsPage.externalEmails')}</label><input placeholder="email@company.com" /></div>
               <div className="modal-field"><label>{t('common.date')}</label><input type="date" value={form.deadline} onChange={e => setForm({ ...form, deadline: e.target.value })} /></div>
               <div className="modal-field"><label>{t('common.status')} *</label><select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })}>{STATUSES.map(s => <option key={s}>{s}</option>)}</select></div>
             </div>
@@ -124,7 +126,7 @@ export default function ActionsPage() {
               </span>
               <button className="btn-outline" style={{ fontSize: '0.9rem' }} onClick={() => showToast('Cost section opened', 'info')}>+ {t('actionsPage.addCost').toUpperCase()}</button>
             </h4>
-            <p style={{ fontSize: '0.88rem', color: 'var(--status-warning)', marginBottom: 20 }}>No cost added</p>
+            <p style={{ fontSize: '0.88rem', color: 'var(--status-warning)', marginBottom: 20 }}>{t('actionsPage.noCost')}</p>
 
             {/* Attachments */}
             <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--blue)', marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -134,7 +136,7 @@ export default function ActionsPage() {
               </span>
               <button className="btn-outline" style={{ fontSize: '0.9rem' }} onClick={() => showToast('Attachment manager opened', 'info')}>{t('actionsPage.attachments').toUpperCase()}</button>
             </h4>
-            <p style={{ fontSize: '0.88rem', color: 'var(--status-warning)', marginBottom: 20 }}>No attachments</p>
+            <p style={{ fontSize: '0.88rem', color: 'var(--status-warning)', marginBottom: 20 }}>{t('actionsPage.noAttachments')}</p>
 
             {/* Sign + Save */}
             <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginBottom: 24, paddingTop: 16, borderTop: '1px solid var(--border-primary)' }}>
@@ -161,7 +163,7 @@ export default function ActionsPage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
               <div className="modal-field"><label>{t('actionsPage.assignee')}</label><select>{ASSIGNEES.map(a => <option key={a}>{a}</option>)}</select></div>
               <div className="modal-field"><label>{t('common.date')}</label><input type="date" /></div>
-              <div className="modal-field"><label>{t('common.status')}</label><select><option>Not started</option><option>In progress</option><option>Completed</option></select></div>
+              <div className="modal-field"><label>{t('common.status')}</label><select><option>{t('actionsPage.notStarted')}</option><option>{t('actionsPage.inProgress')}</option><option>{t('actionsPage.completed')}</option></select></div>
             </div>
           </div>
         </div>
@@ -195,8 +197,8 @@ export default function ActionsPage() {
                 <td><strong>{a.title}</strong></td>
                 <td>{a.assignee}</td>
                 <td>{a.deadline}</td>
-                <td>{priorityBadge(a.priority)}</td>
-                <td>{statusBadge(a.status)}</td>
+                <td>{priorityBadge(a.priority, t)}</td>
+                <td>{statusBadge(a.status, t)}</td>
                 <td style={{ fontFamily: 'monospace', fontSize: '0.88rem', color: 'var(--blue)' }}>{a.nc}</td>
               </tr>
             ))}

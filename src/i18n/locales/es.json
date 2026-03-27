@@ -48,7 +48,7 @@
     "projectManagement": "Gestión de proyectos", "activities": "Actividades", "tasksResources": "Tareas y Recursos",
     "ganttChart": "Diagrama de Gantt", "quality": "Calidad", "inspections": "Inspecciones",
     "findingsNC": "Hallazgos / NC", "actions": "Acciones", "qualityControlPlan": "Plan de control de calidad",
-    "cfsi": "CFSI", "library": "Biblioteca", "documentation": "Documentación",
+    "cfsi": "CFSI", "rff": "RFF", "library": "Biblioteca", "documentation": "Documentación",
     "expiringFiles": "Archivos por vencer", "message": "Mensajes", "traceability": "Trazabilidad",
     "team": "Equipo", "settings": "Configuración", "help": "Ayuda y Soporte"
   },
@@ -58,13 +58,14 @@
       "/home": "Inicio", "/app": "Inicio", "/app/dashboard": "Dashboard", "/app/projets": "Proyectos",
       "/app/activites": "Gestión de actividades", "/app/taches": "Tareas y Recursos", "/app/gantt": "Diagrama de Gantt",
       "/app/inspections": "Inspecciones", "/app/findings": "Hallazgos / NC", "/app/actions": "Acciones",
-      "/app/qcp": "Plan de control de calidad", "/app/cfsi": "CFSI", "/app/documentation": "Documentación",
+      "/app/qcp": "Plan de control de calidad", "/app/cfsi": "CFSI", "/app/rff": "RFF", "/app/documentation": "Documentación",
       "/app/expiring": "Archivos por vencer", "/app/message": "Mensajes", "/app/statistiques": "Estadísticas",
       "/app/traceabilite": "Trazabilidad", "/app/team": "Equipo", "/app/templates": "Formulario: Plantillas",
       "/app/settings": "Configuración", "/templates": "Formulario: Plantillas", "/templates/fieldtypes": "Formulario: Edición FieldType",
       "/statistics": "Estadísticas", "/advanced-stats": "Estadísticas avanzadas", "/global-gantt": "Diagrama de Gantt"
     },
     "pagesWithProject": {
+      "/app": "Proyecto: Inicio",
       "/app/dashboard": "Proyecto: Dashboard", "/app/projets": "Proyecto: Proyectos",
       "/app/inspections": "Proyecto: Inspecciones (Inspecciones, Controles, Auditorías, Formularios)",
       "/app/findings": "Proyecto: Hallazgos / NC", "/app/actions": "Proyecto: Acciones",
@@ -74,6 +75,7 @@
   },
   "demo": {
     "skip": "Saltar demo ×", "phase": "Fase", "voice": "Voz", "male": "Hombre", "female": "Mujer",
+    "mute": "Silenciar voz", "unmute": "Activar voz",
     "pause": "Pausa", "resume": "Reanudar", "next": "Siguiente", "quit": "Salir", "quitConfirm": "¿Salir de la demo?", "yes": "Sí", "no": "No",
     "conclusion": "Esa es la experiencia completa de Inspecto. ¿Listo para empezar?",
     "bookDemo": "Reservar una demo", "restart": "Reiniciar"
@@ -108,12 +110,31 @@
     "planningTitle": "Auditoría ISO 9001 — Sitio París", "teamLabel": "Equipo: S. Dupont y J. Martin",
     "reference": "Referencia", "norm": "Norma", "responsible": "Responsable",
     "location": "Ubicación", "scope": "Alcance",
-    "planInspection": "PLANIFICAR UNA INSPECCIÓN", "backToList": "Volver"
+    "planInspection": "PLANIFICAR UNA INSPECCIÓN", "backToList": "Volver",
+    "invitationResponses": "Respuestas a invitaciones",
+    "detailsResources": "Detalles y recursos",
+    "enterResources": "Ingresar recursos",
+    "address": "Dirección",
+    "noAttachments": "Sin adjuntos",
+    "moduleInfo": "INFO MÓDULO",
+    "formData": "DATOS DEL FORMULARIO",
+    "signatures": "FIRMAS",
+    "titleOfMinutes": "Título del acta",
+    "project": "Proyecto",
+    "template": "Plantilla",
+    "inspectionFormData": "Datos del formulario de inspección",
+    "requiredSignatures": "Firmas requeridas",
+    "role": "Rol",
+    "reset": "Restablecer",
+    "pictures": "Fotos",
+    "ncDueTo": "NC debida a",
+    "nbActions": "N.º acciones",
+    "createdBy": "Creado por"
   },
   "findings": {
     "status": { "open": "ABIERTO", "pending": "PENDIENTE", "overdue": "ATRASADO", "closed": "CERRADO" },
     "criticality": { "critical": "Crítico", "major": "Mayor", "minor": "Menor" },
-    "wizardSteps": ["Información", "Fotos", "Resolución", "Firma"],
+    "wizardSteps": ["Información", "Fotos", "Causa", "Resolución", "Firma"],
     "formLabels": { "findingNC": "Hallazgo / NC", "referenceNo": "N° Referencia", "description": "Descripción", "reportDate": "Fecha del informe", "status": "Estado" },
     "sendNotification": "Enviar notificación",
     "newNC": "+ NUEVA NC", "inspection": "Inspección", "area": "Zona",
@@ -121,7 +142,41 @@
     "whyAnalysis": "Análisis de causas (5 Por qué)", "addWhy": "Agregar un por qué",
     "resolution": "Resolución", "signAndClose": "Firmar y cerrar",
     "saveDraft": "Guardar borrador", "closed_toast": "NC cerrada con éxito",
-    "ncCreated": "NC creada"
+    "ncCreated": "NC creada",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "saveAndNext": "Guardar y siguiente",
+    "whyLabel": "POR QUÉ",
+    "action": "ACCIÓN",
+    "pickPicture": "ELEGIR FOTO",
+    "uploadPicture": "SUBIR FOTO",
+    "additionalInfo": "Información adicional",
+    "additionalNotes": "Notas adicionales...",
+    "signatureNote": "Nota: si firma o cierra la no conformidad, ya no podrá modificarla.",
+    "criticalityLabel": "Criticidad",
+    "analysis5Why": "5 Por qué",
+    "analysis8D": "8D",
+    "analysisIshikawa": "Ishikawa",
+    "8d": {
+      "d1": "Equipo",
+      "d2": "Descripción del problema",
+      "d3": "Acciones de contención",
+      "d4": "Causa raíz",
+      "d5": "Acciones correctivas",
+      "d6": "Verificación",
+      "d7": "Prevención",
+      "d8": "Cierre y felicitaciones"
+    },
+    "ishikawa": {
+      "effect": "Efecto",
+      "matiere": "Material",
+      "methode": "Método",
+      "milieu": "Medio ambiente",
+      "materiel": "Equipo",
+      "maindoeuvre": "Mano de obra",
+      "management": "Gestión"
+    }
   },
   "gantt": { "activities": "Actividades", "resources": "Recursos", "png": "PNG", "excel": "Excel", "zoom": "Zoom:" },
   "actionsPage": {
@@ -135,7 +190,14 @@
     "costRate": "Tarifa por hora", "costHours": "Horas", "costTotal": "Total",
     "toastCreated": "Acción creada", "toastUpdated": "Acción actualizada",
     "toastDeleted": "Acción eliminada", "deleteConfirm": "¿Eliminar esta acción?",
-    "modalTitleNew": "Nueva acción", "modalTitleEdit": "Editar acción"
+    "modalTitleNew": "Nueva acción", "modalTitleEdit": "Editar acción",
+    "externalEmails": "Correos externos",
+    "noCost": "Sin costo agregado",
+    "noAttachments": "Sin adjuntos",
+    "notStarted": "No iniciado",
+    "inProgress": "En curso",
+    "completed": "Completado",
+    "toastSaved": "Acción guardada"
   },
   "qcp": {
     "contractor": "Contratista", "clientThirdParties": "Cliente y Terceros", "record": "Registro",
@@ -450,5 +512,22 @@
     "upload": "Upload abierto",
     "messageSent": "Mensaje enviado",
     "reportGenerating": "Generando informe..."
+  },
+
+  "rff": {
+    "title": "Informe de Fin de Fabricación",
+    "ref": "Referencia",
+    "date": "Fecha de generación",
+    "project": "Proyecto",
+    "identification": "Identificación",
+    "inspections": "Resumen de Inspecciones",
+    "nonconformites": "No Conformidades",
+    "conformite": "Conformidad Final",
+    "signatures": "Firmas",
+    "generatePdf": "Generar PDF",
+    "download": "Descargar",
+    "allNcClosed": "Todas las NC están cerradas",
+    "docsSigned": "Documentos firmados",
+    "conformityStatement": "Declaración de conformidad"
   }
 }
