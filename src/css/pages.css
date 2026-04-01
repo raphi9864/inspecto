@@ -249,13 +249,13 @@ body:has(.app-shell) {
 
 .sidebar-section-label {
   font-family: var(--font-display);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-  padding: 0.7rem 1rem 0.3rem;
-  margin-top: 4px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem 0.45rem;
+  margin-top: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -264,7 +264,7 @@ body:has(.app-shell) {
   transition: opacity 0.15s, color 0.15s;
 }
 
-[data-theme="light"] .sidebar-section-label { color: var(--brand-blue); opacity: 0.6; }
+[data-theme="light"] .sidebar-section-label { color: var(--brand-blue); opacity: 1; }
 
 .sidebar-section-label:hover { opacity: 1; }
 
@@ -4080,18 +4080,18 @@ body:has(.app-shell) {
   border-right-color: var(--border-primary);
 }
 [data-theme="light"] .sidebar-item {
-  color: var(--text-secondary);
+  color: var(--brand-blue);
 }
 [data-theme="light"] .sidebar-item:hover {
   background: var(--bg-tertiary);
-  color: var(--text-primary);
+  color: var(--brand-blue);
 }
 [data-theme="light"] .sidebar-item.active {
   background: rgba(0,47,95,0.08);
   color: var(--brand-blue);
 }
 [data-theme="light"] .sidebar-section-label {
-  color: var(--text-tertiary);
+  color: var(--brand-blue);
 }
 [data-theme="light"] .sidebar-project-btn {
   background: var(--bg-primary);
