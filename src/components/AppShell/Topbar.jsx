@@ -94,6 +94,7 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
   }
 
   return (
+    <>
     <header className="app-topbar">
       {/* ── Left zone: hamburger + logo + breadcrumb ── */}
       <div className="topbar-left">
@@ -191,16 +192,18 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
         <LanguageDropdown />
       </div>
 
-      {showWelcome && (
-        <WelcomeModal
-          initialLang={demo?.demoLang || 'fr'}
-          initialVoice={demo?.demoVoice || null}
-          onClose={(lang, voice) => {
-            setShowWelcome(false)
-            if (lang) demo.startDemo(lang, voice)
-          }}
-        />
-      )}
     </header>
+
+    {showWelcome && (
+      <WelcomeModal
+        initialLang={demo?.demoLang || 'fr'}
+        initialVoice={demo?.demoVoice || null}
+        onClose={(lang, voice) => {
+          setShowWelcome(false)
+          if (lang) demo.startDemo(lang, voice)
+        }}
+      />
+    )}
+    </>
   )
 }
