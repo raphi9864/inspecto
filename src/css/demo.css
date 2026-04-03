@@ -90,19 +90,46 @@
   background: rgba(215, 41, 74, 0.12);
 }
 
-.dcb-btn--yes {
-  color: #fff !important;
+.dcb-confirm-validate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  background: var(--brand-red, #d7294a);
+  color: #fff;
+  font-size: 0.82rem;
   font-weight: 700;
-  background: var(--brand-red, #d7294a) !important;
+  font-family: 'Inter', sans-serif;
+  border: none;
   border-radius: 8px;
-  padding: 6px 16px !important;
-  min-width: auto !important;
-  font-size: 0.82rem !important;
+  cursor: pointer;
+  white-space: nowrap;
   flex-shrink: 0;
+  transition: background 0.15s;
 }
-.dcb-btn--yes:hover {
-  background: #b91f3a !important;
-  color: #fff !important;
+.dcb-confirm-validate:hover {
+  background: #b91f3a;
+}
+
+.dcb-confirm-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.dcb-confirm-cancel:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .dcb-sep {
@@ -153,18 +180,6 @@
   flex-shrink: 0;
 }
 
-.dcb-confirm .dcb-btn:not(.dcb-btn--yes) {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #fff !important;
-  padding: 6px 16px !important;
-  border-radius: 8px;
-  min-width: auto !important;
-  font-size: 0.82rem !important;
-  flex-shrink: 0;
-}
-.dcb-confirm .dcb-btn:not(.dcb-btn--yes):hover {
-  background: rgba(255, 255, 255, 0.25) !important;
-}
 
 /* ─── Spotlight SVG overlay ─── */
 .demo-spotlight {

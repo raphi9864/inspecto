@@ -188,12 +188,12 @@ export default function DemoControlBar() {
         </button>
       ) : (
         <div className="dcb-confirm">
-          <span className="dcb-confirm-text">{t('demo.quitConfirm', 'Quitter la d\u00e9mo ?')}</span>
-          <button className="dcb-btn dcb-btn--yes" onClick={handleQuit}>
-            {t('demo.yes', 'Yes')}
+          <span className="dcb-confirm-text">{t('demo.quitConfirm', 'Quitter la démo ?')}</span>
+          <button className="dcb-confirm-validate" onClick={handleQuit}>
+            {t('demo.validate', 'Valider')}
           </button>
-          <button className="dcb-btn" onClick={() => setConfirmQuit(false)}>
-            {t('demo.no', 'No')}
+          <button className="dcb-confirm-cancel" onClick={() => setConfirmQuit(false)}>
+            {t('demo.cancel', 'Annuler')}
           </button>
         </div>
       )}
