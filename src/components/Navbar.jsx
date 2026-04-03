@@ -17,31 +17,33 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="navbar" id="navbar">
-      <Link to="/" className="navbar-logo" aria-label="inspecto">
-        <img src="/logo-inspecto-white.svg" alt="inspecto" className="navbar-logo-img" height="28" />
-      </Link>
+    <>
+      <nav className="navbar" id="navbar">
+        <Link to="/" className="navbar-logo" aria-label="inspecto">
+          <img src="/logo-inspecto-white.svg" alt="inspecto" className="navbar-logo-img" height="28" />
+        </Link>
 
-      <div className="navbar-right">
-        <button
-          className="navbar-cta navbar-cta--demo"
-          onClick={launchDemo}
-          disabled={demo?.status === 'running'}
-          data-demo-target="navbar-demo-btn"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <span>{t('navbar.startDemo')}</span>
-        </button>
-        <a
-          href="https://inspectogroup.com/contact/"
-          className="navbar-cta navbar-cta--book"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-demo-target="navbar-book-btn"
-        >
-          {t('navbar.demoBtn')}
-        </a>
-      </div>
+        <div className="navbar-right">
+          <button
+            className="navbar-cta navbar-cta--demo"
+            onClick={launchDemo}
+            disabled={demo?.status === 'running'}
+            data-demo-target="navbar-demo-btn"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>{t('navbar.startDemo')}</span>
+          </button>
+          <a
+            href="https://inspectogroup.com/contact/"
+            className="navbar-cta navbar-cta--book"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-demo-target="navbar-book-btn"
+          >
+            {t('navbar.demoBtn')}
+          </a>
+        </div>
+      </nav>
 
       {showWelcome && (
         <WelcomeModal
@@ -50,6 +52,6 @@ export default function Navbar() {
           onClose={(lang, voice) => { setShowWelcome(false); if (lang) demo.startDemo(lang, voice) }}
         />
       )}
-    </nav>
+    </>
   )
 }

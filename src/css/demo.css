@@ -91,8 +91,15 @@
 }
 
 .dcb-btn--yes {
-  color: var(--brand-red, #d7294a) !important;
+  color: #fff !important;
   font-weight: 700;
+  background: var(--brand-red, #d7294a);
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+.dcb-btn--yes:hover {
+  background: #b91f3a;
+  color: #fff !important;
 }
 
 .dcb-sep {
@@ -131,13 +138,24 @@
 .dcb-confirm {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .dcb-confirm-text {
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
   white-space: nowrap;
+  font-weight: 600;
+}
+
+.dcb-confirm .dcb-btn:not(.dcb-btn--yes) {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+.dcb-confirm .dcb-btn:not(.dcb-btn--yes):hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ─── Spotlight SVG overlay ─── */
