@@ -90,46 +90,33 @@
   background: rgba(215, 41, 74, 0.12);
 }
 
-.dcb-confirm-validate {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 18px;
-  background: var(--brand-red, #d7294a);
-  color: #fff;
-  font-size: 0.82rem;
-  font-weight: 700;
+.dcb-confirm-yes,
+.dcb-confirm-no {
   font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  padding: 8px 20px;
   white-space: nowrap;
-  flex-shrink: 0;
   transition: background 0.15s;
 }
-.dcb-confirm-validate:hover {
+
+.dcb-confirm-yes {
+  background: var(--brand-red, #d7294a);
+  color: #fff;
+}
+.dcb-confirm-yes:hover {
   background: #b91f3a;
 }
 
-.dcb-confirm-cancel {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 18px;
-  background: rgba(255, 255, 255, 0.15);
+.dcb-confirm-no {
+  background: rgba(255, 255, 255, 0.18);
   color: #fff;
-  font-size: 0.82rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background 0.15s;
 }
-.dcb-confirm-cancel:hover {
-  background: rgba(255, 255, 255, 0.25);
+.dcb-confirm-no:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .dcb-sep {
@@ -168,8 +155,9 @@
 .dcb-confirm {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
+  margin-left: 4px;
 }
 
 .dcb-confirm-text {
