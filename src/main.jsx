@@ -7,7 +7,6 @@ import App from './App'
 import DemoOverlay from './components/Demo/DemoOverlay'
 import DemoAvatar from './components/Demo/DemoAvatar'
 import DemoSpotlight from './components/Demo/DemoSpotlight'
-import DemoProgressBar from './components/Demo/DemoProgressBar'
 import gsap from 'gsap'
 import './i18n'
 import './css/main.css'
@@ -30,7 +29,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <DemoOverlay />
           <DemoAvatar />
           <DemoSpotlight />
-          <DemoProgressBar />
         </DemoProvider>
       </ProjectProvider>
     </BrowserRouter>

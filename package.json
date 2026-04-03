@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "explore": "node exploration/explore.js"
+    "explore": "node exploration/explore.js",
+    "test:e2e": "npx playwright test --config=tests/playwright.config.js",
+    "test:e2e:headed": "npx playwright test --config=tests/playwright.config.js --headed"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.7.0",

@@ -597,6 +597,13 @@
     "georgeDesc": "Male voice, British",
     "aliceDesc": "Female voice, British"
   },
+  "demo": {
+    "chooseLanguageVoice": "Choose your language and voice",
+    "maleVoice": "Male voice",
+    "femaleVoice": "Female voice",
+    "startDemo": "Start demo →",
+    "previewVoice": "Preview"
+  },
   "toasts": {
     "csvExported": "CSV exported",
     "excelExported": "Excel exported",

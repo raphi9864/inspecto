@@ -26,8 +26,8 @@ const IconPrint = () => <svg width={I.size} height={I.size} viewBox="0 0 24 24" 
 const IconClip = () => <svg width={I.size} height={I.size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={I.sw}><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
 const IconCheck = () => <svg width={I.size} height={I.size} viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth={I.sw}><polyline points="20 6 9 17 4 12"/></svg>
 
-const PdfIcon = () => <div style={{ width: 28, height: 28, borderRadius: 4, background: 'rgba(215,41,74,0.12)', color: '#d7294a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, flexShrink: 0 }}>PDF</div>
-const XlsIcon = () => <div style={{ width: 28, height: 28, borderRadius: 4, background: 'rgba(0,255,136,0.1)', color: '#00ff88', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, flexShrink: 0 }}>XLS</div>
+const PdfIcon = () => <div style={{ width: 28, height: 28, borderRadius: 4, background: 'rgba(215,41,74,0.12)', color: 'var(--color-pdf)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, flexShrink: 0 }}>PDF</div>
+const XlsIcon = () => <div style={{ width: 28, height: 28, borderRadius: 4, background: 'rgba(0,255,136,0.1)', color: 'var(--color-xls)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, flexShrink: 0 }}>XLS</div>
 const DocIcon = () => <div style={{ width: 28, height: 28, borderRadius: 4, background: 'rgba(46,163,242,0.12)', color: 'var(--blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, flexShrink: 0 }}>DOC</div>
 function FileIcon({ type }) { return type === 'xlsx' ? <XlsIcon /> : type === 'docx' ? <DocIcon /> : <PdfIcon /> }
 

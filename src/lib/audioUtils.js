@@ -35,12 +35,11 @@ export function playPreGenerated(stepId, lang, gender) {
   return new Promise((resolve) => {
     try {
       const entry = PRE_GENERATED[stepId]
-      if (!entry) { console.log('[TTS] No pre-generated entry for step:', stepId); resolve(); return }
+      if (!entry) { resolve(); return }
       const langEntry = entry[lang] || entry.fr
       const url = langEntry[gender] || langEntry.male
       if (!url) { resolve(); return }
 
-      console.log('[TTS] Playing pre-generated:', url)
       stopCurrentAudio()
       const audio = new Audio(url)
       currentAudio = audio
@@ -64,7 +63,6 @@ export function generateAndPlayTTS(text, lang, gender) {
       if (!text) { resolve(); return }
 
       const voiceId = VOICE_IDS[gender] || VOICE_IDS.male
-      console.log('[TTS] Calling ElevenLabs API', { voiceId, lang, gender, text: text.slice(0, 50) + '...' })
 
       const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`, {
         method: 'POST',
@@ -76,7 +74,6 @@ export function generateAndPlayTTS(text, lang, gender) {
         }),
       })
 
-      console.log('[TTS] API response:', res.status, res.statusText)
       if (!res.ok) { console.warn('[TTS] API error:', res.status, await res.text().catch(() => '')); resolve(); return }
 
       const blob = await res.blob()
@@ -100,7 +97,6 @@ export function generateAndPlayTTS(text, lang, gender) {
  * Smart speaker: uses pre-generated audio if available, otherwise TTS.
  */
 export function speakStep(stepId, text, lang, gender) {
-  console.log('[TTS] speakStep', { stepId, lang, gender, preGenerated: !!PRE_GENERATED[stepId], text: text?.slice(0, 50) })
   if (PRE_GENERATED[stepId]) {
     return playPreGenerated(stepId, lang, gender)
   }

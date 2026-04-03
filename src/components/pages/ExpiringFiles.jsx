@@ -15,9 +15,9 @@ const DEMO_FILES = [
 
 function DaysLeftBadge({ days, t }) {
   let bg, color
-  if (days < 0) { bg = 'rgba(215,41,74,0.15)'; color = '#d7294a' }
-  else if (days <= 7) { bg = 'rgba(246,166,35,0.15)'; color = '#f6a623' }
-  else { bg = 'rgba(0,255,136,0.1)'; color = '#00ff88' }
+  if (days < 0) { bg = 'rgba(215,41,74,0.15)'; color = 'var(--brand-red)' }
+  else if (days <= 7) { bg = 'rgba(246,166,35,0.15)'; color = 'var(--orange)' }
+  else { bg = 'rgba(0,255,136,0.1)'; color = 'var(--color-green-bright)' }
   const label = days < 0 ? `${days}${t('expiringFiles.daysLeft')}` : `${days}${t('expiringFiles.daysLeft')}`
   return <span style={{ display: 'inline-block', padding: '2px 10px', borderRadius: '12px', fontSize: '0.82rem', fontWeight: 700, background: bg, color }}>{label}</span>
 }

@@ -1,15 +1,18 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDemoContext } from '../context/DemoContext'
+import WelcomeModal from './Demo/WelcomeModal'
 
 export default function Navbar() {
   const { t } = useTranslation()
   const demo = useDemoContext()
+  const [showWelcome, setShowWelcome] = useState(false)
 
   const launchDemo = () => {
     if (demo?.status === 'idle' || demo?.status === 'complete') {
       sessionStorage.removeItem('demo-seen')
-      demo.startDemo('fr')
+      setShowWelcome(true)
     }
   }
 
@@ -39,6 +42,14 @@ export default function Navbar() {
           {t('navbar.demoBtn')}
         </a>
       </div>
+
+      {showWelcome && (
+        <WelcomeModal
+          initialLang={demo?.demoLang || 'fr'}
+          initialVoice={demo?.demoVoice || null}
+          onClose={(lang, voice) => { setShowWelcome(false); if (lang) demo.startDemo(lang, voice) }}
+        />
+      )}
     </nav>
   )
 }

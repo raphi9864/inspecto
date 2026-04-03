@@ -566,7 +566,11 @@ export default function Presenter({ introDoneOverride }) {
       )}
 
       {showWelcome && (
-        <WelcomeModal onClose={(lang) => { setShowWelcome(false); demo.startDemo(lang) }} />
+        <WelcomeModal
+          initialLang={demo?.demoLang || 'fr'}
+          initialVoice={demo?.demoVoice || null}
+          onClose={(lang, voice) => { setShowWelcome(false); if (lang) demo.startDemo(lang, voice) }}
+        />
       )}
     </section>
   )

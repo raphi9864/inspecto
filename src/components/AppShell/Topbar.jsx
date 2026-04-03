@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useProject } from '../../context/ProjectContext'
 import { useDemoContext } from '../../context/DemoContext'
 import { showToast } from '../Toast'
+import WelcomeModal from '../Demo/WelcomeModal'
 
 const FLAG_MAP = { FR: '\u{1F1EB}\u{1F1F7}', EN: '\u{1F1EC}\u{1F1E7}', IT: '\u{1F1EE}\u{1F1F9}', ES: '\u{1F1EA}\u{1F1F8}', DE: '\u{1F1E9}\u{1F1EA}' }
 const LANG_NAMES = { FR: 'Fran\u00e7ais', EN: 'English', IT: 'Italiano', ES: 'Espa\u00f1ol', DE: 'Deutsch' }
@@ -83,10 +84,12 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
     ? (t(`topbar.pagesWithProject.${path}`, { defaultValue: '' }) || t(`topbar.pages.${path}`, { defaultValue: t('topbar.brand') }))
     : t(`topbar.pages.${path}`, { defaultValue: t('topbar.brand') })
 
+  const [showWelcome, setShowWelcome] = useState(false)
+
   const launchDemo = () => {
     if (demo?.status === 'idle' || demo?.status === 'complete') {
       sessionStorage.removeItem('demo-seen')
-      demo.startDemo('fr')
+      setShowWelcome(true)
     }
   }
 
@@ -188,6 +191,16 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
         <LanguageDropdown />
       </div>
 
+      {showWelcome && (
+        <WelcomeModal
+          initialLang={demo?.demoLang || 'fr'}
+          initialVoice={demo?.demoVoice || null}
+          onClose={(lang, voice) => {
+            setShowWelcome(false)
+            if (lang) demo.startDemo(lang, voice)
+          }}
+        />
+      )}
     </header>
   )
 }

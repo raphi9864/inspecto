@@ -603,6 +603,13 @@
     "georgeDesc": "Voix masculine, britannique",
     "aliceDesc": "Voix féminine, britannique"
   },
+  "demo": {
+    "chooseLanguageVoice": "Choisissez votre langue et votre voix",
+    "maleVoice": "Voix masculine",
+    "femaleVoice": "Voix féminine",
+    "startDemo": "Lancer la démo →",
+    "previewVoice": "Écouter"
+  },
   "toasts": {
     "csvExported": "CSV exporté",
     "excelExported": "Excel exporté",
