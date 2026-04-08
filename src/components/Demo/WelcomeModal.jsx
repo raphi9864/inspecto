@@ -39,7 +39,26 @@ export default function WelcomeModal({ onClose, initialLang, initialVoice }) {
     return () => ctx.revert()
   }, [])
 
-  /* ─── Cleanup audio on unmount ─── */
+  /* ─── Preload all preview audio files on mount ─── */
+  const preloadedRef = useRef({})
+  useEffect(() => {
+    for (const lang of LANGUAGES) {
+      for (const gender of GENDERS) {
+        const genderCode = gender === 'male' ? 'm' : 'f'
+        const key = `${lang.code}_${gender}`
+        const audio = new Audio()
+        audio.preload = 'auto'
+        audio.src = `/audio/preview/preview_${lang.code}_${genderCode}.mp3`
+        preloadedRef.current[key] = audio
+      }
+    }
+    return () => {
+      Object.values(preloadedRef.current).forEach(a => { a.pause(); a.src = '' })
+      preloadedRef.current = {}
+    }
+  }, [])
+
+  /* ─── Cleanup active audio on unmount ─── */
   useEffect(() => {
     return () => {
       if (audioRef.current) {
@@ -49,13 +68,14 @@ export default function WelcomeModal({ onClose, initialLang, initialVoice }) {
     }
   }, [])
 
-  /* ─── Preview audio ─── */
+  /* ─── Preview audio (uses preloaded files for instant playback) ─── */
   const playPreview = useCallback((lang, gender) => {
     const key = `${lang}_${gender}`
 
     // If already playing this one, stop it
     if (playingPreview === key && audioRef.current) {
       audioRef.current.pause()
+      audioRef.current.currentTime = 0
       audioRef.current = null
       setPlayingPreview(null)
       return
@@ -64,29 +84,36 @@ export default function WelcomeModal({ onClose, initialLang, initialVoice }) {
     // Stop any current playback
     if (audioRef.current) {
       audioRef.current.pause()
+      audioRef.current.currentTime = 0
       audioRef.current = null
     }
 
     setPreviewError(null)
     setPlayingPreview(key)
 
-    const genderCode = gender === 'male' ? 'm' : 'f'
-    const src = `/audio/preview/preview_${lang}_${genderCode}.mp3`
-    const audio = new Audio(src)
+    // Use preloaded audio if available, fallback to new Audio
+    const preloaded = preloadedRef.current[key]
+    const audio = preloaded || new Audio(`/audio/preview/preview_${lang}_${gender === 'male' ? 'm' : 'f'}.mp3`)
+    if (preloaded) audio.currentTime = 0
     audioRef.current = audio
 
-    audio.addEventListener('ended', () => {
+    const onEnded = () => {
       setPlayingPreview(null)
       audioRef.current = null
-    })
-
-    audio.addEventListener('error', () => {
+      audio.removeEventListener('ended', onEnded)
+      audio.removeEventListener('error', onError)
+    }
+    const onError = () => {
       setPlayingPreview(null)
       setPreviewError(key)
       audioRef.current = null
-      // Clear error indicator after 2s
+      audio.removeEventListener('ended', onEnded)
+      audio.removeEventListener('error', onError)
       setTimeout(() => setPreviewError(prev => prev === key ? null : prev), 2000)
-    })
+    }
+
+    audio.addEventListener('ended', onEnded)
+    audio.addEventListener('error', onError)
 
     audio.play().catch(() => {
       setPlayingPreview(null)
