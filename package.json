@@ -8,7 +8,9 @@
     "preview": "vite preview",
     "explore": "node exploration/explore.js",
     "test:e2e": "npx playwright test --config=tests/playwright.config.js",
-    "test:e2e:headed": "npx playwright test --config=tests/playwright.config.js --headed"
+    "test:e2e:headed": "npx playwright test --config=tests/playwright.config.js --headed",
+    "audio:validate": "node scripts/fish-audio-validate.js",
+    "audio:batch": "node scripts/fish-audio-batch.js"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.7.0",

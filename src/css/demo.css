@@ -279,7 +279,7 @@
 }
 
 .demo-speech-solid .demo-speech-text {
-  color: var(--text-primary, #0D1B2E);
+  color: #0D1B2E;
 }
 
 .demo-speech-solid::before {
@@ -298,7 +298,7 @@
 
 .demo-speech-text {
   font-size: 0.95rem;
-  color: var(--text-primary, #0D1B2E);
+  color: #f0f4f8;
   line-height: 1.7;
   margin: 0;
   min-height: 2em;

@@ -8,8 +8,8 @@ dist/
 /js/
 /pages/
 
-# Audio (pre-generated TTS, too heavy for git)
-public/audio/*.mp3
+# Audio validation files (temporary, not for production)
+public/audio/_validation/
 
 # Exploration / temp
 exploration/
