@@ -76,11 +76,21 @@
   "navbar": {
     "brand": "INSPECTO",
     "demoBtn": "Planifier une démo",
-    "startDemo": "Lancer la démo"
+    "startDemo": "Lancer la démo",
+    "inspecto": "Inspecto",
+    "sae": "SAE",
+    "productSwitcher": "Choix du produit"
   },
 
   "presenter": {
     "greeting": "Bonjour\u00a0! Je suis votre guide INSPECTO DQI. Avec plus de 500 comptes actifs dans 6 pays, notre plateforme accompagne les industries les plus exigeantes. Cliquez sur une catégorie pour explorer les modules.",
+    "monologue": [
+      "Bonjour\u00a0! Je suis votre guide INSPECTO DQI. Ravi de vous accueillir sur notre plateforme de gestion de la qualité industrielle.",
+      "Plus de 500 comptes actifs, 6 pays, et des industries parmi les plus exigeantes\u00a0: nucléaire, aéronautique, défense, oil & gas, pharmacie, construction.",
+      "Notre plateforme digitalise inspections, audits, non-conformités, plans d'actions correctives et conformité CFSI — toute votre qualité industrielle réunie au même endroit.",
+      "Plus de 500 indicateurs qualité en temps réel, une traçabilité complète, et une IA qui détecte les défauts à votre place.",
+      "Cliquez sur une catégorie pour explorer les modules — ou lancez la démo guidée depuis la barre du haut, je serai votre guide."
+    ],
     "footer_cta": "Planifier une démo gratuite →", "startDemo": "Lancer la démo", "bookMeeting": "Prendre un RDV",
     "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Retour à la vue par catégories",
@@ -98,8 +108,83 @@
     }
   },
 
+  "sae": {
+    "audit": {
+      "label": "Audit interne",
+      "title": "Pilotage d'audit ISO de bout en bout",
+      "sub": "Configurez, planifiez, exécutez et tracez vos audits internes avec une traçabilité complète des événements \u2014 inspections, non-conformités, actions correctives.",
+      "startDate": "Début",
+      "endDate": "Fin",
+      "projectDesc": "Audit qualité interne conforme ISO 9001 · ISO 19443 · AS/EN 9100. Cycle complet sur 12 mois avec inspections trimestrielles et revue de direction.",
+      "tabs": { "settings": "Paramétrage", "step": "Étape", "config": "Configuration", "info": "Informations", "synthesis": "Synthèse" },
+      "form": {
+        "start": "Date de début",
+        "end": "Date de fin",
+        "progress": "Progression",
+        "scope": "Périmètre de l'audit",
+        "scopeVal": "Audit transverse du processus RH et du dispositif Cybersecurity sur l'ensemble des sites européens. Inclut la revue documentaire, l'inspection terrain et les entretiens avec les responsables de site."
+      },
+      "step": { "current": "Étape en cours", "next": "Étape suivante", "deadline": "Échéance" },
+      "config": { "auditor": "Auditeur principal", "inspector": "Inspecteur terrain", "template": "Template utilisé" },
+      "info": { "reference": "Référence interne", "notes": "Notes & observations", "notesVal": "L'audit a démarré comme prévu. Revue documentaire bouclée en avance. Prochaine étape : inspection des sites européens avec focus sur les contrôles d'accès logiques et les journaux SIEM." },
+      "synthesis": {
+        "conclusion": "Conclusion provisoire",
+        "conclusionVal": "Conformité globale solide (85%). Deux non-conformités mineures ouvertes concernant la rétention des logs et la procédure d'onboarding. Plan d'action correctif en cours, clôture prévue fin juillet.",
+        "passed": "Contrôles validés",
+        "findings": "Non-conformités",
+        "actions": "Actions correctives"
+      },
+      "programme": "Audit 2026 · Programme",
+      "day": "Jour", "week": "Semaine", "month": "Mois", "year": "Année",
+      "inProgress": "En cours",
+      "scheduled": "Planifié",
+      "traceability": "Traçabilité · Flux d'événements",
+      "events": "événements"
+    },
+    "trace": {
+      "e1": "Début de l'audit \u2014 Revue documentaire validée",
+      "e2": "Inspection terrain · Processus RH",
+      "e3": "Action corrective ouverte · Mise à jour procédure onboarding",
+      "e4": "Inspection terrain · Cybersecurity perimeter",
+      "e5": "Non-conformité détectée · Absence de log 90 jours",
+      "e6": "Action corrective en cours · Déploiement SIEM étendu",
+      "e7": "Revue finale validée \u2014 Audit clôturé"
+    },
+    "ged": {
+      "label": "Gestion Électronique de Documents",
+      "title": "Workflow documentaire contrôlé, de la rédaction à la diffusion",
+      "sub": "Un référentiel documentaire structuré avec versionning, cycle de validation multi-rôles, transmittal formel et traçabilité réglementaire complète.",
+      "currentStatus": "Statut actuel",
+      "wf": { "creation": "Création", "validation": "Validation", "approval": "Approbation", "diffusion": "Diffusion" },
+      "repository": "Référentiel documentaire",
+      "elements": "éléments",
+      "col": { "code": "Codification", "title": "Titre", "type": "Type", "status": "Statut", "date": "Date" },
+      "doc1": "Plan de surveillance processus RH",
+      "doc2": "Procédure d'onboarding sécurisé",
+      "doc3": "Rapport d'audit cybersecurity Q1",
+      "doc4": "Plan d'action correctif \u2014 SIEM",
+      "doc5": "Procédure revue documentaire",
+      "doc6": "Rapport de conformité CFSI",
+      "doc7": "Plan de contrôle qualité 2025",
+      "doc8": "Procédure gestion des non-conformités",
+      "transmittalTitle": "Transmittal · Envoi officiel",
+      "recipients": "destinataires",
+      "subject": "Objet",
+      "subjectVal": "Transmission documentaire \u2014 Audit interne 2026 · Lot 1",
+      "message": "Message",
+      "msgP1": "Veuillez trouver ci-joint la documentation relative à l'audit interne 2026, lot 1.",
+      "msgP2": "Le lien de téléchargement sécurisé expire dans 30 jours. Accusé de réception requis sous 5 jours ouvrés.",
+      "expiry": "Expiration",
+      "days": "jours",
+      "send": "Envoyer le transmittal",
+      "opened": "Document ouvert :",
+      "sentToast": "Transmittal envoyé aux 3 destinataires"
+    }
+  },
+
   "sidebar": {
     "project": "Projet", "allProjects": "Tous les projets", "home": "Accueil", "dashboard": "Dashboard",
+    "saeModules": "Modules SAE", "auditWorkflow": "Audit workflow", "ged": "GED · Documents",
     "projectManagement": "Gestion de projet", "activities": "Activités", "tasksResources": "Tâches & Ressources",
     "ganttChart": "Diagramme de Gantt", "quality": "Qualité", "inspections": "Inspections",
     "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Plan de contrôle qualité",

@@ -73,10 +73,17 @@
     "teamLabel": "Team"
   },
 
-  "navbar": { "brand": "INSPECTO", "demoBtn": "Book a demo", "startDemo": "Start Demo" },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Book a demo", "startDemo": "Start Demo", "inspecto": "Inspecto", "sae": "SAE", "productSwitcher": "Product switcher" },
 
   "presenter": {
     "greeting": "Hello! I'm your INSPECTO DQI guide. With over 500 active accounts in 6 countries, our platform supports the most demanding industries. Click a category to explore the modules.",
+    "monologue": [
+      "Hello and welcome! I'm your INSPECTO DQI guide. Delighted to have you on our industrial quality management platform.",
+      "Over 500 active accounts across 6 countries, trusted by the most demanding industries: nuclear, aerospace, defense, oil & gas, pharmaceutical, construction.",
+      "Our platform digitalizes inspections, audits, non-conformities, corrective action plans and CFSI compliance — your entire industrial quality in one place.",
+      "Over 500 real-time quality indicators, complete traceability, and an AI that detects defects for you.",
+      "Click a category to explore the modules — or launch the guided demo from the top bar, I'll be your guide."
+    ],
     "footer_cta": "Book a free demo →", "startDemo": "Start Demo", "bookMeeting": "Book a Meeting",
     "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Back to category view",
@@ -94,8 +101,83 @@
     }
   },
 
+  "sae": {
+    "audit": {
+      "label": "Internal audit",
+      "title": "End-to-end ISO audit orchestration",
+      "sub": "Configure, plan, execute and trace your internal audits with full event traceability \u2014 inspections, non-conformities, corrective actions.",
+      "startDate": "Start",
+      "endDate": "End",
+      "projectDesc": "Internal quality audit aligned with ISO 9001 · ISO 19443 · AS/EN 9100. Full 12-month cycle with quarterly inspections and management review.",
+      "tabs": { "settings": "Settings", "step": "Step", "config": "Configuration", "info": "Information", "synthesis": "Synthesis" },
+      "form": {
+        "start": "Start date",
+        "end": "End date",
+        "progress": "Progress",
+        "scope": "Audit scope",
+        "scopeVal": "Cross-functional audit of the HR process and the Cybersecurity framework across all European sites. Includes documentation review, on-site inspection, and interviews with site managers."
+      },
+      "step": { "current": "Current step", "next": "Next step", "deadline": "Deadline" },
+      "config": { "auditor": "Lead auditor", "inspector": "Field inspector", "template": "Template used" },
+      "info": { "reference": "Internal reference", "notes": "Notes & observations", "notesVal": "Audit started on schedule. Documentation review completed ahead of plan. Next step: inspection of European sites with focus on logical access controls and SIEM logs." },
+      "synthesis": {
+        "conclusion": "Provisional conclusion",
+        "conclusionVal": "Strong overall compliance (85%). Two minor non-conformities open concerning log retention and the onboarding procedure. Corrective action plan in progress, closure expected end of July.",
+        "passed": "Controls passed",
+        "findings": "Non-conformities",
+        "actions": "Corrective actions"
+      },
+      "programme": "Audit 2026 · Programme",
+      "day": "Day", "week": "Week", "month": "Month", "year": "Year",
+      "inProgress": "In progress",
+      "scheduled": "Scheduled",
+      "traceability": "Traceability · Event stream",
+      "events": "events"
+    },
+    "trace": {
+      "e1": "Audit started \u2014 Documentation review validated",
+      "e2": "Field inspection · HR process",
+      "e3": "Corrective action opened · Onboarding procedure update",
+      "e4": "Field inspection · Cybersecurity perimeter",
+      "e5": "Non-conformity detected · Missing 90-day logs",
+      "e6": "Corrective action in progress · Extended SIEM rollout",
+      "e7": "Final review validated \u2014 Audit closed"
+    },
+    "ged": {
+      "label": "Document Management",
+      "title": "Controlled document workflow, from drafting to release",
+      "sub": "A structured document repository with versioning, multi-role validation cycle, formal transmittal, and full regulatory traceability.",
+      "currentStatus": "Current status",
+      "wf": { "creation": "Creation", "validation": "Validation", "approval": "Approval", "diffusion": "Diffusion" },
+      "repository": "Document repository",
+      "elements": "items",
+      "col": { "code": "Code", "title": "Title", "type": "Type", "status": "Status", "date": "Date" },
+      "doc1": "HR process monitoring plan",
+      "doc2": "Secure onboarding procedure",
+      "doc3": "Cybersecurity audit report Q1",
+      "doc4": "Corrective action plan \u2014 SIEM",
+      "doc5": "Documentation review procedure",
+      "doc6": "CFSI compliance report",
+      "doc7": "2025 Quality control plan",
+      "doc8": "Non-conformity management procedure",
+      "transmittalTitle": "Transmittal · Official dispatch",
+      "recipients": "recipients",
+      "subject": "Subject",
+      "subjectVal": "Document transmission \u2014 Internal Audit 2026 · Batch 1",
+      "message": "Message",
+      "msgP1": "Please find attached the documentation for the 2026 internal audit, batch 1.",
+      "msgP2": "The secure download link expires in 30 days. Acknowledgement of receipt required within 5 business days.",
+      "expiry": "Expires",
+      "days": "days",
+      "send": "Send transmittal",
+      "opened": "Document opened:",
+      "sentToast": "Transmittal sent to 3 recipients"
+    }
+  },
+
   "sidebar": {
     "project": "Project", "allProjects": "All projects", "home": "Home", "dashboard": "Dashboard",
+    "saeModules": "SAE Modules", "auditWorkflow": "Audit workflow", "ged": "GED · Documents",
     "projectManagement": "Project management", "activities": "Activities", "tasksResources": "Tasks & Resources",
     "ganttChart": "Gantt chart", "quality": "Quality", "inspections": "Inspections",
     "findingsNC": "Findings / NC", "actions": "Actions", "qualityControlPlan": "Quality control plan",

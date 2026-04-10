@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { ProjectProvider } from './context/ProjectContext'
 import { DemoProvider } from './context/DemoContext'
+import { ProductModeProvider } from './context/ProductModeContext'
 import App from './App'
 import DemoOverlay from './components/Demo/DemoOverlay'
 import DemoAvatar from './components/Demo/DemoAvatar'
@@ -15,6 +16,7 @@ import './css/main.css'
 gsap.config({ nullTargetWarn: false })
 import './css/animations.css'
 import './css/demo.css'
+import './css/sae.css'
 
 // Apply saved theme (dark by default)
 const savedTheme = localStorage.getItem('inspecto-theme') || 'dark'
@@ -23,14 +25,16 @@ document.documentElement.dataset.theme = savedTheme
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ProjectProvider>
-        <DemoProvider>
-          <App />
-          <DemoOverlay />
-          <DemoAvatar />
-          <DemoSpotlight />
-        </DemoProvider>
-      </ProjectProvider>
+      <ProductModeProvider>
+        <ProjectProvider>
+          <DemoProvider>
+            <App />
+            <DemoOverlay />
+            <DemoAvatar />
+            <DemoSpotlight />
+          </DemoProvider>
+        </ProjectProvider>
+      </ProductModeProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

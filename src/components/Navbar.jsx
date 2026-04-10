@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDemoContext } from '../context/DemoContext'
 import WelcomeModal from './Demo/WelcomeModal'
+import ProductPills from './ProductPills'
 
 export default function Navbar() {
   const { t } = useTranslation()
@@ -22,6 +23,8 @@ export default function Navbar() {
         <Link to="/" className="navbar-logo" aria-label="inspecto">
           <img src="/logo-inspecto-white.svg" alt="inspecto" className="navbar-logo-img" height="28" />
         </Link>
+
+        <ProductPills variant="navbar" />
 
         <div className="navbar-right">
           <button

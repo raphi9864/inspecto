@@ -451,25 +451,13 @@
 }
 
 .welcome-logo {
-  position: relative;
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
-.welcome-logo-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--text-primary, #f0f4f8);
-  letter-spacing: 0.06em;
-}
-.welcome-logo-dot {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--brand-red, #d7294a);
+.welcome-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .welcome-divider {

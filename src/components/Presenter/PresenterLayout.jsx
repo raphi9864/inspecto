@@ -23,6 +23,16 @@ export default function PresenterLayout() {
         <Outlet context={{ introDone }} />
       </div>
       <footer className="presenter-footer">
+        <img
+          src="/logo-inspecto-white.svg"
+          alt="inspecto"
+          className="presenter-footer-logo presenter-footer-logo--dark"
+        />
+        <img
+          src="/logo-inspecto.svg"
+          alt="inspecto"
+          className="presenter-footer-logo presenter-footer-logo--light"
+        />
         <a href="https://inspectogroup.com/contact/" className="btn-demo-footer" target="_blank" rel="noopener">
           {t('presenter.footer_cta')}
         </a>

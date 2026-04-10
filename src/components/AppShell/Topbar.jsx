@@ -5,6 +5,7 @@ import { useProject } from '../../context/ProjectContext'
 import { useDemoContext } from '../../context/DemoContext'
 import { showToast } from '../Toast'
 import WelcomeModal from '../Demo/WelcomeModal'
+import ProductPills from '../ProductPills'
 
 const FLAG_MAP = { FR: '\u{1F1EB}\u{1F1F7}', EN: '\u{1F1EC}\u{1F1E7}', IT: '\u{1F1EE}\u{1F1F9}', ES: '\u{1F1EA}\u{1F1F8}', DE: '\u{1F1E9}\u{1F1EA}' }
 const LANG_NAMES = { FR: 'Fran\u00e7ais', EN: 'English', IT: 'Italiano', ES: 'Espa\u00f1ol', DE: 'Deutsch' }
@@ -182,6 +183,9 @@ export default function Topbar({ onToggleSidebar, onToggleMobileSidebar, onOpenM
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
           </svg>
         </button>
+
+        {/* Product switcher (Inspecto ⇄ SAE) — always visible, before the avatar */}
+        <ProductPills variant="topbar" />
 
         {/* Avatar */}
         <div className="topbar-avatar" data-demo-target="topbar-avatar">RA</div>

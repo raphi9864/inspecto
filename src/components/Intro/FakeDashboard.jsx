@@ -64,7 +64,10 @@ export default function FakeDashboard() {
             <span style={{ background: '#f6c90e' }} />
             <span style={{ background: '#00ff88' }} />
           </div>
-          <span className="fd-topbar-title">INSPECTO DQI — Tableau de bord</span>
+          <span className="fd-topbar-title">
+            <img src="/logo-inspecto-white.svg" alt="inspecto" className="fd-topbar-logo" />
+            <span className="fd-topbar-sep">— Tableau de bord</span>
+          </span>
           <span className="fd-clock" ref={clockRef}>09:42:17</span>
         </div>
 

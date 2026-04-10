@@ -25,9 +25,16 @@
     "last7days": "Últimos 7 días", "last30days": "30 días", "last3months": "3 meses", "allTime": "Todo",
     "nonConformities": "No conformidades", "documents": "Documentos", "projects": "Proyectos", "teamLabel": "Equipo"
   },
-  "navbar": { "brand": "INSPECTO", "demoBtn": "Solicitar una demo" },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Solicitar una demo", "startDemo": "Iniciar demo", "inspecto": "Inspecto", "sae": "SAE", "productSwitcher": "Selector de producto" },
   "presenter": {
     "greeting": "¡Hola! Soy tu guía INSPECTO DQI. Con más de 500 cuentas activas en 6 países, nuestra plataforma acompaña a las industrias más exigentes. Haz clic en una categoría para explorar los módulos.",
+    "monologue": [
+      "¡Hola y bienvenido! Soy tu guía INSPECTO DQI. Encantado de recibirte en nuestra plataforma de gestión de calidad industrial.",
+      "Más de 500 cuentas activas en 6 países, al servicio de las industrias más exigentes: nuclear, aeronáutica, defensa, oil & gas, farmacéutica, construcción.",
+      "Nuestra plataforma digitaliza inspecciones, auditorías, no conformidades, planes de acción correctiva y conformidad CFSI — toda tu calidad industrial reunida en un solo lugar.",
+      "Más de 500 indicadores de calidad en tiempo real, trazabilidad completa y una IA que detecta los defectos por ti.",
+      "Haz clic en una categoría para explorar los módulos — o lanza la demo guiada desde la barra superior, seré tu guía."
+    ],
     "footer_cta": "Solicitar una demo gratuita →", "startDemo": "Iniciar demo", "bookMeeting": "Reservar una cita", "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Volver a la vista de categorías",
     "categories": {
@@ -43,8 +50,84 @@
       "dashboard-analytics": "Dashboard & Analytics ofrece una visión general: KPIs en tiempo real, estadísticas avanzadas, trazabilidad completa y gestión de equipos."
     }
   },
+
+  "sae": {
+    "audit": {
+      "label": "Auditoría interna",
+      "title": "Gestión integral de auditoría ISO",
+      "sub": "Configura, planifica, ejecuta y traza tus auditorías internas con trazabilidad completa de eventos \u2014 inspecciones, no conformidades, acciones correctivas.",
+      "startDate": "Inicio",
+      "endDate": "Fin",
+      "projectDesc": "Auditoría de calidad interna conforme a ISO 9001 · ISO 19443 · AS/EN 9100. Ciclo completo de 12 meses con inspecciones trimestrales y revisión de dirección.",
+      "tabs": { "settings": "Parámetros", "step": "Etapa", "config": "Configuración", "info": "Información", "synthesis": "Síntesis" },
+      "form": {
+        "start": "Fecha de inicio",
+        "end": "Fecha de fin",
+        "progress": "Progreso",
+        "scope": "Alcance de la auditoría",
+        "scopeVal": "Auditoría transversal del proceso de RR.HH. y del marco de Cybersecurity en todos los sitios europeos. Incluye revisión documental, inspección in situ y entrevistas con responsables de sitio."
+      },
+      "step": { "current": "Etapa actual", "next": "Siguiente etapa", "deadline": "Plazo" },
+      "config": { "auditor": "Auditor principal", "inspector": "Inspector de campo", "template": "Plantilla usada" },
+      "info": { "reference": "Referencia interna", "notes": "Notas y observaciones", "notesVal": "La auditoría arrancó según lo previsto. Revisión documental completada con antelación. Próxima etapa: inspección de los sitios europeos con foco en controles de acceso lógicos y logs SIEM." },
+      "synthesis": {
+        "conclusion": "Conclusión provisional",
+        "conclusionVal": "Conformidad global sólida (85%). Dos no conformidades menores abiertas relativas a la retención de logs y al procedimiento de onboarding. Plan de acción correctiva en curso, cierre previsto a finales de julio.",
+        "passed": "Controles superados",
+        "findings": "No conformidades",
+        "actions": "Acciones correctivas"
+      },
+      "programme": "Auditoría 2026 · Programa",
+      "day": "Día", "week": "Semana", "month": "Mes", "year": "Año",
+      "inProgress": "En curso",
+      "scheduled": "Planificado",
+      "traceability": "Trazabilidad · Flujo de eventos",
+      "events": "eventos"
+    },
+    "trace": {
+      "e1": "Auditoría iniciada \u2014 Revisión documental validada",
+      "e2": "Inspección de campo · Proceso RR.HH.",
+      "e3": "Acción correctiva abierta · Actualización procedimiento onboarding",
+      "e4": "Inspección de campo · Perímetro Cybersecurity",
+      "e5": "No conformidad detectada · Falta de logs 90 días",
+      "e6": "Acción correctiva en curso · Despliegue SIEM extendido",
+      "e7": "Revisión final validada \u2014 Auditoría cerrada"
+    },
+    "ged": {
+      "label": "Gestión Documental",
+      "title": "Flujo documental controlado, de la redacción a la difusión",
+      "sub": "Un repositorio documental estructurado con versionado, ciclo de validación multi-rol, transmittal formal y trazabilidad normativa completa.",
+      "currentStatus": "Estado actual",
+      "wf": { "creation": "Creación", "validation": "Validación", "approval": "Aprobación", "diffusion": "Difusión" },
+      "repository": "Repositorio documental",
+      "elements": "elementos",
+      "col": { "code": "Código", "title": "Título", "type": "Tipo", "status": "Estado", "date": "Fecha" },
+      "doc1": "Plan de seguimiento proceso RR.HH.",
+      "doc2": "Procedimiento de onboarding seguro",
+      "doc3": "Informe de auditoría cybersecurity Q1",
+      "doc4": "Plan de acción correctiva \u2014 SIEM",
+      "doc5": "Procedimiento de revisión documental",
+      "doc6": "Informe de conformidad CFSI",
+      "doc7": "Plan de control de calidad 2025",
+      "doc8": "Procedimiento gestión de no conformidades",
+      "transmittalTitle": "Transmittal · Envío oficial",
+      "recipients": "destinatarios",
+      "subject": "Asunto",
+      "subjectVal": "Transmisión documental \u2014 Auditoría interna 2026 · Lote 1",
+      "message": "Mensaje",
+      "msgP1": "Adjunto encontrará la documentación relativa a la auditoría interna 2026, lote 1.",
+      "msgP2": "El enlace de descarga seguro expira en 30 días. Acuse de recibo requerido en 5 días hábiles.",
+      "expiry": "Expira",
+      "days": "días",
+      "send": "Enviar transmittal",
+      "opened": "Documento abierto:",
+      "sentToast": "Transmittal enviado a los 3 destinatarios"
+    }
+  },
+
   "sidebar": {
     "project": "Proyecto", "allProjects": "Todos los proyectos", "home": "Inicio", "dashboard": "Dashboard",
+    "saeModules": "Módulos SAE", "auditWorkflow": "Audit workflow", "ged": "GED · Documentos",
     "projectManagement": "Gestión de proyectos", "activities": "Actividades", "tasksResources": "Tareas y Recursos",
     "ganttChart": "Diagrama de Gantt", "quality": "Calidad", "inspections": "Inspecciones",
     "findingsNC": "Hallazgos / NC", "actions": "Acciones", "qualityControlPlan": "Plan de control de calidad",

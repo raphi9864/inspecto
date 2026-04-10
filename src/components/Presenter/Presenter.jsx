@@ -207,7 +207,7 @@ const CATEGORIES = [
 ]
 
 export default function Presenter({ introDoneOverride }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const containerRef = useRef(null)
   const centerRef = useRef(null)
   const textRef = useRef(null)
@@ -221,6 +221,11 @@ export default function Presenter({ introDoneOverride }) {
   /* ─── Bug fix #1 & #2: track ALL Typed instances in refs ─── */
   const initialTypedRef = useRef(null)
   const hoverTypedRef = useRef(null)
+
+  /* ─── Monologue state machine (audio + typed per line) ─── */
+  const monologueAudioRef = useRef(null)
+  const monologueAbortedRef = useRef(false)
+  const monologueTimerRef = useRef(null)
 
   /* ─── Bug fix #3: track sound wave GSAP tween ─── */
   const soundAnimRef = useRef(null)
@@ -272,6 +277,78 @@ export default function Presenter({ introDoneOverride }) {
     }
   }
 
+  /* ─── Monologue helpers ─── */
+  function stopMonologue() {
+    monologueAbortedRef.current = true
+    if (monologueAudioRef.current) {
+      try {
+        monologueAudioRef.current.pause()
+        monologueAudioRef.current.onended = null
+        monologueAudioRef.current.onerror = null
+        monologueAudioRef.current.src = ''
+      } catch { /* ignore */ }
+      monologueAudioRef.current = null
+    }
+    if (monologueTimerRef.current) {
+      clearTimeout(monologueTimerRef.current)
+      monologueTimerRef.current = null
+    }
+  }
+
+  function playMonologueLine(idx, lines, isFirst = false) {
+    if (monologueAbortedRef.current) return
+    const line = lines[idx]
+    if (!line) return
+
+    // Type the single line
+    safeTyped(initialTypedRef, line, {
+      typeSpeed: 22,
+      startDelay: isFirst ? 900 : 0,
+    })
+    startSoundWave()
+
+    const advance = () => {
+      if (monologueAbortedRef.current) return
+      stopSoundWave()
+      monologueAudioRef.current = null
+      if (monologueTimerRef.current) {
+        clearTimeout(monologueTimerRef.current)
+      }
+      monologueTimerRef.current = setTimeout(() => {
+        monologueTimerRef.current = null
+        if (monologueAbortedRef.current) return
+        const next = (idx + 1) % lines.length
+        playMonologueLine(next, lines, false)
+      }, 700)
+    }
+
+    // Fallback duration if audio fails or is blocked
+    const fallbackMs = Math.max(3000, line.length * 55 + 2000)
+
+    const lang = (i18n.language || 'fr').slice(0, 2)
+    const url = `/audio/${lang}/male/monologue-${idx + 1}.mp3`
+    const audio = new Audio(url)
+    audio.preload = 'auto'
+    monologueAudioRef.current = audio
+
+    audio.onended = advance
+    audio.onerror = () => {
+      if (monologueAbortedRef.current) return
+      if (monologueTimerRef.current) clearTimeout(monologueTimerRef.current)
+      monologueTimerRef.current = setTimeout(advance, fallbackMs)
+    }
+
+    const playPromise = audio.play()
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // Autoplay blocked: fall back to timed advance so the text still cycles
+        if (monologueAbortedRef.current) return
+        if (monologueTimerRef.current) clearTimeout(monologueTimerRef.current)
+        monologueTimerRef.current = setTimeout(advance, fallbackMs)
+      })
+    }
+  }
+
   /* ─── Typed.js helper: safely destroy + clear + create ─── */
   function safeTyped(ref, text, opts = {}) {
     /* Bug fix #2: always destroy previous before creating new */
@@ -283,9 +360,13 @@ export default function Presenter({ introDoneOverride }) {
       textRef.current.innerHTML = ''
     }
     if (!textRef.current) return
+    const strings = Array.isArray(text) ? text : [text]
     ref.current = new Typed(textRef.current, {
-      strings: [text],
+      strings,
       typeSpeed: opts.typeSpeed ?? 20,
+      backSpeed: opts.backSpeed ?? 0,
+      backDelay: opts.backDelay ?? 700,
+      loop: opts.loop ?? false,
       showCursor: false,
       startDelay: opts.startDelay ?? 0,
       onComplete: opts.onComplete,
@@ -327,18 +408,19 @@ export default function Presenter({ introDoneOverride }) {
         opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 1.6,
       })
 
-      /* Bug fix #1: store initial Typed instance */
-      startSoundWave()
-      safeTyped(initialTypedRef, t('presenter.greeting'), {
-        typeSpeed: 22,
-        startDelay: 900,
-        onComplete: () => {
-          safeTimeout(() => stopSoundWave(), 800)
-        },
-      })
+      /* Monologue state machine: audio (Fish Audio pre-generated MP3s)
+         synced with Typed.js line-by-line, loops until user interacts.
+         stopMonologue() is called from all interaction handlers + cleanup. */
+      monologueAbortedRef.current = false
+      const monologueLines = t('presenter.monologue', { returnObjects: true })
+      const lines = Array.isArray(monologueLines) && monologueLines.length > 0
+        ? monologueLines
+        : [t('presenter.greeting')]
+      playMonologueLine(0, lines, true)
     }, containerRef)
 
     return () => {
+      stopMonologue()
       ctx.revert()
       /* Bug fix #1: destroy initial typed on unmount */
       if (initialTypedRef.current) {
@@ -346,11 +428,13 @@ export default function Presenter({ introDoneOverride }) {
         initialTypedRef.current = null
       }
     }
-  }, [introDone])
+  }, [introDone, i18n.language])
 
   /* ─── Full cleanup on unmount (bug fix #4, #6, #7) ─── */
   useEffect(() => {
     return () => {
+      /* Stop monologue audio + state machine */
+      stopMonologue()
       /* Bug fix #6: destroy all Typed instances */
       if (initialTypedRef.current) {
         initialTypedRef.current.destroy()
@@ -375,6 +459,9 @@ export default function Presenter({ introDoneOverride }) {
   function handleExpand(catKey) {
     if (expandedCategory) return
     expandedCatRef.current = catKey
+
+    /* Stop monologue audio + loop on interaction */
+    stopMonologue()
 
     /* Bug fix #1: destroy initial typed when user interacts */
     if (initialTypedRef.current) {
@@ -429,6 +516,9 @@ export default function Presenter({ introDoneOverride }) {
 
   /* ─── Navigate to subcategory page ─── */
   function handleSubcategoryClick(route, cardEl) {
+    /* Stop monologue audio + loop before navigation */
+    stopMonologue()
+
     /* Bug fix #6: destroy all Typed instances before navigation */
     if (initialTypedRef.current) {
       initialTypedRef.current.destroy()

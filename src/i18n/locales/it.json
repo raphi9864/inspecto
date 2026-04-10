@@ -25,9 +25,16 @@
     "last7days": "Ultimi 7 giorni", "last30days": "30 giorni", "last3months": "3 mesi", "allTime": "Tutto",
     "nonConformities": "Non conformità", "documents": "Documenti", "projects": "Progetti", "teamLabel": "Team"
   },
-  "navbar": { "brand": "INSPECTO", "demoBtn": "Prenota una demo" },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Prenota una demo", "startDemo": "Avvia demo", "inspecto": "Inspecto", "sae": "SAE", "productSwitcher": "Selettore prodotto" },
   "presenter": {
     "greeting": "Ciao! Sono la tua guida INSPECTO DQI. Con oltre 500 account attivi in 6 paesi, la nostra piattaforma supporta le industrie più esigenti. Clicca su una categoria per esplorare i moduli.",
+    "monologue": [
+      "Ciao e benvenuto! Sono la tua guida INSPECTO DQI. È un piacere accoglierti sulla nostra piattaforma di gestione della qualità industriale.",
+      "Oltre 500 account attivi in 6 paesi, al servizio delle industrie più esigenti: nucleare, aerospaziale, difesa, oil & gas, farmaceutica, costruzioni.",
+      "La nostra piattaforma digitalizza ispezioni, audit, non conformità, piani di azione correttiva e conformità CFSI — tutta la tua qualità industriale in un unico posto.",
+      "Oltre 500 indicatori di qualità in tempo reale, tracciabilità completa e un'IA che rileva i difetti al posto tuo.",
+      "Clicca su una categoria per esplorare i moduli — o avvia la demo guidata dalla barra in alto, sarò la tua guida."
+    ],
     "footer_cta": "Prenota una demo gratuita →", "startDemo": "Avvia la demo", "bookMeeting": "Prenota un incontro", "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Torna alla vista categorie",
     "categories": {
@@ -43,8 +50,84 @@
       "dashboard-analytics": "Dashboard & Analytics offre una panoramica: KPI in tempo reale, statistiche avanzate, tracciabilità completa e gestione del team."
     }
   },
+
+  "sae": {
+    "audit": {
+      "label": "Audit interno",
+      "title": "Gestione completa dell'audit ISO",
+      "sub": "Configura, pianifica, esegui e traccia i tuoi audit interni con tracciabilità completa degli eventi \u2014 ispezioni, non conformità, azioni correttive.",
+      "startDate": "Inizio",
+      "endDate": "Fine",
+      "projectDesc": "Audit qualità interno conforme ISO 9001 · ISO 19443 · AS/EN 9100. Ciclo completo di 12 mesi con ispezioni trimestrali e revisione direzionale.",
+      "tabs": { "settings": "Impostazioni", "step": "Fase", "config": "Configurazione", "info": "Informazioni", "synthesis": "Sintesi" },
+      "form": {
+        "start": "Data di inizio",
+        "end": "Data di fine",
+        "progress": "Progresso",
+        "scope": "Perimetro dell'audit",
+        "scopeVal": "Audit trasversale del processo HR e del framework Cybersecurity su tutti i siti europei. Include revisione documentale, ispezione sul campo e interviste con i responsabili di sito."
+      },
+      "step": { "current": "Fase attuale", "next": "Fase successiva", "deadline": "Scadenza" },
+      "config": { "auditor": "Auditor principale", "inspector": "Ispettore sul campo", "template": "Template utilizzato" },
+      "info": { "reference": "Riferimento interno", "notes": "Note & osservazioni", "notesVal": "L'audit è iniziato come previsto. Revisione documentale completata in anticipo. Prossima fase: ispezione dei siti europei con focus su controlli di accesso logici e log SIEM." },
+      "synthesis": {
+        "conclusion": "Conclusione provvisoria",
+        "conclusionVal": "Conformità generale solida (85%). Due non conformità minori aperte relative alla retention dei log e alla procedura di onboarding. Piano di azione correttiva in corso, chiusura prevista a fine luglio.",
+        "passed": "Controlli superati",
+        "findings": "Non conformità",
+        "actions": "Azioni correttive"
+      },
+      "programme": "Audit 2026 · Programma",
+      "day": "Giorno", "week": "Settimana", "month": "Mese", "year": "Anno",
+      "inProgress": "In corso",
+      "scheduled": "Pianificato",
+      "traceability": "Tracciabilità · Flusso eventi",
+      "events": "eventi"
+    },
+    "trace": {
+      "e1": "Audit iniziato \u2014 Revisione documentale validata",
+      "e2": "Ispezione sul campo · Processo HR",
+      "e3": "Azione correttiva aperta · Aggiornamento procedura onboarding",
+      "e4": "Ispezione sul campo · Perimetro Cybersecurity",
+      "e5": "Non conformità rilevata · Mancanza log 90 giorni",
+      "e6": "Azione correttiva in corso · Estensione SIEM",
+      "e7": "Revisione finale validata \u2014 Audit chiuso"
+    },
+    "ged": {
+      "label": "Gestione Documentale",
+      "title": "Workflow documentale controllato, dalla redazione alla distribuzione",
+      "sub": "Un repository documentale strutturato con versionamento, ciclo di validazione multi-ruolo, transmittal formale e tracciabilità normativa completa.",
+      "currentStatus": "Stato attuale",
+      "wf": { "creation": "Creazione", "validation": "Validazione", "approval": "Approvazione", "diffusion": "Diffusione" },
+      "repository": "Repository documentale",
+      "elements": "elementi",
+      "col": { "code": "Codice", "title": "Titolo", "type": "Tipo", "status": "Stato", "date": "Data" },
+      "doc1": "Piano di monitoraggio processo HR",
+      "doc2": "Procedura onboarding sicuro",
+      "doc3": "Rapporto audit cybersecurity Q1",
+      "doc4": "Piano d'azione correttivo \u2014 SIEM",
+      "doc5": "Procedura revisione documentale",
+      "doc6": "Rapporto di conformità CFSI",
+      "doc7": "Piano controllo qualità 2025",
+      "doc8": "Procedura gestione non conformità",
+      "transmittalTitle": "Transmittal · Invio ufficiale",
+      "recipients": "destinatari",
+      "subject": "Oggetto",
+      "subjectVal": "Trasmissione documentale \u2014 Audit interno 2026 · Lotto 1",
+      "message": "Messaggio",
+      "msgP1": "In allegato la documentazione relativa all'audit interno 2026, lotto 1.",
+      "msgP2": "Il link di download sicuro scade tra 30 giorni. Conferma di ricezione richiesta entro 5 giorni lavorativi.",
+      "expiry": "Scadenza",
+      "days": "giorni",
+      "send": "Invia transmittal",
+      "opened": "Documento aperto:",
+      "sentToast": "Transmittal inviato ai 3 destinatari"
+    }
+  },
+
   "sidebar": {
     "project": "Progetto", "allProjects": "Tutti i progetti", "home": "Home", "dashboard": "Dashboard",
+    "saeModules": "Moduli SAE", "auditWorkflow": "Audit workflow", "ged": "GED · Documenti",
     "projectManagement": "Gestione progetti", "activities": "Attività", "tasksResources": "Compiti & Risorse",
     "ganttChart": "Diagramma di Gantt", "quality": "Qualità", "inspections": "Ispezioni",
     "findingsNC": "Findings / NC", "actions": "Azioni", "qualityControlPlan": "Piano di controllo qualità",

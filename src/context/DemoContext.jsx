@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Typed from 'typed.js'
 import gsap from 'gsap'
 import { getScript } from '../data/demoScripts'
+import { useProductMode } from './ProductModeContext'
 import {
   executeClick, executeType, executeSelect,
   executeHighlight, executeDrawSignature,
@@ -24,6 +25,7 @@ export function useDemoContext() {
 export function DemoProvider({ children }) {
   const navigate = useNavigate()
   const { i18n } = useTranslation()
+  const { mode: productMode } = useProductMode()
 
   /* Audio system — single Audio instance, promise-based */
   const { playStep: audioPlayStep, stopCurrent: audioStopCurrent, isPlaying: isAudioPlaying, setMuted, isMuted } = useDemoAudio()
@@ -35,7 +37,10 @@ export function DemoProvider({ children }) {
   /* Demo voice gender */
   const [demoVoice, setDemoVoice] = useState(() => localStorage.getItem('inspecto_voice_gender') || 'male')
 
-  const script = useMemo(() => getScript(demoLang), [demoLang])
+  /* Script depends on both language AND product mode.
+     Inspecto mode → 5 full scripts (fr/en/it/es/de).
+     SAE mode → fr + en; it/es/de fall back to en. */
+  const script = useMemo(() => getScript(demoLang, productMode), [demoLang, productMode])
   const phases = useMemo(() => {
     const seen = new Set()
     return script.reduce((acc, step, idx) => {

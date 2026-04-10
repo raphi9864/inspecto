@@ -33,6 +33,8 @@ const GlobalGantt = lazy(() => import('./components/pages/GlobalGantt'))
 const StubPage = lazy(() => import('./components/pages/StubPage'))
 const ExpiringFiles = lazy(() => import('./components/pages/ExpiringFiles'))
 const MessagePage = lazy(() => import('./components/pages/MessagePage'))
+const SaeAuditWorkflow = lazy(() => import('./components/pages/SaeAuditWorkflow'))
+const SaeGed = lazy(() => import('./components/pages/SaeGed'))
 
 /* ─── Shared loading spinner ─── */
 function PageLoader() {
@@ -92,6 +94,9 @@ export default function App() {
           <Route path="templates" element={<FormTemplates />} />
           <Route path="message" element={<MessagePage />} />
           <Route path="settings" element={<Settings />} />
+          {/* SAE modules — accessible in any mode but surfaced in sidebar only when SAE */}
+          <Route path="audit-workflow" element={<SaeAuditWorkflow />} />
+          <Route path="ged" element={<SaeGed />} />
         </Route>
 
         {/* Template editing (own sidebar) */}

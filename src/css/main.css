@@ -799,12 +799,23 @@ p  { font-size: 1rem; color: var(--text-secondary); }
 
 .fd-topbar-title {
   flex: 1;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 600;
   color: rgba(255,255,255,0.5);
   letter-spacing: 0.08em;
+}
+.fd-topbar-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+}
+.fd-topbar-sep {
+  opacity: 0.85;
 }
 
 .fd-clock {
@@ -1042,6 +1053,100 @@ p  { font-size: 1rem; color: var(--text-secondary); }
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* ─── Product switcher pills (Inspecto ⇄ SAE) — used in Navbar + Topbar ─── */
+.product-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+[data-theme="light"] .product-pills {
+  background: rgba(0,47,95,0.04);
+  border-color: rgba(0,47,95,0.12);
+}
+
+.product-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 18px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.7);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.product-pill svg { opacity: 0.85; transition: opacity 0.15s; }
+.product-pill:hover {
+  color: var(--text-on-color, #fff);
+  background: rgba(255,255,255,0.06);
+}
+.product-pill:hover svg { opacity: 1; }
+
+.product-pill--active {
+  background: linear-gradient(135deg, #2ea3f2 0%, #1a6fc4 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(46,163,242,0.35);
+}
+.product-pill--active:hover {
+  background: linear-gradient(135deg, #3ab0ff 0%, #2080dc 100%);
+  color: #fff;
+}
+
+.product-pill--sae.product-pill--active {
+  background: linear-gradient(135deg, #d7294a 0%, #9b1f35 100%);
+  box-shadow: 0 2px 8px rgba(215,41,74,0.35);
+}
+.product-pill--sae.product-pill--active:hover {
+  background: linear-gradient(135deg, #e63456 0%, #b2253e 100%);
+}
+
+/* Topbar variant — lighter neutral surface (matches topbar chrome) */
+.product-pills--topbar {
+  background: var(--bg-tertiary, rgba(0,47,95,0.05));
+  border-color: var(--border-primary, rgba(0,47,95,0.1));
+  margin: 0 4px;
+}
+.product-pills--topbar .product-pill {
+  color: var(--text-secondary);
+  height: 28px;
+  padding: 0 12px;
+  font-size: 0.74rem;
+}
+.product-pills--topbar .product-pill:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+[data-theme="light"] .product-pill { color: rgba(0,47,95,0.65); }
+[data-theme="light"] .product-pill:hover {
+  color: var(--brand-blue, #002f5f);
+  background: rgba(0,47,95,0.06);
+}
+[data-theme="light"] .product-pill--active { color: #fff; }
+
+/* SAE-mode global accent — subtle red stripe on topbar */
+[data-product-mode="sae"] .app-topbar {
+  box-shadow: inset 0 -2px 0 0 rgba(215,41,74,0.5), 0 1px 4px rgba(0,0,0,0.1);
+}
+[data-product-mode="sae"] .navbar {
+  box-shadow: inset 0 -2px 0 0 rgba(215,41,74,0.5), 0 1px 8px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 720px) {
+  .product-pill span { display: none; }
+  .product-pill { padding: 0 10px; }
 }
 
 /* Navbar CTA buttons */
@@ -1718,6 +1823,17 @@ p  { font-size: 1rem; color: var(--text-secondary); }
   position: relative;
   z-index: 1;
 }
+
+.presenter-footer-logo {
+  height: 24px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+.presenter-footer-logo--light { display: none; }
+[data-theme="light"] .presenter-footer-logo--dark { display: none; }
+[data-theme="light"] .presenter-footer-logo--light { display: block; }
 
 .btn-demo-footer {
   display: inline-block;

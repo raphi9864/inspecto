@@ -25,9 +25,16 @@
     "last7days": "Letzte 7 Tage", "last30days": "30 Tage", "last3months": "3 Monate", "allTime": "Gesamt",
     "nonConformities": "Nichtkonformitäten", "documents": "Dokumente", "projects": "Projekte", "teamLabel": "Team"
   },
-  "navbar": { "brand": "INSPECTO", "demoBtn": "Demo buchen" },
+  "navbar": { "brand": "INSPECTO", "demoBtn": "Demo buchen", "startDemo": "Demo starten", "inspecto": "Inspecto", "sae": "SAE", "productSwitcher": "Produktwechsler" },
   "presenter": {
     "greeting": "Hallo! Ich bin Ihr INSPECTO DQI-Guide. Mit über 500 aktiven Konten in 6 Ländern unterstützt unsere Plattform die anspruchsvollsten Industrien. Klicken Sie auf eine Kategorie, um die Module zu erkunden.",
+    "monologue": [
+      "Hallo und willkommen! Ich bin Ihr INSPECTO DQI-Guide. Schön, dass Sie auf unserer Plattform für industrielles Qualitätsmanagement sind.",
+      "Über 500 aktive Konten in 6 Ländern, im Einsatz für die anspruchsvollsten Branchen: Kernkraft, Luftfahrt, Verteidigung, Oil & Gas, Pharma, Bauwesen.",
+      "Unsere Plattform digitalisiert Inspektionen, Audits, Nichtkonformitäten, Korrekturmaßnahmenpläne und CFSI-Konformität — Ihre gesamte industrielle Qualität an einem Ort.",
+      "Über 500 Qualitätsindikatoren in Echtzeit, lückenlose Rückverfolgbarkeit und eine KI, die Fehler für Sie erkennt.",
+      "Klicken Sie auf eine Kategorie, um die Module zu erkunden — oder starten Sie die geführte Demo über die obere Leiste, ich bin Ihr Guide."
+    ],
     "footer_cta": "Kostenlose Demo buchen →", "startDemo": "Demo starten", "bookMeeting": "Termin buchen", "footer_copy": "© 2026 Inspecto Group —",
     "backToCategories": "Zurück zur Kategorieansicht",
     "categories": {
@@ -43,8 +50,84 @@
       "dashboard-analytics": "Dashboard & Analytics bietet Ihnen einen Überblick: Echtzeit-KPIs, erweiterte Statistiken, vollständige Rückverfolgbarkeit und Teamverwaltung."
     }
   },
+
+  "sae": {
+    "audit": {
+      "label": "Internes Audit",
+      "title": "Durchgängige Steuerung von ISO-Audits",
+      "sub": "Konfigurieren, planen, durchführen und verfolgen Sie Ihre internen Audits mit lückenloser Ereignisverfolgung \u2014 Inspektionen, Nichtkonformitäten, Korrekturmaßnahmen.",
+      "startDate": "Beginn",
+      "endDate": "Ende",
+      "projectDesc": "Internes Qualitätsaudit gemäß ISO 9001 · ISO 19443 · AS/EN 9100. Vollständiger 12-Monats-Zyklus mit vierteljährlichen Inspektionen und Managementbewertung.",
+      "tabs": { "settings": "Parameter", "step": "Schritt", "config": "Konfiguration", "info": "Informationen", "synthesis": "Synthese" },
+      "form": {
+        "start": "Startdatum",
+        "end": "Enddatum",
+        "progress": "Fortschritt",
+        "scope": "Auditumfang",
+        "scopeVal": "Bereichsübergreifendes Audit des HR-Prozesses und des Cybersecurity-Rahmens an allen europäischen Standorten. Umfasst Dokumentenprüfung, Vor-Ort-Inspektion und Interviews mit Standortleitern."
+      },
+      "step": { "current": "Aktueller Schritt", "next": "Nächster Schritt", "deadline": "Frist" },
+      "config": { "auditor": "Leitender Auditor", "inspector": "Feldinspektor", "template": "Verwendete Vorlage" },
+      "info": { "reference": "Interne Referenz", "notes": "Notizen & Beobachtungen", "notesVal": "Audit pünktlich gestartet. Dokumentenprüfung vorzeitig abgeschlossen. Nächster Schritt: Inspektion der europäischen Standorte mit Fokus auf logische Zugriffskontrollen und SIEM-Logs." },
+      "synthesis": {
+        "conclusion": "Vorläufige Schlussfolgerung",
+        "conclusionVal": "Starke Gesamtkonformität (85%). Zwei kleinere Nichtkonformitäten offen bezüglich Log-Aufbewahrung und Onboarding-Verfahren. Korrekturmaßnahmenplan läuft, Abschluss Ende Juli erwartet.",
+        "passed": "Bestandene Prüfungen",
+        "findings": "Nichtkonformitäten",
+        "actions": "Korrekturmaßnahmen"
+      },
+      "programme": "Audit 2026 · Programm",
+      "day": "Tag", "week": "Woche", "month": "Monat", "year": "Jahr",
+      "inProgress": "Läuft",
+      "scheduled": "Geplant",
+      "traceability": "Rückverfolgbarkeit · Ereignisstrom",
+      "events": "Ereignisse"
+    },
+    "trace": {
+      "e1": "Audit gestartet \u2014 Dokumentenprüfung validiert",
+      "e2": "Feldinspektion · HR-Prozess",
+      "e3": "Korrekturmaßnahme eröffnet · Update Onboarding-Verfahren",
+      "e4": "Feldinspektion · Cybersecurity-Perimeter",
+      "e5": "Nichtkonformität erkannt · Fehlende 90-Tage-Logs",
+      "e6": "Korrekturmaßnahme läuft · Erweiterter SIEM-Rollout",
+      "e7": "Abschlussprüfung validiert \u2014 Audit abgeschlossen"
+    },
+    "ged": {
+      "label": "Dokumentenmanagement",
+      "title": "Kontrollierter Dokumenten-Workflow, von der Erstellung bis zur Verteilung",
+      "sub": "Ein strukturiertes Dokumenten-Repository mit Versionierung, Mehrrollen-Validierungszyklus, formellem Transmittal und vollständiger regulatorischer Rückverfolgbarkeit.",
+      "currentStatus": "Aktueller Status",
+      "wf": { "creation": "Erstellung", "validation": "Validierung", "approval": "Genehmigung", "diffusion": "Verteilung" },
+      "repository": "Dokumenten-Repository",
+      "elements": "Elemente",
+      "col": { "code": "Code", "title": "Titel", "type": "Typ", "status": "Status", "date": "Datum" },
+      "doc1": "Überwachungsplan HR-Prozess",
+      "doc2": "Verfahren für sicheres Onboarding",
+      "doc3": "Cybersecurity-Auditbericht Q1",
+      "doc4": "Korrekturmaßnahmenplan \u2014 SIEM",
+      "doc5": "Verfahren zur Dokumentenprüfung",
+      "doc6": "CFSI-Konformitätsbericht",
+      "doc7": "Qualitätskontrollplan 2025",
+      "doc8": "Verfahren zur Behandlung von Nichtkonformitäten",
+      "transmittalTitle": "Transmittal · Offizielle Zustellung",
+      "recipients": "Empfänger",
+      "subject": "Betreff",
+      "subjectVal": "Dokumentenübermittlung \u2014 Internes Audit 2026 · Charge 1",
+      "message": "Nachricht",
+      "msgP1": "Anbei finden Sie die Dokumentation zum internen Audit 2026, Charge 1.",
+      "msgP2": "Der sichere Download-Link läuft in 30 Tagen ab. Empfangsbestätigung innerhalb von 5 Werktagen erforderlich.",
+      "expiry": "Ablauf",
+      "days": "Tage",
+      "send": "Transmittal senden",
+      "opened": "Dokument geöffnet:",
+      "sentToast": "Transmittal an 3 Empfänger gesendet"
+    }
+  },
+
   "sidebar": {
     "project": "Projekt", "allProjects": "Alle Projekte", "home": "Startseite", "dashboard": "Dashboard",
+    "saeModules": "SAE-Module", "auditWorkflow": "Audit workflow", "ged": "GED · Dokumente",
     "projectManagement": "Projektmanagement", "activities": "Aktivitäten", "tasksResources": "Aufgaben & Ressourcen",
     "ganttChart": "Gantt-Diagramm", "quality": "Qualität", "inspections": "Inspektionen",
     "findingsNC": "Findings / NC", "actions": "Maßnahmen", "qualityControlPlan": "Qualitätskontrollplan",

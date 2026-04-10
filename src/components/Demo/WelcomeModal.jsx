@@ -168,8 +168,7 @@ export default function WelcomeModal({ onClose, initialLang, initialVoice }) {
         {/* Header */}
         <div className="welcome-header">
           <div className="welcome-logo">
-            <span className="welcome-logo-dot" />
-            <span className="welcome-logo-text">inspecto</span>
+            <img src="/logo-inspecto-white.svg" alt="inspecto" className="welcome-logo-img" />
           </div>
           <div className="welcome-divider" />
           <h2 className="welcome-title">{t('demo.chooseLanguageVoice')}</h2>
