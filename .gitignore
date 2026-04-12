@@ -16,3 +16,6 @@ exploration/
 AGENT_*_DONE.md
 DECISIONS.md
 I18N_AUDIT.md
+
+# Claude
+.claude/
